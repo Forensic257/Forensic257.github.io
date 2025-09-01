@@ -244,10 +244,24 @@
             }
         }
         
-        .camera-icon {
-            display: inline-block;
-            margin-left: 10px;
-            font-size: 1.8rem;
+        .instructions {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2196f3;
+        }
+        
+        .instructions h3 {
+            color: #1565c0;
+            margin-bottom: 10px;
+        }
+        
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
         }
     </style>
 </head>
@@ -262,6 +276,13 @@
         <h2><i class="fas fa-info-circle"></i> Overview</h2>
         <p>In this class, we want you to become friends with every pixel. The first step toward this goal is to become friends with your camera—e.g., the one in your smartphone. In particular, the goal of this project is to get you some intuitive understanding of the somewhat subtle relationship between perspective, focal length/zoom, and the center of projection.</p>
         <p>For this project, I explored these concepts through three different photography exercises, each demonstrating unique aspects of how camera positioning and zoom affect the final image.</p>
+        
+        <div class="instructions">
+            <h3><i class="fas fa-exclamation-circle"></i> Important Note on Image Paths</h3>
+            <p>This webpage expects your images to be in a <code>media</code> folder in the same directory as this HTML file.</p>
+            <p>If your folder structure is different, you'll need to update the image paths in the HTML code.</p>
+            <p>For example, if your images are in a folder named <code>photos</code>, change <code>src="media/IMG_1526.jpg"</code> to <code>src="photos/IMG_1526.jpg"</code>.</p>
+        </div>
     </section>
     
     <section class="part">
@@ -270,14 +291,14 @@
             <div class="photo-container">
                 <div class="photo-label">Close-up (The "Wrong" Way)</div>
                 <div class="photo-placeholder">
-                    <img src="IMG_1526.jpg" alt="Close-up selfie with distortion">
+                    <img src="media/IMG_1526.jpg" alt="Close-up selfie with distortion">
                 </div>
                 <div class="photo-caption">Taken from close range without zoom - notice the distortion</div>
             </div>
             <div class="photo-container">
                 <div class="photo-label">Stepped Back + Zoomed (The "Right" Way)</div>
                 <div class="photo-placeholder">
-                    <img src="IMG_1523.jpg" alt="Stepped back with zoom, natural proportions">
+                    <img src="media/IMG_1523.jpg" alt="Stepped back with zoom, natural proportions">
                 </div>
                 <div class="photo-caption">Taken from several feet away with zoom to match face size</div>
             </div>
@@ -294,14 +315,14 @@
             <div class="photo-container">
                 <div class="photo-label">Zoomed In (Compressed Perspective)</div>
                 <div class="photo-placeholder">
-                    <img src="IMG_1531.jpg" alt="Zoomed in view of street with compressed perspective">
+                    <img src="media/IMG_1531.jpg" alt="Zoomed in view of street with compressed perspective">
                 </div>
                 <div class="photo-caption">Taken with zoom from a distance - notice how elements appear closer together</div>
             </div>
             <div class="photo-container">
                 <div class="photo-label">Normal View (Wide Angle)</div>
                 <div class="photo-placeholder">
-                    <img src="IMG_1534.jpg" alt="Normal view showing natural perspective">
+                    <img src="media/IMG_1534.jpg" alt="Normal view showing natural perspective">
                 </div>
                 <div class="photo-caption">Taken without zoom from closer position - shows more depth</div>
             </div>
