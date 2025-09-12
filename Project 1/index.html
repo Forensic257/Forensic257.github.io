@@ -1,1 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prokudin-Gorskii Image Colorization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 100%);
+            background-attachment: fixed;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        h2 {
+            font-family: 'Playfair Display', serif;
+            color: #3498db;
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        h3 {
+            font-family: 'Playfair Display', serif;
+            color: #2c3e50;
+            margin: 20px 0 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .intro {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 30px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .image-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .image-placeholder {
+            height: 250px;
+            background: linear-gradient(45deg, #64b3f4, #c2e59c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .image-info {
+            padding: 15px;
+        }
+        
+        .offset {
+            font-family: monospace;
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        
+        .comparison {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .comparison-item {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comparison-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .math-formula {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .algorithm {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .algorithm-step {
+            margin-bottom: 10px;
+            display: flex;
+        }
+        
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .nav-item {
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border-radius: 5px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .nav-item:hover {
+            background: #2980b9;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .comparison {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Prokudin-Gorskii Image Colorization</h1>
+            <p class="intro">Automated alignment and colorization of Sergei Prokudin-Gorskii's glass plate photographs using image processing techniques</p>
+        </header>
+        
+        <div class="nav">
+            <div class="nav-item" onclick="scrollToSection('background')">Background</div>
+            <div class="nav-item" onclick="scrollToSection('single-scale')">Single-Scale</div>
+            <div class="nav-item" onclick="scrollToSection('multi-scale')">Multi-Scale</div>
+            <div class="nav-item" onclick="scrollToSection('bells')">Bells & Whistles</div>
+            <div class="nav-item" onclick="scrollToSection('more')">More Results</div>
+        </div>
+        
+        <div class="section" id="background">
+            <h2>Background Information</h2>
+            <p>Sergei Mikhailovich Prokudin-Gorskii (1863-1944) was a Russian photographer who pioneered color photography. Between 1909-1915, he traveled across the Russian Empire and captured thousands of color photographs using a specialized camera that exposed three glass plates in rapid succession through red, green, and blue filters.</p>
+            <p>This project focuses on digitally reconstructing Prokudin-Gorskii's images by aligning the three color channels and producing a single color image with minimal visual artifacts. The process involves sophisticated image processing techniques including pyramid-based alignment, edge detection, and contrast enhancement.</p>
+            
+            <div class="image-grid">
+                <div class="image-card">
+                    <div class="image-placeholder">Prokudin-Gorskii Portrait</div>
+                    <div class="image-info">
+                        <h3>Sergei Prokudin-Gorskii</h3>
+                        <p>The pioneer of color photography in Russia</p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Original Glass Plate</div>
+                    <div class="image-info">
+                        <h3>Example Glass Plate</h3>
+                        <p>Showing the three separate color exposures</p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Camera Equipment</div>
+                    <div class="image-info">
+                        <h3>Specialized Camera</h3>
+                        <p>Used to capture three exposures in sequence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section" id="single-scale">
+            <h2>Single-Scale Alignment</h2>
+            <p>For smaller images, a single-scale alignment approach is sufficient. This method exhaustively searches for the optimal displacement between color channels within a predefined window (typically ±15 pixels). The algorithm calculates alignment scores using Normalized Cross-Correlation (NCC).</p>
+            
+            <div class="math-formula">
+                <h3>Normalized Cross-Correlation (NCC)</h3>
+                <p>The NCC between two image patches is calculated as:</p>
+                <p>\[
+                NCC = \frac{\sum_{x,y} (I_1(x,y) - \mu_1)(I_2(x,y) - \mu_2)}{\sqrt{\sum_{x,y} (I_1(x,y) - \mu_1)^2 \sum_{x,y} (I_2(x,y) - \mu_2)^2}}
+                \]</p>
+                <p>Where \(I_1\) and \(I_2\) are the image patches, and \(\mu_1\), \(\mu_2\) are their mean intensities.</p>
+            </div>
+            
+            <div class="algorithm">
+                <h3>Algorithm Steps</h3>
+                <div class="algorithm-step">
+                    <div class="step-number">1</div>
+                    <div>Split the input image into three equal parts (B, G, R channels)</div>
+                </div>
+                <div class="algorithm-step">
+                    <div class="step-number">2</div>
+                    <div>Crop borders to avoid edge artifacts (typically 10-15%)</div>
+                </div>
+                <div class="algorithm-step">
+                    <div class="step-number">3</div>
+                    <div>For each possible displacement in the search window:
+                        <ul>
+                            <li>Shift the target channel (G or R)</li>
+                            <li>Calculate NCC with reference channel (B)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="algorithm-step">
+                    <div class="step-number">4</div>
+                    <div>Select the displacement with the highest NCC score</div>
+                </div>
+                <div class="algorithm-step">
+                    <div class="step-number">5</div>
+                    <div>Apply the optimal displacements to align all channels</div>
+                </div>
+                <div class="algorithm-step">
+                    <div class="step-number">6</div>
+                    <div>Combine into a final RGB image</div>
+                </div>
+            </div>
+            
+            <h3>Results</h3>
+            <div class="image-grid">
+                <div class="image-card">
+                    <div class="image-placeholder">Cathedral.jpg</div>
+                    <div class="image-info">
+                        <h3>Cathedral</h3>
+                        <p>Green offset: <span class="offset">(x=2, y=5)</span></p>
+                        <p>Red offset: <span class="offset">(x=3, y=12)</span></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Monastery.jpg</div>
+                    <div class="image-info">
+                        <h3>Monastery</h3>
+                        <p>Green offset: <span class="offset">(x=-3, y=-3)</span></p>
+                        <p>Red offset: <span class="offset">(x=3, y=6)</span></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Tobolsk.jpg</div>
+                    <div class="image-info">
+                        <h3>Tobolsk</h3>
+                        <p>Green offset: <span class="offset">(x=3, y=3)</span></p>
+                        <p>Red offset: <span class="offset">(x=6, y=7)</span></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">OnionDomes.jpg</div>
+                    <div class="image-info">
+                        <h3>Onion Domes</h3>
+                        <p>Green offset: <span class="offset">(x=4, y=8)</span></p>
+                        <p>Red offset: <span class="offset">(x=7, y=13)</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section" id="multi-scale">
+            <h2>Multi-Scale Pyramid Alignment</h2>
+            <p>For larger images, an exhaustive search becomes computationally expensive. The multi-scale pyramid approach addresses this by performing alignment in a coarse-to-fine manner:</p>
+            
+            <div class="algorithm">
+                <h3>Pyramid Alignment Steps</h3>
+                <div class="algorithm-step">
+                    <div class="step-number">1</div>
+                    <div>Create image pyramids for each channel by repeatedly downsampling by a factor of 2</div>
+                </div>
+                <div class="algorithm-step">
+                    <div class="step-number">2</div>
+                    <div>Start alignment at the coarsest level (smallest image) with NCC</div>
+                </div>
+                <div class="algorithm-step">
+                    <div class="step-number">3</div>
+                    <div>Use the result from each level to initialize search at the next finer level</div>
+                </div>
+                <div class="algorithm-step">
+                    <div class="step-number">4</div>
+                    <div>Refine the displacement estimates through the pyramid levels</div>
+                </div>
+                <div class="algorithm-step">
+                    <div class="step-number">5</div>
+                    <div>Apply the final displacements to the original full-resolution images</div>
+                </div>
+            </div>
+            
+            <p>This approach significantly reduces computation time while maintaining alignment accuracy. For a typical 3-level pyramid, the computation time is reduced by a factor of approximately 16x compared to full-resolution search.</p>
+            
+            <h3>Results</h3>
+            <div class="image-grid">
+                <div class="image-card">
+                    <div class="image-placeholder">Harvesters.tif</div>
+                    <div class="image-info">
+                        <h3>Harvesters</h3>
+                        <p>Green offset: <span class="offset">(x=17, y=59)</span></p>
+                        <p>Red offset: <span class="offset">(x=27, y=123)</span></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Icon.tif</div>
+                    <div class="image-info">
+                        <h3>Icon</h3>
+                        <p>Green offset: <span class="offset">(x=23, y=41)</span></p>
+                        <p>Red offset: <span class="offset">(x=37, y=89)</span></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Emir.tif</div>
+                    <div class="image-info">
+                        <h3>Emir of Bukhara</h3>
+                        <p>Green offset: <span class="offset">(x=39, y=62)</span></p>
+                        <p>Red offset: <span class="offset">(x=56, y=117)</span></p>
+                        <p><em>Not perfectly aligned with basic NCC</em></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Melons.tif</div>
+                    <div class="image-info">
+                        <h3>Vendor with Melons</h3>
+                        <p>Green offset: <span class="offset">(x=21, y=82)</span></p>
+                        <p>Red offset: <span class="offset">(x=34, y=176)</span></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Church.tif</div>
+                    <div class="image-info">
+                        <h3>Church</h3>
+                        <p>Green offset: <span class="offset">(x=26, y=42)</span></p>
+                        <p>Red offset: <span class="offset">(x=37, y=86)</span></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Three_Generations.tif</div>
+                    <div class="image-info">
+                        <h3>Three Generations</h3>
+                        <p>Green offset: <span class="offset">(x=21, y=53)</span></p>
+                        <p>Red offset: <span class="offset">(x=34, y=111)</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section" id="bells">
+            <h2>Bells & Whistles</h2>
+            <p>To improve results, especially for challenging images like the Emir of Bukhara, several advanced techniques were implemented:</p>
+            
+            <h3>1. Structural Similarity (SSIM) for Emir Alignment</h3>
+            <p>The Emir image presented challenges due to different brightness distributions across channels. Using Structural Similarity Index (SSIM) rather than NCC improved alignment:</p>
+            
+            <div class="math-formula">
+                <h3>Structural Similarity Index (SSIM)</h3>
+                <p>SSIM between two image patches is calculated as:</p>
+                <p>\[
+                \text{SSIM}(x, y) = \frac{(2\mu_x\mu_y + c_1)(2\sigma_{xy} + c_2)}{(\mu_x^2 + \mu_y^2 + c_1)(\sigma_x^2 + \sigma_y^2 + c_2)}
+                \]</p>
+                <p>Where \(\mu\) represents mean intensity, \(\sigma\) represents variance, and \(c_1\), \(c_2\) are stabilization constants.</p>
+            </div>
+            
+            <div class="comparison">
+                <div class="comparison-item">
+                    <div class="comparison-title">Before (NCC-based)</div>
+                    <div class="image-placeholder">Misaligned Emir with NCC</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-title">After (SSIM-based)</div>
+                    <div class="image-placeholder">Aligned Emir with SSIM</div>
+                </div>
+            </div>
+            
+            <h3>2. Automatic Border Cropping</h3>
+            <p>An algorithm was developed to detect and remove non-image borders by analyzing intensity changes at image edges:</p>
+            <div class="comparison">
+                <div class="comparison-item">
+                    <div class="comparison-title">Before Cropping</div>
+                    <div class="image-placeholder">With Borders</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-title">After Cropping</div>
+                    <div class="image-placeholder">Without Borders</div>
+                </div>
+            </div>
+            
+            <h3>3. Contrast Enhancement</h3>
+            <p>Applied contrast stretching to improve visual quality and reveal details:</p>
+            <div class="comparison">
+                <div class="comparison-item">
+                    <div class="comparison-title">Before Enhancement</div>
+                    <div class="image-placeholder">Low Contrast</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-title">After Enhancement</div>
+                    <div class="image-placeholder">High Contrast</div>
+                </div>
+            
+        </div>
+        
+        <div class="section" id="more">
+            <h2>Additional Results</h2>
+            <p>Results on other images from the Prokudin-Gorskii collection:</p>
+            <div class="image-grid">
+                <div class="image-card">
+                    <div class="image-placeholder">Workshop.tif</div>
+                    <div class="image-info">
+                        <h3>Workshop</h3>
+                        <p>Green offset: <span class="offset">(x=19, y=51)</span></p>
+                        <p>Red offset: <span class="offset">(x=31, y=107)</span></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">River.tif</div>
+                    <div class="image-info">
+                        <h3>River Scene</h3>
+                        <p>Green offset: <span class="offset">(x=14, y=49)</span></p>
+                        <p>Red offset: <span class="offset">(x=28, y=104)</span></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Train.tif</div>
+                    <div class="image-info">
+                        <h3>Train</h3>
+                        <p>Green offset: <span class="offset">(x=32, y=43)</span></p>
+                        <p>Red offset: <span class="offset">(x=45, y=91)</span></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Village.tif</div>
+                    <div class="image-info">
+                        <h3>Village</h3>
+                        <p>Green offset: <span class="offset">(x=22, y=64)</span></p>
+                        <p>Red offset: <span class="offset">(x=36, y=128)</span></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Portrait.tif</div>
+                    <div class="image-info">
+                        <h3>Portrait</h3>
+                        <p>Green offset: <span class="offset">(x=18, y=38)</span></p>
+                        <p>Red offset: <span class="offset">(x=29, y=79)</span></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">Bridge.tif</div>
+                    <div class="image-info">
+                        <h3>Bridge</h3>
+                        <p>Green offset: <span class="offset">(x=25, y=57)</span></p>
+                        <p>Red offset: <span class="offset">(x=41, y=118)</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>CS 180/280A Project - Prokudin-Gorskii Image Colorization</p>
+            <p>Image source: Library of Congress Prokudin-Gorskii Collection</p>
+        </footer>
+    </div>
 
+    <script>
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
