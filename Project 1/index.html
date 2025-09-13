@@ -323,8 +323,8 @@
                     <img src="media/monastery_out.jpg" alt="Monastery" class="project-image">
                     <div class="image-info">
                         <h3>Monastery</h3>
-                        <p>Green offset: <span class="offset">(x=-3, y=-3)</span></p>
-                        <p>Red offset: <span class="offset">(x=3, y=6)</span></p>
+                        <p>Green offset: <span class="offset">(x=2, y=-3)</span></p>
+                        <p>Red offset: <span class="offset">(x=2, y=3)</span></p>
                     </div>
                 </div>
                 
@@ -333,7 +333,7 @@
                     <div class="image-info">
                         <h3>Tobolsk</h3>
                         <p>Green offset: <span class="offset">(x=3, y=3)</span></p>
-                        <p>Red offset: <span class="offset">(x=6, y=7)</span></p>
+                        <p>Red offset: <span class="offset">(x=3, y=6)</span></p>
                     </div>
                 </div>
             </div>
@@ -367,7 +367,7 @@
                 </div>
             </div>
             
-            <p>This approach significantly reduces computation time while maintaining alignment accuracy. For a typical 3-level pyramid, the computation time is reduced to below a minute.</p>
+            <p>This approach significantly reduces computation time while maintaining alignment accuracy (except for Emir for now). For a typical 3-5-level pyramid, the computation time is reduced to below a minute.</p>
             
             <h3>Results</h3>
             <div class="image-grid">
@@ -375,8 +375,8 @@
                     <img src="media/enhanced_harvesters.jpg" alt="Harvesters" class="project-image">
                     <div class="image-info">
                         <h3>Harvesters</h3>
-                        <p>Green offset: <span class="offset">(x=17, y=59)</span></p>
-                        <p>Red offset: <span class="offset">(x=27, y=123)</span></p>
+                        <p>Green offset: <span class="offset">(x=7, y=32)</span></p>
+                        <p>Red offset: <span class="offset">(x=24, y=27)</span></p>
                     </div>
                 </div>
                 
@@ -384,17 +384,17 @@
                     <img src="media/enhanced_icon.jpg" alt="Icon" class="project-image">
                     <div class="image-info">
                         <h3>Icon</h3>
-                        <p>Green offset: <span class="offset">(x=23, y=41)</span></p>
-                        <p>Red offset: <span class="offset">(x=37, y=89)</span></p>
+                        <p>Green offset: <span class="offset">(x=-2, y=32)</span></p>
+                        <p>Red offset: <span class="offset">(x=11, y=44)</span></p>
                     </div>
                 </div>
                 
                 <div class="image-card">
-                    <img src="media/enhanced_emir.jpg" alt="Emir of Bukhara" class="project-image">
+                    <img src="media/cropped_emir.jpg" alt="Emir of Bukhara" class="project-image">
                     <div class="image-info">
                         <h3>Emir of Bukhara</h3>
-                        <p>Green offset: <span class="offset">(x=39, y=62)</span></p>
-                        <p>Red offset: <span class="offset">(x=56, y=117)</span></p>
+                        <p>Green offset: <span class="offset">(x=-30, y=47)</span></p>
+                        <p>Red offset: <span class="offset">(x=500, y=-528)</span></p>
                         <p><em>Aligned with SSIM instead of NCC</em></p>
                     </div>
                 </div>
@@ -403,8 +403,8 @@
                     <img src="media/enhanced_melons.jpg" alt="Vendor with Melons" class="project-image">
                     <div class="image-info">
                         <h3>Vendor with Melons</h3>
-                        <p>Green offset: <span class="offset">(x=21, y=82)</span></p>
-                        <p>Red offset: <span class="offset">(x=34, y=176)</span></p>
+                        <p>Green offset: <span class="offset">(x=-2, y=21)</span></p>
+                        <p>Red offset: <span class="offset">(x=25, y=27)</span></p>
                     </div>
                 </div>
                 
@@ -412,8 +412,8 @@
                     <img src="media/enhanced_church.jpg" alt="Church" class="project-image">
                     <div class="image-info">
                         <h3>Church</h3>
-                        <p>Green offset: <span class="offset">(x=26, y=42)</span></p>
-                        <p>Red offset: <span class="offset">(x=37, y=86)</span></p>
+                        <p>Green offset: <span class="offset">(x=-14, y=7)</span></p>
+                        <p>Red offset: <span class="offset">(x=-11, y=-8)</span></p>
                     </div>
                 </div>
                 
@@ -421,8 +421,8 @@
                     <img src="media/enhanced_three_generations.jpg" alt="Three Generations" class="project-image">
                     <div class="image-info">
                         <h3>Three Generations</h3>
-                        <p>Green offset: <span class="offset">(x=21, y=53)</span></p>
-                        <p>Red offset: <span class="offset">(x=34, y=111)</span></p>
+                        <p>Green offset: <span class="offset">(x=-24, y=27)</span></p>
+                        <p>Red offset: <span class="offset">(x=-36, y=22)</span></p>
                     </div>
                 </div>
             </div>
@@ -447,7 +447,7 @@
             <div class="comparison">
                 <div class="comparison-item">
                     <div class="comparison-title">Before (NCC-based)</div>
-                    <img src="media/emir_ncc.jpg" alt="Misaligned Emir with NCC" class="project-image">
+                    <img src="media/emir_enhanced.jpg" alt="Misaligned Emir with NCC" class="project-image">
                 </div>
                 <div class="comparison-item">
                     <div class="comparison-title">After (SSIM-based)</div>
@@ -460,7 +460,7 @@
             <div class="comparison">
                 <div class="comparison-item">
                     <div class="comparison-title">Before Cropping</div>
-                    <img src="media/melons_before_crop.jpg" alt="With Borders" class="project-image">
+                    <img src="media/enhanced_melons.jpg" alt="With Borders" class="project-image">
                 </div>
                 <div class="comparison-item">
                     <div class="comparison-title">After Cropping</div>
@@ -473,11 +473,11 @@
             <div class="comparison">
                 <div class="comparison-item">
                     <div class="comparison-title">Before Enhancement</div>
-                    <img src="media/cathedral_out.jpg" alt="Low Contrast" class="project-image">
+                    <img src="media/cathedral_out.jpg" alt="No Contrast" class="project-image">
                 </div>
                 <div class="comparison-item">
                     <div class="comparison-title">After Enhancement</div>
-                    <img src="media/contrast_cathedral.jpg" alt="High Contrast" class="project-image">
+                    <img src="media/contrast_cathedral.jpg" alt="With Contrast" class="project-image">
                 </div>
             </div>
             
