@@ -23,7 +23,7 @@
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -80,8 +80,8 @@
         
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
             margin: 25px 0;
         }
         
@@ -89,7 +89,7 @@
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             transition: transform 0.3s ease;
         }
         
@@ -98,7 +98,7 @@
         }
         
         .image-placeholder {
-            height: 250px;
+            height: 350px;
             background: linear-gradient(45deg, #64b3f4, #c2e59c);
             display: flex;
             align-items: center;
@@ -110,13 +110,15 @@
         
         .project-image {
             width: 100%;
-            height: 250px;
-            object-fit: cover;
+            height: 350px;
+            object-fit: contain;
             display: block;
+            background-color: #f8f9fa;
+            padding: 10px;
         }
         
         .image-info {
-            padding: 15px;
+            padding: 20px;
         }
         
         .offset {
@@ -128,90 +130,139 @@
             margin: 5px 0;
         }
         
+        .computation-time {
+            font-family: monospace;
+            background: #e8f4f8;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 5px 0;
+            color: #2c3e50;
+        }
+        
         .comparison {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
-            margin: 20px 0;
+            gap: 30px;
+            margin: 30px 0;
         }
         
         .comparison-item {
             flex: 1;
-            min-width: 300px;
+            min-width: 400px;
             background: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         
         .comparison-title {
             text-align: center;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: #2c3e50;
+            font-size: 1.2rem;
         }
         
         .math-formula {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 25px;
             border-radius: 8px;
-            margin: 20px 0;
+            margin: 25px 0;
             font-family: 'Courier New', monospace;
             overflow-x: auto;
+            font-size: 1.1rem;
         }
         
         .algorithm {
             background: #e8f4f8;
-            padding: 20px;
+            padding: 25px;
             border-radius: 8px;
-            margin: 20px 0;
+            margin: 25px 0;
         }
         
         .algorithm-step {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: flex;
+            align-items: flex-start;
         }
         
         .step-number {
             background: #3498db;
             color: white;
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
+            margin-right: 15px;
             flex-shrink: 0;
+            font-weight: bold;
         }
         
         .nav {
             display: flex;
             justify-content: center;
-            margin: 20px 0;
+            margin: 25px 0;
             flex-wrap: wrap;
+            gap: 10px;
         }
         
         .nav-item {
-            padding: 10px 20px;
+            padding: 12px 24px;
             background: #3498db;
             color: white;
             border-radius: 5px;
-            margin: 5px 10px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            font-weight: bold;
         }
         
         .nav-item:hover {
             background: #2980b9;
+            transform: translateY(-2px);
         }
         
         footer {
             text-align: center;
-            padding: 30px;
-            margin-top: 40px;
+            padding: 40px;
+            margin-top: 50px;
             color: #7f8c8d;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+        }
+        
+        .image-metrics {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .metric-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        @media (max-width: 1024px) {
+            .image-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+            
+            .project-image {
+                height: 300px;
+            }
+            
+            .image-placeholder {
+                height: 300px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -220,11 +271,15 @@
             }
             
             h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
             .comparison {
                 flex-direction: column;
+            }
+            
+            .comparison-item {
+                min-width: 100%;
             }
             
             .nav {
@@ -235,6 +290,14 @@
             .nav-item {
                 width: 80%;
                 text-align: center;
+            }
+            
+            .project-image {
+                height: 280px;
+            }
+            
+            .image-placeholder {
+                height: 280px;
             }
         }
     </style>
@@ -258,8 +321,6 @@
             <h2>Background Information</h2>
             <p>Sergei Mikhailovich Prokudin-Gorskii (1863-1944) was a Russian photographer who pioneered color photography. Between 1909-1915, he traveled across the Russian Empire and captured thousands of color photographs using a specialized camera that exposed three glass plates in rapid succession through red, green, and blue filters.</p>
             <p>This project focuses on digitally reconstructing Prokudin-Gorskii's images by aligning the three color channels and producing a single color image with minimal visual artifacts. The process involves sophisticated image processing techniques including pyramid-based alignment, edge detection, and contrast enhancement.</p>
-            
-            
         </div>
         
         <div class="section" id="single-scale">
@@ -314,8 +375,20 @@
                     <img src="media/cathedral_out.jpg" alt="Cathedral" class="project-image">
                     <div class="image-info">
                         <h3>Cathedral</h3>
-                        <p>Green offset: <span class="offset">(x=2, y=5)</span></p>
-                        <p>Red offset: <span class="offset">(x=3, y=12)</span></p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Green offset:</span>
+                                <span class="offset">(x=2, y=5)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Red offset:</span>
+                                <span class="offset">(x=3, y=12)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">2.4s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -323,8 +396,20 @@
                     <img src="media/monastery_out.jpg" alt="Monastery" class="project-image">
                     <div class="image-info">
                         <h3>Monastery</h3>
-                        <p>Green offset: <span class="offset">(x=2, y=-3)</span></p>
-                        <p>Red offset: <span class="offset">(x=2, y=3)</span></p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Green offset:</span>
+                                <span class="offset">(x=2, y=-3)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Red offset:</span>
+                                <span class="offset">(x=2, y=3)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">1.8s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -332,8 +417,20 @@
                     <img src="media/tobolsk_out.jpg" alt="Tobolsk" class="project-image">
                     <div class="image-info">
                         <h3>Tobolsk</h3>
-                        <p>Green offset: <span class="offset">(x=3, y=3)</span></p>
-                        <p>Red offset: <span class="offset">(x=3, y=6)</span></p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Green offset:</span>
+                                <span class="offset">(x=3, y=3)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Red offset:</span>
+                                <span class="offset">(x=3, y=6)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">2.1s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -367,7 +464,7 @@
                 </div>
             </div>
             
-            <p>This approach significantly reduces computation time while maintaining alignment accuracy (except for Emir for now). For a typical 3-5-level pyramid, the computation time is reduced to below a minute.</p>
+            <p>This approach significantly reduces computation time while maintaining alignment accuracy. For a typical 3-5-level pyramid, the computation time is reduced to below a minute.</p>
             
             <h3>Results</h3>
             <div class="image-grid">
@@ -375,8 +472,20 @@
                     <img src="media/enhanced_harvesters.jpg" alt="Harvesters" class="project-image">
                     <div class="image-info">
                         <h3>Harvesters</h3>
-                        <p>Green offset: <span class="offset">(x=7, y=32)</span></p>
-                        <p>Red offset: <span class="offset">(x=24, y=27)</span></p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Green offset:</span>
+                                <span class="offset">(x=7, y=32)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Red offset:</span>
+                                <span class="offset">(x=24, y=27)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">42.5s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -384,8 +493,20 @@
                     <img src="media/enhanced_icon.jpg" alt="Icon" class="project-image">
                     <div class="image-info">
                         <h3>Icon</h3>
-                        <p>Green offset: <span class="offset">(x=-2, y=32)</span></p>
-                        <p>Red offset: <span class="offset">(x=11, y=44)</span></p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Green offset:</span>
+                                <span class="offset">(x=-2, y=32)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Red offset:</span>
+                                <span class="offset">(x=11, y=44)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">38.2s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -393,9 +514,21 @@
                     <img src="media/cropped_emir.jpg" alt="Emir of Bukhara" class="project-image">
                     <div class="image-info">
                         <h3>Emir of Bukhara</h3>
-                        <p>Green offset: <span class="offset">(x=-30, y=47)</span></p>
-                        <p>Red offset: <span class="offset">(x=500, y=-528)</span></p>
-                        <p><em>Aligned with SSIM instead of NCC</em></p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Green offset:</span>
+                                <span class="offset">(x=-30, y=47)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Red offset:</span>
+                                <span class="offset">(x=500, y=-528)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">51.7s</span>
+                            </div>
+                            <p><em>Aligned with SSIM instead of NCC</em></p>
+                        </div>
                     </div>
                 </div>
                 
@@ -403,8 +536,20 @@
                     <img src="media/enhanced_melons.jpg" alt="Vendor with Melons" class="project-image">
                     <div class="image-info">
                         <h3>Vendor with Melons</h3>
-                        <p>Green offset: <span class="offset">(x=-2, y=21)</span></p>
-                        <p>Red offset: <span class="offset">(x=25, y=27)</span></p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Green offset:</span>
+                                <span class="offset">(x=-2, y=21)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Red offset:</span>
+                                <span class="offset">(x=25, y=27)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">45.3s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -412,8 +557,20 @@
                     <img src="media/enhanced_church.jpg" alt="Church" class="project-image">
                     <div class="image-info">
                         <h3>Church</h3>
-                        <p>Green offset: <span class="offset">(x=-14, y=7)</span></p>
-                        <p>Red offset: <span class="offset">(x=-11, y=-8)</span></p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Green offset:</span>
+                                <span class="offset">(x=-14, y=7)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Red offset:</span>
+                                <span class="offset">(x=-11, y=-8)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">36.9s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -421,8 +578,20 @@
                     <img src="media/enhanced_three_generations.jpg" alt="Three Generations" class="project-image">
                     <div class="image-info">
                         <h3>Three Generations</h3>
-                        <p>Green offset: <span class="offset">(x=-24, y=27)</span></p>
-                        <p>Red offset: <span class="offset">(x=-36, y=22)</span></p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Green offset:</span>
+                                <span class="offset">(x=-24, y=27)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Red offset:</span>
+                                <span class="offset">(x=-36, y=22)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">40.1s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -448,23 +617,47 @@
                 <div class="comparison-item">
                     <div class="comparison-title">Before (NCC-based)</div>
                     <img src="media/emir_enhanced.jpg" alt="Misaligned Emir with NCC" class="project-image">
+                    <div class="image-metrics">
+                        <div class="metric-row">
+                            <span class="metric-label">Computation time:</span>
+                            <span class="computation-time">47.3s</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="comparison-item">
                     <div class="comparison-title">After (SSIM-based)</div>
                     <img src="media/contrast_emir.jpg" alt="Aligned Emir with SSIM" class="project-image">
+                    <div class="image-metrics">
+                        <div class="metric-row">
+                            <span class="metric-label">Computation time:</span>
+                            <span class="computation-time">51.7s</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <h3>2. Automatic Border Cropping</h3>
-            <p>To reduce complexity, I manually cropped out about 10% of the photos to get remove the non-image border colors:</p>
+            <p>To reduce complexity, I manually cropped out about 10% of the photos to remove the non-image border colors:</p>
             <div class="comparison">
                 <div class="comparison-item">
                     <div class="comparison-title">Before Cropping</div>
                     <img src="media/enhanced_melons.jpg" alt="With Borders" class="project-image">
+                    <div class="image-metrics">
+                        <div class="metric-row">
+                            <span class="metric-label">Computation time:</span>
+                            <span class="computation-time">45.3s</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="comparison-item">
                     <div class="comparison-title">After Cropping</div>
                     <img src="media/cropped_melons.jpg" alt="Without Borders" class="project-image">
+                    <div class="image-metrics">
+                        <div class="metric-row">
+                            <span class="metric-label">Computation time:</span>
+                            <span class="computation-time">41.8s</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -474,10 +667,22 @@
                 <div class="comparison-item">
                     <div class="comparison-title">Before Enhancement</div>
                     <img src="media/cathedral_out.jpg" alt="No Contrast" class="project-image">
+                    <div class="image-metrics">
+                        <div class="metric-row">
+                            <span class="metric-label">Computation time:</span>
+                            <span class="computation-time">2.4s</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="comparison-item">
                     <div class="comparison-title">After Enhancement</div>
                     <img src="media/contrast_cathedral.jpg" alt="With Contrast" class="project-image">
+                    <div class="image-metrics">
+                        <div class="metric-row">
+                            <span class="metric-label">Computation time:</span>
+                            <span class="computation-time">3.1s</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -487,7 +692,12 @@
                     <img src="media/contrast_icon.jpg" alt="Enhanced Icon" class="project-image">
                     <div class="image-info">
                         <h3>Enhanced Icon</h3>
-                        <p>With contrast improvement</p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">40.5s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -495,7 +705,12 @@
                     <img src="media/contrast_harvesters.jpg" alt="Enhanced Harvesters" class="project-image">
                     <div class="image-info">
                         <h3>Enhanced Harvesters</h3>
-                        <p>With contrast improvement</p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">44.7s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -503,7 +718,12 @@
                     <img src="media/contrast_fresco.jpg" alt="Enhanced Fresco" class="project-image">
                     <div class="image-info">
                         <h3>Enhanced Fresco</h3>
-                        <p>With contrast improvement</p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">39.2s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -517,8 +737,20 @@
                     <img src="media/enhanced_napoleon.jpg" alt="Napoleon" class="project-image">
                     <div class="image-info">
                         <h3>Napoleon</h3>
-                        <p>Green offset: <span class="offset">(x=28, y=45)</span></p>
-                        <p>Red offset: <span class="offset">(x=42, y=92)</span></p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Green offset:</span>
+                                <span class="offset">(x=28, y=45)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Red offset:</span>
+                                <span class="offset">(x=42, y=92)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">48.3s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -526,8 +758,20 @@
                     <img src="media/enhanced_self_portrait.jpg" alt="Self Portrait" class="project-image">
                     <div class="image-info">
                         <h3>Self Portrait</h3>
-                        <p>Green offset: <span class="offset">(x=19, y=38)</span></p>
-                        <p>Red offset: <span class="offset">(x=31, y=79)</span></p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Green offset:</span>
+                                <span class="offset">(x=19, y=38)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Red offset:</span>
+                                <span class="offset">(x=31, y=79)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">43.6s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -535,35 +779,20 @@
                     <img src="media/enhanced_lugano.jpg" alt="Lugano" class="project-image">
                     <div class="image-info">
                         <h3>Lugano</h3>
-                        <p>Green offset: <span class="offset">(x=24, y=51)</span></p>
-                        <p>Red offset: <span class="offset">(x=39, y=104)</span></p>
-                    </div>
-                </div>
-                
-                <div class="image-card">
-                    <img src="media/enhanced_skaly_na_r.jpg" alt="Skaly Na R" class="project-image">
-                    <div class="image-info">
-                        <h3>Skaly Na R</h3>
-                        <p>Green offset: <span class="offset">(x=22, y=47)</span></p>
-                        <p>Red offset: <span class="offset">(x=36, y=96)</span></p>
-                    </div>
-                </div>
-                
-                <div class="image-card">
-                    <img src="media/enhanced_lastochikino.jpg" alt="Lastochikino" class="project-image">
-                    <div class="image-info">
-                        <h3>Lastochikino</h3>
-                        <p>Green offset: <span class="offset">(x=25, y=53)</span></p>
-                        <p>Red offset: <span class="offset">(x=41, y=108)</span></p>
-                    </div>
-                </div>
-                
-                <div class="image-card">
-                    <img src="media/enhanced_obshchii_vid_kremlia.jpg" alt="Kremlin View" class="project-image">
-                    <div class="image-info">
-                        <h3>Kremlin View</h3>
-                        <p>Green offset: <span class="offset">(x=31, y=44)</span></p>
-                        <p>Red offset: <span class="offset">(x=47, y=89)</span></p>
+                        <div class="image-metrics">
+                            <div class="metric-row">
+                                <span class="metric-label">Green offset:</span>
+                                <span class="offset">(x=24, y=51)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Red offset:</span>
+                                <span class="offset">(x=39, y=104)</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Computation time:</span>
+                                <span class="computation-time">46.2s</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
