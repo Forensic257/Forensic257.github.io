@@ -108,6 +108,13 @@
             font-size: 1.2rem;
         }
         
+        .project-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        
         .image-info {
             padding: 15px;
         }
@@ -182,6 +189,7 @@
             display: flex;
             justify-content: center;
             margin: 20px 0;
+            flex-wrap: wrap;
         }
         
         .nav-item {
@@ -189,7 +197,7 @@
             background: #3498db;
             color: white;
             border-radius: 5px;
-            margin: 0 10px;
+            margin: 5px 10px;
             cursor: pointer;
             transition: background 0.3s;
         }
@@ -217,6 +225,16 @@
             
             .comparison {
                 flex-direction: column;
+            }
+            
+            .nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-item {
+                width: 80%;
+                text-align: center;
             }
         }
     </style>
@@ -293,7 +311,7 @@
             <h3>Results</h3>
             <div class="image-grid">
                 <div class="image-card">
-                    <div class="image-placeholder">Cathedral.jpg</div>
+                    <img src="media/cathedral_out.jpg" alt="Cathedral" class="project-image">
                     <div class="image-info">
                         <h3>Cathedral</h3>
                         <p>Green offset: <span class="offset">(x=2, y=5)</span></p>
@@ -302,7 +320,7 @@
                 </div>
                 
                 <div class="image-card">
-                    <div class="image-placeholder">Monastery.jpg</div>
+                    <img src="media/monastery_out.jpg" alt="Monastery" class="project-image">
                     <div class="image-info">
                         <h3>Monastery</h3>
                         <p>Green offset: <span class="offset">(x=-3, y=-3)</span></p>
@@ -311,20 +329,11 @@
                 </div>
                 
                 <div class="image-card">
-                    <div class="image-placeholder">Tobolsk.jpg</div>
+                    <img src="media/tobolsk_out.jpg" alt="Tobolsk" class="project-image">
                     <div class="image-info">
                         <h3>Tobolsk</h3>
                         <p>Green offset: <span class="offset">(x=3, y=3)</span></p>
                         <p>Red offset: <span class="offset">(x=6, y=7)</span></p>
-                    </div>
-                </div>
-                
-                <div class="image-card">
-                    <div class="image-placeholder">OnionDomes.jpg</div>
-                    <div class="image-info">
-                        <h3>Onion Domes</h3>
-                        <p>Green offset: <span class="offset">(x=4, y=8)</span></p>
-                        <p>Red offset: <span class="offset">(x=7, y=13)</span></p>
                     </div>
                 </div>
             </div>
@@ -358,12 +367,12 @@
                 </div>
             </div>
             
-            <p>This approach significantly reduces computation time while maintaining alignment accuracy. For a typical 3-level pyramid, the computation time is reduced by a factor of approximately 16x compared to full-resolution search.</p>
+            <p>This approach significantly reduces computation time while maintaining alignment accuracy. For a typical 3-level pyramid, the computation time is reduced to below a minute.</p>
             
             <h3>Results</h3>
             <div class="image-grid">
                 <div class="image-card">
-                    <div class="image-placeholder">Harvesters.tif</div>
+                    <img src="media/enhanced_harvesters.jpg" alt="Harvesters" class="project-image">
                     <div class="image-info">
                         <h3>Harvesters</h3>
                         <p>Green offset: <span class="offset">(x=17, y=59)</span></p>
@@ -372,7 +381,7 @@
                 </div>
                 
                 <div class="image-card">
-                    <div class="image-placeholder">Icon.tif</div>
+                    <img src="media/enhanced_icon.jpg" alt="Icon" class="project-image">
                     <div class="image-info">
                         <h3>Icon</h3>
                         <p>Green offset: <span class="offset">(x=23, y=41)</span></p>
@@ -381,17 +390,17 @@
                 </div>
                 
                 <div class="image-card">
-                    <div class="image-placeholder">Emir.tif</div>
+                    <img src="media/enhanced_emir.jpg" alt="Emir of Bukhara" class="project-image">
                     <div class="image-info">
                         <h3>Emir of Bukhara</h3>
                         <p>Green offset: <span class="offset">(x=39, y=62)</span></p>
                         <p>Red offset: <span class="offset">(x=56, y=117)</span></p>
-                        <p><em>Not perfectly aligned with basic NCC</em></p>
+                        <p><em>Aligned with SSIM instead of NCC</em></p>
                     </div>
                 </div>
                 
                 <div class="image-card">
-                    <div class="image-placeholder">Melons.tif</div>
+                    <img src="media/enhanced_melons.jpg" alt="Vendor with Melons" class="project-image">
                     <div class="image-info">
                         <h3>Vendor with Melons</h3>
                         <p>Green offset: <span class="offset">(x=21, y=82)</span></p>
@@ -400,7 +409,7 @@
                 </div>
                 
                 <div class="image-card">
-                    <div class="image-placeholder">Church.tif</div>
+                    <img src="media/enhanced_church.jpg" alt="Church" class="project-image">
                     <div class="image-info">
                         <h3>Church</h3>
                         <p>Green offset: <span class="offset">(x=26, y=42)</span></p>
@@ -409,7 +418,7 @@
                 </div>
                 
                 <div class="image-card">
-                    <div class="image-placeholder">Three_Generations.tif</div>
+                    <img src="media/enhanced_three_generations.jpg" alt="Three Generations" class="project-image">
                     <div class="image-info">
                         <h3>Three Generations</h3>
                         <p>Green offset: <span class="offset">(x=21, y=53)</span></p>
@@ -438,24 +447,24 @@
             <div class="comparison">
                 <div class="comparison-item">
                     <div class="comparison-title">Before (NCC-based)</div>
-                    <div class="image-placeholder">Misaligned Emir with NCC</div>
+                    <img src="media/emir_ncc.jpg" alt="Misaligned Emir with NCC" class="project-image">
                 </div>
                 <div class="comparison-item">
                     <div class="comparison-title">After (SSIM-based)</div>
-                    <div class="image-placeholder">Aligned Emir with SSIM</div>
+                    <img src="media/contrast_emir.jpg" alt="Aligned Emir with SSIM" class="project-image">
                 </div>
             </div>
             
             <h3>2. Automatic Border Cropping</h3>
-            <p>An algorithm was developed to detect and remove non-image borders by analyzing intensity changes at image edges:</p>
+            <p>To reduce complexity, I manually cropped out about 10% of the photos to get remove the non-image border colors:</p>
             <div class="comparison">
                 <div class="comparison-item">
                     <div class="comparison-title">Before Cropping</div>
-                    <div class="image-placeholder">With Borders</div>
+                    <img src="media/melons_before_crop.jpg" alt="With Borders" class="project-image">
                 </div>
                 <div class="comparison-item">
                     <div class="comparison-title">After Cropping</div>
-                    <div class="image-placeholder">Without Borders</div>
+                    <img src="media/cropped_melons.jpg" alt="Without Borders" class="project-image">
                 </div>
             </div>
             
@@ -464,13 +473,40 @@
             <div class="comparison">
                 <div class="comparison-item">
                     <div class="comparison-title">Before Enhancement</div>
-                    <div class="image-placeholder">Low Contrast</div>
+                    <img src="media/cathedral_out.jpg" alt="Low Contrast" class="project-image">
                 </div>
                 <div class="comparison-item">
                     <div class="comparison-title">After Enhancement</div>
-                    <div class="image-placeholder">High Contrast</div>
+                    <img src="media/contrast_cathedral.jpg" alt="High Contrast" class="project-image">
                 </div>
+            </div>
             
+            <h3>4. Additional Enhanced Images</h3>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="media/contrast_icon.jpg" alt="Enhanced Icon" class="project-image">
+                    <div class="image-info">
+                        <h3>Enhanced Icon</h3>
+                        <p>With contrast improvement</p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <img src="media/contrast_harvesters.jpg" alt="Enhanced Harvesters" class="project-image">
+                    <div class="image-info">
+                        <h3>Enhanced Harvesters</h3>
+                        <p>With contrast improvement</p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <img src="media/contrast_fresco.jpg" alt="Enhanced Fresco" class="project-image">
+                    <div class="image-info">
+                        <h3>Enhanced Fresco</h3>
+                        <p>With contrast improvement</p>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="section" id="more">
@@ -478,56 +514,56 @@
             <p>Results on other images from the Prokudin-Gorskii collection:</p>
             <div class="image-grid">
                 <div class="image-card">
-                    <div class="image-placeholder">Workshop.tif</div>
+                    <img src="media/enhanced_napoleon.jpg" alt="Napoleon" class="project-image">
                     <div class="image-info">
-                        <h3>Workshop</h3>
-                        <p>Green offset: <span class="offset">(x=19, y=51)</span></p>
-                        <p>Red offset: <span class="offset">(x=31, y=107)</span></p>
+                        <h3>Napoleon</h3>
+                        <p>Green offset: <span class="offset">(x=28, y=45)</span></p>
+                        <p>Red offset: <span class="offset">(x=42, y=92)</span></p>
                     </div>
                 </div>
                 
                 <div class="image-card">
-                    <div class="image-placeholder">River.tif</div>
+                    <img src="media/enhanced_self_portrait.jpg" alt="Self Portrait" class="project-image">
                     <div class="image-info">
-                        <h3>River Scene</h3>
-                        <p>Green offset: <span class="offset">(x=14, y=49)</span></p>
-                        <p>Red offset: <span class="offset">(x=28, y=104)</span></p>
+                        <h3>Self Portrait</h3>
+                        <p>Green offset: <span class="offset">(x=19, y=38)</span></p>
+                        <p>Red offset: <span class="offset">(x=31, y=79)</span></p>
                     </div>
                 </div>
                 
                 <div class="image-card">
-                    <div class="image-placeholder">Train.tif</div>
+                    <img src="media/enhanced_lugano.jpg" alt="Lugano" class="project-image">
                     <div class="image-info">
-                        <h3>Train</h3>
-                        <p>Green offset: <span class="offset">(x=32, y=43)</span></p>
-                        <p>Red offset: <span class="offset">(x=45, y=91)</span></p>
+                        <h3>Lugano</h3>
+                        <p>Green offset: <span class="offset">(x=24, y=51)</span></p>
+                        <p>Red offset: <span class="offset">(x=39, y=104)</span></p>
                     </div>
                 </div>
                 
                 <div class="image-card">
-                    <div class="image-placeholder">Village.tif</div>
+                    <img src="media/enhanced_skaly_na_r.jpg" alt="Skaly Na R" class="project-image">
                     <div class="image-info">
-                        <h3>Village</h3>
-                        <p>Green offset: <span class="offset">(x=22, y=64)</span></p>
-                        <p>Red offset: <span class="offset">(x=36, y=128)</span></p>
+                        <h3>Skaly Na R</h3>
+                        <p>Green offset: <span class="offset">(x=22, y=47)</span></p>
+                        <p>Red offset: <span class="offset">(x=36, y=96)</span></p>
                     </div>
                 </div>
                 
                 <div class="image-card">
-                    <div class="image-placeholder">Portrait.tif</div>
+                    <img src="media/enhanced_lastochikino.jpg" alt="Lastochikino" class="project-image">
                     <div class="image-info">
-                        <h3>Portrait</h3>
-                        <p>Green offset: <span class="offset">(x=18, y=38)</span></p>
-                        <p>Red offset: <span class="offset">(x=29, y=79)</span></p>
+                        <h3>Lastochikino</h3>
+                        <p>Green offset: <span class="offset">(x=25, y=53)</span></p>
+                        <p>Red offset: <span class="offset">(x=41, y=108)</span></p>
                     </div>
                 </div>
                 
                 <div class="image-card">
-                    <div class="image-placeholder">Bridge.tif</div>
+                    <img src="media/enhanced_obshchii_vid_kremlia.jpg" alt="Kremlin View" class="project-image">
                     <div class="image-info">
-                        <h3>Bridge</h3>
-                        <p>Green offset: <span class="offset">(x=25, y=57)</span></p>
-                        <p>Red offset: <span class="offset">(x=41, y=118)</span></p>
+                        <h3>Kremlin View</h3>
+                        <p>Green offset: <span class="offset">(x=31, y=44)</span></p>
+                        <p>Red offset: <span class="offset">(x=47, y=89)</span></p>
                     </div>
                 </div>
             </div>
