@@ -3,6 +3,7 @@ README - Image Alignment Notebook Instructions
 
 Before running the Jupyter Notebook, make sure all photos are uploaded directly into the base directory.
 Do NOT place them in a separate folder. I uploaded them one at a time, and the code expects them to be in the same location.
+For the last cell, you will need to upload the cs180 proj1 data folder into your base directory to run it. 
 
 Once the photos are in place, you can begin running the cells in the notebook.
 
