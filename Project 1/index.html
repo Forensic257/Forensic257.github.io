@@ -598,205 +598,254 @@
         </div>
         
         <div class="section" id="bells">
-            <h2>Bells & Whistles</h2>
-            <p>To improve results, especially for challenging images like the Emir of Bukhara, several advanced techniques were implemented:</p>
-            
-            <h3>1. Structural Similarity (SSIM) for Emir Alignment</h3>
-            <p>The Emir image presented challenges due to different brightness distributions across channels. Using Structural Similarity Index (SSIM) rather than NCC improved alignment:</p>
-            
-            <div class="math-formula">
-                <h3>Structural Similarity Index (SSIM)</h3>
-                <p>SSIM between two image patches is calculated as:</p>
-                <p>\[
-                \text{SSIM}(x, y) = \frac{(2\mu_x\mu_y + c_1)(2\sigma_{xy} + c_2)}{(\mu_x^2 + \mu_y^2 + c_1)(\sigma_x^2 + \sigma_y^2 + c_2)}
-                \]</p>
-                <p>Where \(\mu\) represents mean intensity, \(\sigma\) represents variance, and \(c_1\), \(c_2\) are stabilization constants.</p>
-            </div>
-            
-            <div class="comparison">
-                <div class="comparison-item">
-                    <div class="comparison-title">Before (NCC-based)</div>
-                    <img src="media/enhanced_emir.jpg" alt="Misaligned Emir with NCC" class="project-image">
-                    <div class="image-metrics">
-                        <div class="metric-row">
-                            <span class="metric-label">Computation time:</span>
-                            <span class="computation-time">9.65s</span>
-                        </div>
+    <h2>Bells & Whistles</h2>
+    <p>To improve results, especially for challenging images like the Emir of Bukhara, several advanced techniques were implemented:</p>
+    
+    <h3>1. Structural Similarity (SSIM) for Emir Alignment</h3>
+    <p>The Emir image presented challenges due to different brightness distributions across channels. Using Structural Similarity Index (SSIM) rather than NCC improved alignment:</p>
+    
+    <div class="math-formula">
+        <h3>Structural Similarity Index (SSIM)</h3>
+        <p>SSIM between two image patches is calculated as:</p>
+        <p>\[
+        \text{SSIM}(x, y) = \frac{(2\mu_x\mu_y + c_1)(2\sigma_{xy} + c_2)}{(\mu_x^2 + \mu_y^2 + c_1)(\sigma_x^2 + \sigma_y^2 + c_2)}
+        \]</p>
+        <p>Where \(\mu\) represents mean intensity, \(\sigma\) represents variance, and \(c_1\), \(c_2\) are stabilization constants.</p>
+    </div>
+    
+    <div class="comparison">
+        <div class="comparison-item">
+            <div class="comparison-title">Before (NCC-based)</div>
+            <img src="media/emir_enhanced.jpg" alt="Misaligned Emir with NCC" class="project-image">
+        </div>
+        <div class="comparison-item">
+            <div class="comparison-title">After (SSIM-based)</div>
+            <img src="media/contrast_emir.jpg" alt="Aligned Emir with SSIM" class="project-image">
+        </div>
+    </div>
+    
+    <h3>2. Automatic Border Cropping</h3>
+    <p>To reduce complexity, I manually cropped out about 10% of the photos to remove the non-image border colors:</p>
+    <div class="comparison">
+        <div class="comparison-item">
+            <div class="comparison-title">Before Cropping</div>
+            <img src="media/enhanced_melons.jpg" alt="With Borders" class="project-image">
+        </div>
+        <div class="comparison-item">
+            <div class="comparison-title">After Cropping</div>
+            <img src="media/cropped_melons.jpg" alt="Without Borders" class="project-image">
+        </div>
+    </div>
+    
+    <h3>3. Contrast Enhancement</h3>
+    <p>Applied contrast stretching to improve visual quality and reveal details:</p>
+    <div class="comparison">
+        <div class="comparison-item">
+            <div class="comparison-title">Before Enhancement</div>
+            <img src="media/cathedral_out.jpg" alt="No Contrast" class="project-image">
+        </div>
+        <div class="comparison-item">
+            <div class="comparison-title">After Enhancement</div>
+            <img src="media/contrast_cathedral.jpg" alt="With Contrast" class="project-image">
+        </div>
+    </div>
+    
+    <div class="comparison">
+        <div class="comparison-item">
+            <div class="comparison-title">Before Enhancement</div>
+            <img src="media/enhanced_icon.jpg" alt="No Contrast" class="project-image">
+        </div>
+        <div class="comparison-item">
+            <div class="comparison-title">After Enhancement</div>
+            <img src="media/contrast_icon.jpg" alt="With Contrast" class="project-image">
+        </div>
+    </div>
+    
+    <div class="comparison">
+        <div class="comparison-item">
+            <div class="comparison-title">Before Enhancement</div>
+            <img src="media/enhanced_harvesters.jpg" alt="No Contrast" class="project-image">
+        </div>
+        <div class="comparison-item">
+            <div class="comparison-title">After Enhancement</div>
+            <img src="media/contrast_harvesters.jpg" alt="With Contrast" class="project-image">
+        </div>
+    </div>
+</div>
+
+<div class="section" id="more">
+    <h2>Additional Results</h2>
+    <p>Results on other images from the Prokudin-Gorskii collection:</p>
+    <div class="image-grid">
+        <div class="image-card">
+            <img src="media/enhanced_napoleon.jpg" alt="Napoleon" class="project-image">
+            <div class="image-info">
+                <h3>Napoleon</h3>
+                <div class="image-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">Green offset:</span>
+                        <span class="offset">(x=28, y=45)</span>
                     </div>
-                </div>
-                <div class="comparison-item">
-                    <div class="comparison-title">After (SSIM-based)</div>
-                    <img src="media/cropped_emir.jpg" alt="Aligned Emir with SSIM" class="project-image">
-                    <div class="image-metrics">
-                        <div class="metric-row">
-                            <span class="metric-label">Computation time:</span>
-                            <span class="computation-time">56.33s</span>
-                        </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Red offset:</span>
+                        <span class="offset">(x=42, y=92)</span>
                     </div>
-                </div>
-            </div>
-            
-            <h3>2. Automatic Border Cropping</h3>
-            <p>To reduce complexity, I manually cropped out about 10% of the photos to remove the non-image border colors:</p>
-            <div class="comparison">
-                <div class="comparison-item">
-                    <div class="comparison-title">Before Cropping</div>
-                    <img src="media/enhanced_melons.jpg" alt="With Borders" class="project-image">
-                    <div class="image-metrics">
-                        <div class="metric-row">
-                            <!--<span class="metric-label">Computation time:</span>-->
-                            <!--<span class="computation-time">45.3s</span>-->
-                        </div>
-                    </div>
-                </div>
-                <div class="comparison-item">
-                    <div class="comparison-title">After Cropping</div>
-                    <img src="media/cropped_melons.jpg" alt="Without Borders" class="project-image">
-                    <div class="image-metrics">
-                        <div class="metric-row">
-                            <!--<span class="metric-label">Computation time:</span>-->
-                            <!--<span class="computation-time">41.8s</span>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <h3>3. Contrast Enhancement</h3>
-            <p>Applied contrast stretching to improve visual quality and reveal details:</p>
-            <div class="comparison">
-                <div class="comparison-item">
-                    <div class="comparison-title">Before Enhancement</div>
-                    <img src="media/cathedral_out.jpg" alt="No Contrast" class="project-image">
-                    <div class="image-metrics">
-                        <div class="metric-row">
-<!--                             <span class="metric-label">Computation time:</span>
-                            <span class="computation-time">2.4s</span> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="comparison-item">
-                    <div class="comparison-title">After Enhancement</div>
-                    <img src="media/contrast_cathedral.jpg" alt="With Contrast" class="project-image">
-                    <div class="image-metrics">
-                        <div class="metric-row">
-<!--                             <span class="metric-label">Computation time:</span>
-                            <span class="computation-time">3.1s</span> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <h3>4. Additional Enhanced Images</h3>
-            <div class="image-grid">
-                <div class="image-card">
-                    <img src="media/contrast_icon.jpg" alt="Enhanced Icon" class="project-image">
-                    <div class="image-info">
-                        <h3>Enhanced Icon</h3>
-                        <div class="image-metrics">
-                            <div class="metric-row">
-                                <span class="metric-label">Computation time:</span>
-                                <span class="computation-time">40.5s</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-card">
-                    <img src="media/contrast_harvesters.jpg" alt="Enhanced Harvesters" class="project-image">
-                    <div class="image-info">
-                        <h3>Enhanced Harvesters</h3>
-                        <div class="image-metrics">
-                            <div class="metric-row">
-                                <span class="metric-label">Computation time:</span>
-                                <span class="computation-time">44.7s</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-card">
-                    <img src="media/contrast_fresco.jpg" alt="Enhanced Fresco" class="project-image">
-                    <div class="image-info">
-                        <h3>Enhanced Fresco</h3>
-                        <div class="image-metrics">
-                            <div class="metric-row">
-                                <span class="metric-label">Computation time:</span>
-                                <span class="computation-time">39.2s</span>
-                            </div>
-                        </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Computation time:</span>
+                        <span class="computation-time">48.3s</span>
                     </div>
                 </div>
             </div>
         </div>
         
-        <div class="section" id="more">
-            <h2>Additional Results</h2>
-            <p>Results on other images from the Prokudin-Gorskii collection:</p>
-            <div class="image-grid">
-                <div class="image-card">
-                    <img src="media/enhanced_napoleon.jpg" alt="Napoleon" class="project-image">
-                    <div class="image-info">
-                        <h3>Napoleon</h3>
-                        <div class="image-metrics">
-                            <div class="metric-row">
-                                <span class="metric-label">Green offset:</span>
-                                <span class="offset">(x=28, y=45)</span>
-                            </div>
-                            <div class="metric-row">
-                                <span class="metric-label">Red offset:</span>
-                                <span class="offset">(x=42, y=92)</span>
-                            </div>
-                            <div class="metric-row">
-                                <span class="metric-label">Computation time:</span>
-                                <span class="computation-time">48.3s</span>
-                            </div>
-                        </div>
+        <div class="image-card">
+            <img src="media/enhanced_self_portrait.jpg" alt="Self Portrait" class="project-image">
+            <div class="image-info">
+                <h3>Self Portrait</h3>
+                <div class="image-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">Green offset:</span>
+                        <span class="offset">(x=19, y=38)</span>
                     </div>
-                </div>
-                
-                <div class="image-card">
-                    <img src="media/enhanced_self_portrait.jpg" alt="Self Portrait" class="project-image">
-                    <div class="image-info">
-                        <h3>Self Portrait</h3>
-                        <div class="image-metrics">
-                            <div class="metric-row">
-                                <span class="metric-label">Green offset:</span>
-                                <span class="offset">(x=19, y=38)</span>
-                            </div>
-                            <div class="metric-row">
-                                <span class="metric-label">Red offset:</span>
-                                <span class="offset">(x=31, y=79)</span>
-                            </div>
-                            <div class="metric-row">
-                                <span class="metric-label">Computation time:</span>
-                                <span class="computation-time">43.6s</span>
-                            </div>
-                        </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Red offset:</span>
+                        <span class="offset">(x=31, y=79)</span>
                     </div>
-                </div>
-                
-                <div class="image-card">
-                    <img src="media/enhanced_lugano.jpg" alt="Lugano" class="project-image">
-                    <div class="image-info">
-                        <h3>Lugano</h3>
-                        <div class="image-metrics">
-                            <div class="metric-row">
-                                <span class="metric-label">Green offset:</span>
-                                <span class="offset">(x=24, y=51)</span>
-                            </div>
-                            <div class="metric-row">
-                                <span class="metric-label">Red offset:</span>
-                                <span class="offset">(x=39, y=104)</span>
-                            </div>
-                            <div class="metric-row">
-                                <span class="metric-label">Computation time:</span>
-                                <span class="computation-time">46.2s</span>
-                            </div>
-                        </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Computation time:</span>
+                        <span class="computation-time">43.6s</span>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <div class="image-card">
+            <img src="media/enhanced_lugano.jpg" alt="Lugano" class="project-image">
+            <div class="image-info">
+                <h3>Lugano</h3>
+                <div class="image-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">Green offset:</span>
+                        <span class="offset">(x=24, y=51)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Red offset:</span>
+                        <span class="offset">(x=39, y=104)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Computation time:</span>
+                        <span class="computation-time">46.2s</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="image-card">
+            <img src="media/enhanced_skaly_na_r.jpg" alt="Skaly Na R" class="project-image">
+            <div class="image-info">
+                <h3>Skaly Na R</h3>
+                <div class="image-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">Green offset:</span>
+                        <span class="offset">(x=22, y=47)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Red offset:</span>
+                        <span class="offset">(x=36, y=96)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Computation time:</span>
+                        <span class="computation-time">41.8s</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="image-card">
+            <img src="media/enhanced_lastochikino.jpg" alt="Lastochikino" class="project-image">
+            <div class="image-info">
+                <h3>Lastochikino</h3>
+                <div class="image-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">Green offset:</span>
+                        <span class="offset">(x=25, y=53)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Red offset:</span>
+                        <span class="offset">(x=41, y=108)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Computation time:</span>
+                        <span class="computation-time">44.9s</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="image-card">
+            <img src="media/enhanced_obshchii_vid_kremlia.jpg" alt="Kremlin View" class="project-image">
+            <div class="image-info">
+                <h3>Kremlin View</h3>
+                <div class="image-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">Green offset:</span>
+                        <span class="offset">(x=31, y=44)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Red offset:</span>
+                        <span class="offset">(x=47, y=89)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Computation time:</span>
+                        <span class="computation-time">49.7s</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="image-card">
+            <img src="media/enhanced_portret_inokini_marfy.jpg" alt="Portrait of Marfa" class="project-image">
+            <div class="image-info">
+                <h3>Portrait of Marfa</h3>
+                <div class="image-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">Green offset:</span>
+                        <span class="offset">(x=17, y=41)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Red offset:</span>
+                        <span class="offset">(x=29, y=83)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Computation time:</span>
+                        <span class="computation-time">42.3s</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="image-card">
+            <img src="media/enhanced_siren.jpg" alt="Siren" class="project-image">
+            <div class="image-info">
+                <h3>Siren</h3>
+                <div class="image-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">Green offset:</span>
+                        <span class="offset">(x=26, y=49)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Red offset:</span>
+                        <span class="offset">(x=38, y=97)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Computation time:</span>
+                        <span class="computation-time">45.1s</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         
         <footer>
             <p>CS 180/280A Project - Prokudin-Gorskii Image Colorization</p>
