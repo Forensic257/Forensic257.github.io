@@ -1,1 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS180 Project 2: Fun with Filters and Frequencies</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            color: var(--primary);
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        h3 {
+            color: var(--dark);
+            margin-top: 1.5rem;
+        }
+        
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 1rem 0;
+        }
+        
+        .image-card {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .image-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .comparison {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        .comparison-item {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .insight-box {
+            background: #e8f4fd;
+            border-left: 4px solid var(--secondary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CS180 Project 2: Fun with Filters and Frequencies</h1>
+            <p>Exploring Image Processing through Convolution, Hybrid Images, and Multi-Resolution Blending</p>
+        </header>
 
+        <!-- Introduction -->
+        <section class="section">
+            <h2>Project Overview</h2>
+            <p>This project explores fundamental computer vision techniques including 2D convolution, edge detection, image sharpening, hybrid images, and multi-resolution blending. The implementation demonstrates both theoretical understanding and practical application of frequency-domain image processing.</p>
+        </section>
+
+        <!-- Part 1: Filters and Edges -->
+        <section class="section">
+            <h2>Part 1: Filters and Edges</h2>
+            
+            <h3>1.1 Convolutions from Scratch</h3>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="results/convolution_4loops.jpg" alt="4-loop convolution">
+                    <div class="caption">4-Loop Convolution (Downsampled)</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/convolution_2loops.jpg" alt="2-loop convolution">
+                    <div class="caption">2-Loop Convolution</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/convolution_scipy.jpg" alt="Scipy convolution">
+                    <div class="caption">Scipy Convolution</div>
+                </div>
+            </div>
+            <div class="insight-box">
+                <strong>Key Insight:</strong> The 4-loop implementation has O(n⁴) complexity and is only feasible on downsampled images. The 2-loop version leverages NumPy vectorization for significant speedup. Scipy's implementation uses highly optimized routines with symmetric boundary handling that produces more natural edges compared to zero-padding.
+            </div>
+
+            <h3>1.2 Finite Difference Operator</h3>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="results/partial_x.jpg" alt="Partial derivative X">
+                    <div class="caption">Partial Derivative in X (Ix)</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/partial_y.jpg" alt="Partial derivative Y">
+                    <div class="caption">Partial Derivative in Y (Iy)</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/gradient_magnitude.jpg" alt="Gradient magnitude">
+                    <div class="caption">Gradient Magnitude</div>
+                </div>
+            </div>
+            <div class="comparison">
+                <div class="comparison-item">
+                    <img src="results/edge_threshold_comparison.jpg" alt="Threshold comparison">
+                    <div class="caption">Threshold Sensitivity Analysis (0.01 to 0.6)</div>
+                </div>
+                <div class="comparison-item">
+                    <img src="results/final_edges.jpg" alt="Final edge detection">
+                    <div class="caption">Final Edge Image (Threshold: 0.40)</div>
+                </div>
+            </div>
+            <div class="insight-box">
+                <strong>Threshold Selection:</strong> After testing multiple thresholds, 0.40 provided the best balance between detecting real edges and suppressing noise. Lower thresholds capture faint edges but introduce noise, while higher thresholds remove noise but lose important edge information.
+            </div>
+
+            <h3>1.3 Derivative of Gaussian (DoG) Filter</h3>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="results/dog_filters.jpg" alt="DoG filters">
+                    <div class="caption">DoG X and Y Filters</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/gradient_comparison.jpg" alt="Gradient comparison">
+                    <div class="caption">Original vs Smoothed Gradient Magnitude</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/dog_edges.jpg" alt="DoG edge detection">
+                    <div class="caption">DoG Edge Detection (Threshold: 0.20)</div>
+                </div>
+            </div>
+            <div class="insight-box">
+                <strong>Gaussian Smoothing Benefits:</strong> DoG filtering significantly reduces noise while preserving edge structure. The optimal threshold for DoG (0.20) is lower than for raw gradients due to reduced noise. Both approaches (sequential smoothing+differentiation vs combined DoG) produce mathematically equivalent results with minimal numerical differences.
+            </div>
+        </section>
+
+        <!-- Part 2: Applications -->
+        <section class="section">
+            <h2>Part 2: Applications</h2>
+            
+            <h3>2.1 Image Sharpening with Unsharp Masking</h3>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="results/taj_original.jpg" alt="Taj Mahal original">
+                    <div class="caption">Original Taj Mahal</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/taj_blurred.jpg" alt="Taj Mahal blurred">
+                    <div class="caption">Blurred (Low Frequencies)</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/taj_high_freq.jpg" alt="Taj Mahal high frequencies">
+                    <div class="caption">High Frequencies</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/taj_sharpened.jpg" alt="Taj Mahal sharpened">
+                    <div class="caption">Sharpened Result</div>
+                </div>
+            </div>
+            
+            <h4>Sharpening Amount Sensitivity</h4>
+            <div class="image-card">
+                <img src="results/sharpening_amounts.jpg" alt="Sharpening amounts comparison">
+                <div class="caption">Effect of Different Sharpening Amounts (0.5 to 3.0)</div>
+            </div>
+            
+            <div class="insight-box">
+                <strong>Sharpening Trade-offs:</strong> Unsharp masking effectively enhances perceived sharpness by amplifying high-frequency details, but introduces noise amplification and halos around edges. LAB space sharpening (luminance channel only) produces more natural results than RGB sharpening. Moderate amounts (1.0-1.5) provide the best balance between enhancement and artifacts.
+            </div>
+
+            <h3>2.2 Hybrid Images</h3>
+            
+            <h4>Derek + Nutmeg (Sample Pair)</h4>
+            <div class="comparison">
+                <div class="comparison-item">
+                    <img src="results/derek_nutmeg_hybrid.jpg" alt="Derek Nutmeg hybrid">
+                    <div class="caption">Hybrid: Derek up close, Nutmeg at distance</div>
+                </div>
+            </div>
+            
+            <h4>Frequency Analysis</h4>
+            <div class="image-card">
+                <img src="results/hybrid_frequency_analysis.jpg" alt="Frequency analysis">
+                <div class="caption">Full Frequency Analysis Process</div>
+            </div>
+            
+            <h4>Additional Hybrid Creations</h4>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="results/expression_hybrid.jpg" alt="Expression hybrid">
+                    <div class="caption">Smiling ↔ Serious Expression Change</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/alien_human_hybrid.jpg" alt="Alien human hybrid">
+                    <div class="caption">Alien ↔ Human Morph</div>
+                </div>
+            </div>
+
+            <h3>2.3 + 2.4 Multi-Resolution Blending</h3>
+            
+            <h4>Oraple: Apple + Orange Blend</h4>
+            <div class="image-card">
+                <img src="results/oraple_process.jpg" alt="Oraple blending process">
+                <div class="caption">Multi-level Blending Process (Recreating Figure 3.42)</div>
+            </div>
+            
+            <h4>Custom Blends with Irregular Masks</h4>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="results/forest_blend.jpg" alt="Forest blend">
+                    <div class="caption">Forest Scene Blend with Irregular Mask</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/mountain_sunset_blend.jpg" alt="Mountain sunset blend">
+                    <div class="caption">Mountain + Sunset Artistic Blend</div>
+                </div>
+            </div>
+            
+            <h4>Creative Blends</h4>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="results/character_fusion.jpg" alt="Character fusion">
+                    <div class="caption">Anime Character Fusion</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/conceptual_blend.jpg" alt="Conceptual blend">
+                    <div class="caption">Portrait + Symbolic Imagery</div>
+                </div>
+            </div>
+
+            <h4>Multi-Resolution Process Visualization</h4>
+            <div class="image-card">
+                <img src="results/multiresolution_process.jpg" alt="Multi-resolution process">
+                <div class="caption">Laplacian Stack Blending Process (Figure 10 Recreation)</div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="conclusion">
+            <h2>Most Important Learning</h2>
+            <p><strong>The most significant insight from this project is understanding how multi-resolution processing enables seamless image operations that are impossible with single-scale approaches.</strong></p>
+            <p>Whether creating hybrid images that change perception with viewing distance, or blending images seamlessly using Laplacian stacks, the key realization is that different frequency bands carry different types of visual information and should be processed accordingly. High frequencies dominate close-up perception but fade at distance, while low frequencies persist across scales. This frequency-domain understanding fundamentally changes how we approach image manipulation and composition.</p>
+        </section>
+
+        <footer style="text-align: center; margin-top: 2rem; color: #666;">
+            <p>CS180: Intro to Computer Vision and Computational Photography</p>
+            <p>Project #2 - Fun with Filters and Frequencies</p>
+        </footer>
+    </div>
+</body>
+</html>
