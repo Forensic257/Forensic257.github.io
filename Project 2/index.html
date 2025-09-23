@@ -246,6 +246,63 @@
             </div>
         </section>
 
+        <div class="section">
+            <h3>1.3 Bells & Whistles: Gradient Orientation Visualization</h3>
+            
+            <div class="insight-box">
+                <strong>Technical Approach:</strong> Using HSV color space to encode gradient orientation (hue) and magnitude (value) for comprehensive edge analysis.
+            </div>
+        
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="results/gradient_original.jpg" alt="Original image">
+                    <div class="caption">Original Cameraman Image</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/gradient_magnitude.jpg" alt="Gradient magnitude">
+                    <div class="caption">Gradient Magnitude<br>(Edge strength)</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/gradient_orientation_hsv.jpg" alt="Orientation HSV">
+                    <div class="caption">Gradient Orientation<br>(HSV colormap)</div>
+                </div>
+            </div>
+        
+            <div class="large-image-container">
+                <img src="results/gradient_hsv_visualization.jpg" alt="HSV visualization">
+                <div class="caption">Full HSV Visualization: Hue = Orientation, Value = Magnitude</div>
+            </div>
+        
+            <div class="insight-box">
+                <strong>HSV Encoding Strategy:</strong>
+                <ul>
+                    <li><strong>Hue (H)</strong>: Represents gradient orientation (0°-360° mapped to color wheel)</li>
+                    <li><strong>Saturation (S)</strong>: Set to maximum for vibrant colors</li>
+                    <li><strong>Value (V)</strong>: Represents gradient magnitude (edge strength)</li>
+                </ul>
+            </div>
+        
+            <div class="comparison">
+                <div class="comparison-item">
+                    <img src="results/orientation_color_wheel.jpg" alt="Color wheel reference">
+                    <div class="caption">Color Wheel Reference<br>Hue ↔ Orientation Mapping</div>
+                </div>
+                <div class="comparison-item">
+                    <img src="results/gradient_closeup.jpg" alt="Closeup analysis">
+                    <div class="caption">Close-up Analysis<br>Showing orientation continuity</div>
+                </div>
+            </div>
+        
+            <div class="insight-box" style="background: #e8f4fd;">
+                <strong>Key Insights:</strong>
+                <ul>
+                    <li><strong>Circular nature of orientation</strong> is naturally represented by the cyclic HSV color space</li>
+                    <li><strong>Brightness indicates edge strength</strong> while color indicates edge direction</li>
+                    <li><strong>Continuous color transitions</strong> reveal smooth orientation changes in the image</li>
+                    <li><strong>Complementary colors</strong> (red/cyan, green/magenta, blue/yellow) represent opposite gradient directions</li>
+                </ul>
+            </div>
+
         <!-- Part 2: Applications -->
         <section class="section">
             <h2>Part 2: Applications</h2>
