@@ -316,6 +316,99 @@
                 </div>
             </div>
 
+            <!-- Add this section after your regular 2.2 Hybrid Images content -->
+
+            <div class="section">
+                <h3>2.2 Bells & Whistles: Color Enhancement Analysis</h3>
+                
+                <div class="insight-box">
+                    <strong>Research Question:</strong> Does it work better to use color for the high-frequency component, the low-frequency component, or both?
+                </div>
+            
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="results/color_high_freq.jpg" alt="Color in high frequencies">
+                        <div class="caption">Color in High-Freq Only<br>(Derek colored, Nutmeg B&W)</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="results/color_low_freq.jpg" alt="Color in low frequencies">
+                        <div class="caption">Color in Low-Freq Only<br>(Derek B&W, Nutmeg colored)</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="results/color_both.jpg" alt="Color in both">
+                        <div class="caption">Color in Both Components<br>(Standard Approach)</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="results/color_selective.jpg" alt="Selective blending">
+                        <div class="caption">Selective Channel Blending<br>(Per-channel processing)</div>
+                    </div>
+                </div>
+            
+                <!-- Quantitative Results Table -->
+                <div style="overflow-x: auto; margin: 2rem 0;">
+                    <table style="width: 100%; border-collapse: collapse; background: #f8f9fa;">
+                        <thead>
+                            <tr style="background: var(--primary); color: white;">
+                                <th style="padding: 12px; text-align: left;">Color Strategy</th>
+                                <th style="padding: 12px; text-align: center;">Color Variance</th>
+                                <th style="padding: 12px; text-align: center;">Edge Preservation</th>
+                                <th style="padding: 12px; text-align: center;">Quality Score</th>
+                                <th style="padding: 12px; text-align: center;">Rank</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #ddd; background: #e8f5e8;">
+                                <td style="padding: 10px; font-weight: bold;">High-Frequency Color Only</td>
+                                <td style="padding: 10px; text-align: center;">0.2274</td>
+                                <td style="padding: 10px; text-align: center;">174.74</td>
+                                <td style="padding: 10px; text-align: center; font-weight: bold;">39.74</td>
+                                <td style="padding: 10px; text-align: center;">🥇 Best</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 10px;">Selective Channel Blending</td>
+                                <td style="padding: 10px; text-align: center;">0.2285</td>
+                                <td style="padding: 10px; text-align: center;">170.26</td>
+                                <td style="padding: 10px; text-align: center;">38.90</td>
+                                <td style="padding: 10px; text-align: center;">🥈 Second</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 10px;">Color in Both Components</td>
+                                <td style="padding: 10px; text-align: center;">0.2272</td>
+                                <td style="padding: 10px; text-align: center;">160.43</td>
+                                <td style="padding: 10px; text-align: center;">36.45</td>
+                                <td style="padding: 10px; text-align: center;">🥉 Third</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;">Low-Frequency Color Only</td>
+                                <td style="padding: 10px; text-align: center;">0.2261</td>
+                                <td style="padding: 10px; text-align: center;">158.72</td>
+                                <td style="padding: 10px; text-align: center;">35.88</td>
+                                <td style="padding: 10px; text-align: center;">4th</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            
+                <div class="insight-box">
+                    <strong>Key Findings:</strong>
+                    <ul>
+                        <li><strong>High-frequency color placement performs best</strong> (Quality Score: 39.74) because the close-up image (Derek) benefits most from color information for facial recognition and detail perception</li>
+                        <li><strong>Selective channel blending</strong> provides a good balance but is more computationally complex</li>
+                        <li><strong>Low-frequency color placement performs worst</strong> because the distant image (Nutmeg) relies more on shape than color for recognition</li>
+                        <li>The standard approach (color in both) ranks third, suggesting that selective color assignment can improve hybrid image quality</li>
+                    </ul>
+                </div>
+            
+                <div class="large-image-container">
+                    <img src="results/color_comparison_grid.jpg" alt="All color methods comparison">
+                    <div class="caption">Comparative visualization of all four color strategies showing the perceptual differences</div>
+                </div>
+            
+                <div class="insight-box" style="background: #fff3cd; border-left-color: #ffc107;">
+                    <strong>Conclusion:</strong> For hybrid images where the high-frequency component contains detailed, recognizable features (like faces), placing color information in the high-frequency component yields the best perceptual results. The close-up view benefits from color cues for recognition, while the distant view relies more on luminance information for shape perception.
+                </div>
+            </div>
+
             <h3>2.3 + 2.4 Multi-Resolution Blending</h3>
             
             <h4>Oraple: Apple + Orange Blend</h4>
