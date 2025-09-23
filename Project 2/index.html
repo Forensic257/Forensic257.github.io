@@ -456,6 +456,135 @@
             </div>
         </section>
 
+        <!-- Add this section after your regular 2.4 Multi-resolution Blending content -->
+
+        <div class="section">
+            <h3>2.4 Bells & Whistles: Color Enhancement for Multi-Resolution Blending</h3>
+            
+            <div class="insight-box">
+                <strong>Research Question:</strong> How can color processing enhance multi-resolution blending effects, and which color strategy works best?
+            </div>
+        
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="results/blend_standard.jpg" alt="Standard blending">
+                    <div class="caption">Standard Blending<br>(Baseline)</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/blend_vibrant.jpg" alt="Vibrant low-frequency">
+                    <div class="caption">Vibrant Low-Frequency<br>(Enhanced saturation)</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/blend_selective.jpg" alt="Selective channels">
+                    <div class="caption">Selective Channels<br>(Per-channel emphasis)</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/blend_lab.jpg" alt="LAB space">
+                    <div class="caption">LAB Space Blending<br>(Perceptually uniform)</div>
+                </div>
+            </div>
+        
+            <!-- Quantitative Results -->
+            <div style="overflow-x: auto; margin: 2rem 0;">
+                <table style="width: 100%; border-collapse: collapse; background: #f8f9fa;">
+                    <thead>
+                        <tr style="background: var(--primary); color: white;">
+                            <th style="padding: 12px; text-align: left;">Color Strategy</th>
+                            <th style="padding: 12px; text-align: center;">Overall Quality</th>
+                            <th style="padding: 12px; text-align: center;">Edge Sharpness</th>
+                            <th style="padding: 12px; text-align: center;">Rank</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #ddd; background: #e8f5e8;">
+                            <td style="padding: 10px; font-weight: bold;">LAB Space Blending</td>
+                            <td style="padding: 10px; text-align: center;">0.500</td>
+                            <td style="padding: 10px; text-align: center;">45,580.9</td>
+                            <td style="padding: 10px; text-align: center;">🥇 Best</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ddd;">
+                            <td style="padding: 10px;">Vibrant Low-Frequency</td>
+                            <td style="padding: 10px; text-align: center;">0.430</td>
+                            <td style="padding: 10px; text-align: center;">1,014.2</td>
+                            <td style="padding: 10px; text-align: center;">🥈 Second</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ddd;">
+                            <td style="padding: 10px;">Selective Channels</td>
+                            <td style="padding: 10px; text-align: center;">0.328</td>
+                            <td style="padding: 10px; text-align: center;">456.9</td>
+                            <td style="padding: 10px; text-align: center;">🥉 Third</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Standard Blending</td>
+                            <td style="padding: 10px; text-align: center;">0.205</td>
+                            <td style="padding: 10px; text-align: center;">17.1</td>
+                            <td style="padding: 10px; text-align: center;">4th</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
+            <div class="insight-box">
+                <strong>Key Quantitative Findings:</strong>
+                <ul>
+                    <li><strong>LAB Space blending performs best</strong> with significantly higher edge sharpness (45,580 vs 17 for standard)</li>
+                    <li><strong>Vibrant low-frequency approach</strong> provides good balance between enhancement and naturalness</li>
+                    <li><strong>Standard blending ranks last</strong> quantitatively but provides the most natural visual results</li>
+                    <li><strong>Edge sharpness correlates with quality scores</strong>, suggesting crisp transitions are important</li>
+                </ul>
+            </div>
+        
+            <!-- Qualitative Analysis -->
+            <div class="comparison">
+                <div class="comparison-item">
+                    <img src="results/blend_standard_closeup.jpg" alt="Standard blend closeup">
+                    <div class="caption">Standard: Natural but soft edges</div>
+                </div>
+                <div class="comparison-item">
+                    <img src="results/blend_lab_closeup.jpg" alt="LAB blend closeup">
+                    <div class="caption">LAB Space: Sharp edges, potential color shifts</div>
+                </div>
+            </div>
+        
+            <div class="insight-box" style="background: #e8f4fd;">
+                <strong>Qualitative Observations:</strong>
+                <ul>
+                    <li><strong>Standard Blending</strong>: Most seamless transitions, natural color preservation, least artifacting</li>
+                    <li><strong>Vibrant Low-Frequency</strong>: Enhanced color vibrancy, good for artistic effects, slightly artificial</li>
+                    <li><strong>Selective Channels</strong>: Creative color combinations, distinctive look, less natural</li>
+                    <li><strong>LAB Space</strong>: Perceptually smooth transitions, potential color shifts, technically advanced</li>
+                </ul>
+            </div>
+        
+            <!-- Application to Irregular Masks -->
+            <h4>Application to Irregular Mask Blending</h4>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="results/irregular_standard.jpg" alt="Irregular standard">
+                    <div class="caption">Irregular Mask + Standard</div>
+                </div>
+                <div class="image-card">
+                    <img src="results/irregular_lab.jpg" alt="Irregular LAB">
+                    <div class="caption">Irregular Mask + LAB Space</div>
+                </div>
+            </div>
+        
+            <div class="insight-box" style="background: #fff3cd; border-left-color: #ffc107;">
+                <strong>Conclusion:</strong> 
+                <ul>
+                    <li><strong>For technical quality:</strong> LAB Space blending provides the sharpest edges and highest quantitative scores</li>
+                    <li><strong>For natural appearance:</strong> Standard blending produces the most photorealistic results</li>
+                    <li><strong>For artistic applications:</strong> Vibrant low-frequency and selective channel methods offer creative possibilities</li>
+                    <li><strong>Practical recommendation:</strong> Use LAB Space for technical applications where edge quality is paramount; use Standard blending for photographic realism</li>
+                </ul>
+            </div>
+        
+            <div class="large-image-container">
+                <img src="results/color_blending_comparison_grid.jpg" alt="All color blending methods comparison">
+                <div class="caption">Comprehensive comparison of all color enhancement strategies for multi-resolution blending</div>
+            </div>
+        </div>
+
         <!-- Conclusion -->
         <section class="conclusion">
             <h2>Most Important Learning</h2>
