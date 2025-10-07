@@ -1,1 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Warping and Mosaicing | CS 180 Project</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #7209b7;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #4cc9f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 3rem;
+            margin-bottom: 3rem;
+            transition: transform 0.3s ease;
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e9ecef;
+            display: inline-block;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .image-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .image-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .image-caption {
+            padding: 1rem;
+            background: white;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .comparison-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .comparison-item {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .comparison-item img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comparison-label {
+            margin-top: 0.5rem;
+            font-weight: 600;
+            color: var(--gray);
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(67, 97, 238, 0.1), rgba(114, 9, 183, 0.1));
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .metric {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .steps {
+            counter-reset: step-counter;
+            margin: 2rem 0;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+        
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            background: var(--primary);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Image Warping and Mosaicing</h1>
+        <p class="subtitle">CS 180 Project - Creating seamless panoramas through homography estimation, image warping, and advanced blending techniques</p>
+    </header>
+    
+    <div class="container">
+        <section id="overview">
+            <h2>Project Overview</h2>
+            <p>This project implements a complete pipeline for creating image mosaics by recovering homographies between images, warping them into alignment, and blending them seamlessly. The implementation includes both geometric correction (rectification) and photometric blending for professional-quality results.</p>
+            
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-value">4.80 px</div>
+                    <div class="metric-label">Mean Homography Error</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">Mosaics Created</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">2.4x</div>
+                    <div class="metric-label">Bilinear vs NN Speed Ratio</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">4</div>
+                    <div class="metric-label">Blending Methods</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="a1">
+            <h2>A.1: Shoot and Digitize Pictures</h2>
+            <p>Captured photographs with a fixed center of projection and rotated camera to ensure projective transformations between images. Images were taken with significant overlap (40-70%) for reliable homography recovery.</p>
+            
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="media/IMG_1801-compressed-1.jpg" alt="Image 1">
+                    <div class="image-caption">Image 1</div>
+                </div>
+                <div class="image-card">
+                    <img src="media/IMG_1802-compressed-1.jpg" alt="Image 2">
+                    <div class="image-caption">Image 2</div>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <p><strong>Technical Details:</strong> Images were captured with careful attention to maintaining consistent lighting and avoiding lens distortion. The overlap ensures sufficient correspondences for robust homography estimation.</p>
+            </div>
+        </section>
+        
+        <section id="a2">
+            <h2>A.2: Recover Homographies</h2>
+            <p>Implemented homography recovery using point correspondences and least squares estimation. The system computes a 3×3 transformation matrix that maps points from one image plane to another.</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-content">
+                        <h3>Point Correspondence Selection</h3>
+                        <p>Manually selected 8 corresponding points between image pairs using an interactive interface.</p>
+                        <div class="image-grid">
+                            <div class="image-card">
+                                <img src="media/correspondences1.jpg" alt="Correspondences Image 1">
+                                <div class="image-caption">Image 1 with Points</div>
+                            </div>
+                            <div class="image-card">
+                                <img src="media/correspondences2.jpg" alt="Correspondences Image 2">
+                                <div class="image-caption">Image 2 with Points</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3>Homography Computation</h3>
+                        <p>Solved the linear system Ah = b using least squares to recover the 8 degrees of freedom in the homography matrix.</p>
+                        <div class="code-block">
+# Homography Recovery Results<br>
+Rank of matrix A: 8/8<br>
+Condition number: 4.32e+08<br>
+Sum of squared residuals: 316.03<br><br>
+Recovered Homography Matrix H:<br>
+[[  1.4043   0.0489 -1089.0651]<br>
+ [  0.1035   1.1970  -119.9642]<br>
+ [  0.0002   0.0000     1.0000]]
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3>Accuracy Validation</h3>
+                        <p>Verified homography accuracy by measuring reprojection errors of the point correspondences.</p>
+                        <div class="metrics">
+                            <div class="metric">
+                                <div class="metric-value">4.80 px</div>
+                                <div class="metric-label">Mean Error</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">7.85 px</div>
+                                <div class="metric-label">Max Error</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">8</div>
+                                <div class="metric-label">Points Used</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="a3">
+            <h2>A.3: Warp the Images</h2>
+            <p>Implemented inverse warping with two interpolation methods: nearest neighbor and bilinear interpolation. Applied image rectification to demonstrate homography correctness.</p>
+            
+            <div class="tabs">
+                <div class="tab active" onclick="openTab(event, 'warping-tab')">Image Warping</div>
+                <div class="tab" onclick="openTab(event, 'rectification-tab')">Rectification</div>
+            </div>
+            
+            <div id="warping-tab" class="tab-content active">
+                <div class="comparison-container">
+                    <div class="comparison-item">
+                        <img src="media/warp_nn.jpg" alt="Nearest Neighbor Warping">
+                        <div class="comparison-label">Nearest Neighbor (0.575s)</div>
+                    </div>
+                    <div class="comparison-item">
+                        <img src="media/warp_bilinear.jpg" alt="Bilinear Warping">
+                        <div class="comparison-label">Bilinear Interpolation (1.387s)</div>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>Performance Analysis:</strong> Bilinear interpolation produces smoother results but is approximately 2.4× slower than nearest neighbor due to the additional computations required for weighted averaging of four neighboring pixels.</p>
+                </div>
+            </div>
+            
+            <div id="rectification-tab" class="tab-content">
+                <p>Applied homographies to rectify perspective-distorted rectangular objects back to their true shape, demonstrating the practical application of projective transformations.</p>
+                
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="media/rectification_input.jpg" alt="Rectification Input">
+                        <div class="image-caption">Original with Quadrilateral</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="media/rectification_output.jpg" alt="Rectification Output">
+                        <div class="image-caption">Rectified Result</div>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>Rectification Process:</strong> Selected four corners of a perspective-distorted rectangular object and computed a homography to map them to a perfect rectangle, effectively "undoing" the perspective distortion.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="a4">
+            <h2>A.4: Blend Images into Mosaic</h2>
+            <p>Created seamless panoramas by warping images into alignment and applying sophisticated blending techniques to eliminate visible seams and artifacts.</p>
+            
+            <div class="tabs">
+                <div class="tab active" onclick="openTab(event, 'mosaic1-tab')">Mosaic 1</div>
+                <div class="tab" onclick="openTab(event, 'mosaic2-tab')">Mosaic 2</div>
+                <div class="tab" onclick="openTab(event, 'mosaic3-tab')">Mosaic 3</div>
+                <div class="tab" onclick="openTab(event, 'blending-tab')">Blending Methods</div>
+            </div>
+            
+            <div id="mosaic1-tab" class="tab-content active">
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="media/mosaic1_source1.jpg" alt="Mosaic 1 Source 1">
+                        <div class="image-caption">Source Image 1</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="media/mosaic1_source2.jpg" alt="Mosaic 1 Source 2">
+                        <div class="image-caption">Source Image 2</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="media/mosaic1_result.jpg" alt="Mosaic 1 Result">
+                        <div class="image-caption">Final Mosaic</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="mosaic2-tab" class="tab-content">
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="media/mosaic2_source1.jpg" alt="Mosaic 2 Source 1">
+                        <div class="image-caption">Source Image 1</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="media/mosaic2_source2.jpg" alt="Mosaic 2 Source 2">
+                        <div class="image-caption">Source Image 2</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="media/mosaic2_result.jpg" alt="Mosaic 2 Result">
+                        <div class="image-caption">Final Mosaic</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="mosaic3-tab" class="tab-content">
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="media/mosaic3_source1.jpg" alt="Mosaic 3 Source 1">
+                        <div class="image-caption">Source Image 1</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="media/mosaic3_source2.jpg" alt="Mosaic 3 Source 2">
+                        <div class="image-caption">Source Image 2</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="media/mosaic3_result.jpg" alt="Mosaic 3 Result">
+                        <div class="image-caption">Final Mosaic</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="blending-tab" class="tab-content">
+                <div class="comparison-container">
+                    <div class="comparison-item">
+                        <img src="media/blend_simple.jpg" alt="Simple Blending">
+                        <div class="comparison-label">Simple Overlay</div>
+                    </div>
+                    <div class="comparison-item">
+                        <img src="media/blend_weighted.jpg" alt="Weighted Blending">
+                        <div class="comparison-label">Weighted Average</div>
+                    </div>
+                    <div class="comparison-item">
+                        <img src="media/blend_laplacian.jpg" alt="Laplacian Blending">
+                        <div class="comparison-label">Laplacian Pyramid</div>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>Blending Analysis:</strong> The Laplacian pyramid approach produces the highest quality results by blending images at multiple frequency bands, preserving fine details while eliminating visible seams. Weighted averaging provides a good balance between quality and computational cost.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>This project successfully implemented a complete image mosaicing pipeline from homography recovery to seamless blending. The results demonstrate professional-quality panorama creation with accurate geometric alignment and photometrically consistent blending.</p>
+            
+            <div class="highlight">
+                <p><strong>Key Achievements:</strong></p>
+                <ul>
+                    <li>Accurate homography recovery with mean error of 4.80 pixels</li>
+                    <li>Implementation of two interpolation methods with performance analysis</li>
+                    <li>Successful rectification of perspective-distorted objects</li>
+                    <li>Creation of three high-quality mosaics using advanced blending techniques</li>
+                    <li>Comprehensive comparison of blending methods</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>CS 180 Project - Image Warping and Mosaicing</p>
+        <p>Implementation of homography estimation, image warping, and mosaic creation</p>
+    </footer>
 
+    <script>
+        function openTab(evt, tabName) {
+            // Hide all tab contents
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            // Remove active class from all tabs
+            const tabs = document.getElementsByClassName("tab");
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            // Show the specific tab content and mark tab as active
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        // Add scroll animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
