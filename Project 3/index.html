@@ -502,6 +502,38 @@ Recovered Homography Matrix H:<br>
         
         <section id="a4">
             <h2>A.4: Blend Images into Mosaic</h2>
+    
+    <div class="highlight">
+        <h3>Blending Procedure</h3>
+        <div class="steps">
+            <div class="step">
+                <div class="step-content">
+                    <h4>1. Mosaic Bounds Computation</h4>
+                    <p>Calculate final mosaic size by transforming all image corners through their homographies to determine the bounding box that contains all warped images.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-content">
+                    <h4>2. Three Blending Methods Implemented</h4>
+                    <p><strong>Simple Overlay:</strong> Direct pixel replacement (fastest but shows seams)</p>
+                    <p><strong>Weighted Average:</strong> Distance-transform masks with smooth transitions</p>
+                    <p><strong>Laplacian Pyramid:</strong> Multi-resolution blending preserves details while eliminating seams</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-content">
+                    <h4>3. Technical Implementation</h4>
+                    <p>Inverse warping to avoid holes, alpha mask generation with border erosion, and optional center warp mode where both images transform toward common projection.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-content">
+                    <h4>4. Results & Analysis</h4>
+                    <p>Created three mosaics with comparative analysis showing progressive quality improvement from simple → weighted → pyramid blending.</p>
+                </div>
+            </div>
+        </div>
+    </div>
             <p>Created seamless panoramas by warping images into alignment and applying sophisticated blending techniques to eliminate visible seams and artifacts.</p>
             
             <div class="tabs">
