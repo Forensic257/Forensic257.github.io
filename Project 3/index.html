@@ -653,28 +653,31 @@ Recovered Homography Matrix H:<br>
                     <div class="step-content">
                         <h3>Harris Corner Detection</h3>
                         <p>Implemented harmonic mean Harris corner detector with Gaussian smoothing and gradient computation for robust interest point detection.</p>
-                        <div class="code-block">
-def harmonic_mean_harris(im, sigma_d=1.0, sigma_i=1.5, threshold=10.0):
-    im_smooth = filters.gaussian(im, sigma=sigma_d)
-    Ix = ndimage.sobel(im_smooth, axis=1)  # x gradient
-    Iy = ndimage.sobel(im_smooth, axis=0)  # y gradient
-    
-    Ixx = Ix * Ix
-    Ixy = Ix * Iy
-    Iyy = Iy * Iy
-    
-    Ixx_smooth = filters.gaussian(Ixx, sigma=sigma_i)
-    Ixy_smooth = filters.gaussian(Ixy, sigma=sigma_i) 
-    Iyy_smooth = filters.gaussian(Iyy, sigma=sigma_i)
-    
-    det_H = Ixx_smooth * Iyy_smooth - Ixy_smooth**2
-    trace_H = Ixx_smooth + Iyy_smooth
-    
-    # Harmonic mean: det(H) / trace(H)
-    corner_strength = np.zeros_like(det_H)
-    nonzero_mask = trace_H > 1e-6
-    corner_strength[nonzero_mask] = det_H[nonzero_mask] / trace_H[nonzero_mask]
-                        </div>
+                        <!-- <div class="code-block">
+
+                        </div> -->
+                        <pre><code class="language-python">
+                        def harmonic_mean_harris(im, sigma_d=1.0, sigma_i=1.5, threshold=10.0):
+                            im_smooth = filters.gaussian(im, sigma=sigma_d)
+                            Ix = ndimage.sobel(im_smooth, axis=1)  # x gradient
+                            Iy = ndimage.sobel(im_smooth, axis=0)  # y gradient
+                            
+                            Ixx = Ix * Ix
+                            Ixy = Ix * Iy
+                            Iyy = Iy * Iy
+                            
+                            Ixx_smooth = filters.gaussian(Ixx, sigma=sigma_i)
+                            Ixy_smooth = filters.gaussian(Ixy, sigma=sigma_i) 
+                            Iyy_smooth = filters.gaussian(Iyy, sigma=sigma_i)
+                            
+                            det_H = Ixx_smooth * Iyy_smooth - Ixy_smooth**2
+                            trace_H = Ixx_smooth + Iyy_smooth
+                            
+                            # Harmonic mean: det(H) / trace(H)
+                            corner_strength = np.zeros_like(det_H)
+                            nonzero_mask = trace_H > 1e-6
+                            corner_strength[nonzero_mask] = det_H[nonzero_mask] / trace_H[nonzero_mask]   
+                        </pre>
                     </div>
                 </div>
                 
