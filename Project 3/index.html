@@ -713,18 +713,18 @@ Recovered Homography Matrix H:<br>
             
             <div class="comparison-container">
                 <div class="comparison-item">
-                    <img src="media/harris_corners.png" alt="Harris Corners">
-                    <div class="comparison-label">Harris Corners (All Detected)</div>
+                    <img src="media/harris_anms_results.png" alt="Harris Corners and ANMS Selected Points">
+                    <div class="comparison-label">Harris Corners (All Detected) and ANMS Selected Points</div>
                 </div>
-                <div class="comparison-item">
+                <!-- <div class="comparison-item">
                     <img src="media/anms_corners.png" alt="ANMS Selected">
                     <div class="comparison-label">ANMS Selected Points</div>
-                </div>
+                </div> -->
             </div>
             
             <div class="metrics">
                 <div class="metric">
-                    <div class="metric-value">1500+</div>
+                    <div class="metric-value">1250+</div>
                     <div class="metric-label">Initial Harris Corners</div>
                 </div>
                 <div class="metric">
@@ -732,7 +732,7 @@ Recovered Homography Matrix H:<br>
                     <div class="metric-label">ANMS Selected</div>
                 </div>
                 <div class="metric">
-                    <div class="metric-value">3.2×</div>
+                    <div class="metric-value">2.5×</div>
                     <div class="metric-label">Reduction Factor</div>
                 </div>
             </div>
@@ -746,7 +746,7 @@ Recovered Homography Matrix H:<br>
                     <div class="step-content">
                         <h3>Descriptor Extraction Pipeline</h3>
                         <p>Extracted 8×8 patches from 40×40 windows with 5-pixel sampling spacing, followed by bias/gain normalization for illumination invariance.</p>
-                        <div class="code-block">
+                        <!-- <div class="code-block">
 def extract_feature_descriptors(im, coords, patch_size=8, sample_spacing=5, window_size=40):
     descriptors = []
     half_window = window_size // 2
@@ -767,7 +767,29 @@ def extract_feature_descriptors(im, coords, patch_size=8, sample_spacing=5, wind
         # Bias/gain normalization: mean=0, std=1
         descriptor_normalized = (descriptor - np.mean(descriptor)) / (np.std(descriptor) + 1e-8)
         descriptors.append(descriptor_normalized.flatten())
-                        </div>
+                        </div> -->
+                        <pre><code class="language-python">
+                          def extract_feature_descriptors(im, coords, patch_size=8, sample_spacing=5, window_size=40):
+                            descriptors = []
+                            half_window = window_size // 2
+                            
+                            for i in range(coords.shape[1]):
+                                y, x = coords[0, i], coords[1, i]
+                                # Extract 40x40 window around interest point
+                                window = im[y-half_window:y+half_window, x-half_window:x+half_window]
+                                
+                                # Sample 8x8 patch with 5-pixel spacing
+                                descriptor = np.zeros((patch_size, patch_size))
+                                for i_patch in range(patch_size):
+                                    for j_patch in range(patch_size):
+                                        y_win = i_patch * sample_spacing + (sample_spacing // 2)
+                                        x_win = j_patch * sample_spacing + (sample_spacing // 2)
+                                        descriptor[i_patch, j_patch] = window[y_win, x_win]
+                                
+                                # Bias/gain normalization: mean=0, std=1
+                                descriptor_normalized = (descriptor - np.mean(descriptor)) / (np.std(descriptor) + 1e-8)
+                                descriptors.append(descriptor_normalized.flatten()) 
+                        </pre>
                     </div>
                 </div>
             </div>
@@ -792,7 +814,7 @@ def extract_feature_descriptors(im, coords, patch_size=8, sample_spacing=5, wind
                     <div class="step-content">
                         <h3>Lowe's Ratio Test</h3>
                         <p>Implemented nearest neighbor matching with ratio thresholding to filter ambiguous matches and improve matching reliability.</p>
-                        <div class="code-block">
+                        <!-- <div class="code-block">
 def match_features(descriptors1, descriptors2, ratio_threshold=0.8):
     nbrs = NearestNeighbors(n_neighbors=2, algorithm='auto').fit(descriptors2)
     distances, indices = nbrs.kneighbors(descriptors1)
@@ -803,14 +825,48 @@ def match_features(descriptors1, descriptors2, ratio_threshold=0.8):
     
     matches = np.column_stack([np.where(mask)[0], indices[mask, 0]])
     return matches, distances[mask, 0]
-                        </div>
+                        </div> -->
+                        <pre><code class="language-python">
+                        def match_features(descriptors1, descriptors2, ratio_threshold=0.8):
+                            nbrs = NearestNeighbors(n_neighbors=2, algorithm='auto').fit(descriptors2)
+                            distances, indices = nbrs.kneighbors(descriptors1)
+                            
+                            # Lowe's ratio test: distance_1nn / distance_2nn < threshold
+                            ratios = distances[:, 0] / (distances[:, 1] + 1e-8)
+                            mask = ratios < ratio_threshold
+                            
+                            matches = np.column_stack([np.where(mask)[0], indices[mask, 0]])
+                            return matches, distances[mask, 0]  
+                        </pre>
+                        
                     </div>
                 </div>
             </div>
             
             <div class="image-grid">
                 <div class="image-card">
-                    <img src="media/feature_matches.png" alt="Feature Matches">
+                    <img src="media/feature_matches1.png" alt="Feature Matches">
+                    <div class="image-caption">Feature Matches Between Image Pair</div>
+                </div>
+            </div>
+
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="media/feature_matches2.png" alt="Feature Matches">
+                    <div class="image-caption">Feature Matches Between Image Pair</div>
+                </div>
+            </div>
+
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="media/feature_matches3.png" alt="Feature Matches">
+                    <div class="image-caption">Feature Matches Between Image Pair</div>
+                </div>
+            </div>
+
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="media/feature_matches4.png" alt="Feature Matches">
                     <div class="image-caption">Feature Matches Between Image Pair</div>
                 </div>
             </div>
