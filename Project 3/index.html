@@ -682,25 +682,28 @@ def harmonic_mean_harris(im, sigma_d=1.0, sigma_i=1.5, threshold=10.0):
                     <div class="step-content">
                         <h3>Adaptive Non-Maximal Suppression (ANMS)</h3>
                         <p>Selected well-distributed interest points by computing suppression radii and keeping points with largest radii to avoid feature clustering.</p>
-                        <div class="code-block">
-def anms(coords, corner_strength, num_points=500, c_robust=0.9):
-    coords_t = coords.T
-    n = coords_t.shape[0]
-    suppression_radii = np.zeros(n)
-    tree = KDTree(coords_t)
-    strengths = corner_strength[coords[0], coords[1]]
-    
-    for i in range(n):
-        current_strength = strengths[i]
-        stronger_mask = strengths > (current_strength / c_robust)
-        if not np.any(stronger_mask):
-            suppression_radii[i] = np.inf
-        else:
-            stronger_indices = np.where(stronger_mask)[0]
-            stronger_coords = coords_t[stronger_indices]
-            distances = tree.query(coords_t[i], k=len(stronger_indices))[0]
-            suppression_radii[i] = np.min(distances)
-                        </div>
+                        <!-- <div class="code-block"> -->
+                        <pre><code class="language-python">
+                        def anms(coords, corner_strength, num_points=500, c_robust=0.9):
+                            coords_t = coords.T
+                            n = coords_t.shape[0]
+                            suppression_radii = np.zeros(n)
+                            tree = KDTree(coords_t)
+                            strengths = corner_strength[coords[0], coords[1]]
+                            
+                            for i in range(n):
+                                current_strength = strengths[i]
+                                stronger_mask = strengths > (current_strength / c_robust)
+                                if not np.any(stronger_mask):
+                                    suppression_radii[i] = np.inf
+                                else:
+                                    stronger_indices = np.where(stronger_mask)[0]
+                                    stronger_coords = coords_t[stronger_indices]
+                                    distances = tree.query(coords_t[i], k=len(stronger_indices))[0]
+                                    suppression_radii[i] = np.min(distances)    
+                        </pre>
+
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>
