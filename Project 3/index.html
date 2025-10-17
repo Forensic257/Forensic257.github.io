@@ -960,20 +960,16 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                     <div class="step-content">
                         <h3>Mutual Warping Strategy</h3>
                         <p>Both images warp toward common projection space for better geometric distribution in final mosaics.</p>
-                        <!-- <div class="code-block">
-def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
-    H1, H2 = compute_weighted_homographies(H, weight=warp_strength)
-    homographies = [H1, H2] if ref_idx == 0 else [H2, H1]
-    # Warp both images toward common projection
-    # ... weighted blending implementation
-                        </div> -->
-                        <pre><code class="language-python">
-                        def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
-                            H1, H2 = compute_weighted_homographies(H, weight=warp_strength)
-                            homographies = [H1, H2] if ref_idx == 0 else [H2, H1]
-                            # Warp both images toward common projection
-                            # ... weighted blending implementation
-                        </pre>
+                        <div class="code-block">
+                            <pre><code class="language-python">
+                            def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
+                                H1, H2 = compute_weighted_homographies(H, weight=warp_strength)
+                                homographies = [H1, H2] if ref_idx == 0 else [H2, H1]
+                                # Warp both images toward common projection
+                                # ... weighted blending implementation
+                            </pre>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -989,7 +985,7 @@ def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
                 <div class="image-grid">
                     <div class="image-card">
                         <img src="media/matching_features1.png" alt="RANSAC Results">
-                        <div class="image-caption">RANSAC Inliers (Green) vs Outliers (Red)</div>
+                        <!-- <div class="image-caption">RANSAC Inliers (Green) vs Outliers (Red)</div> -->
                     </div>
 
                     <div class="image-card">
@@ -1004,7 +1000,7 @@ def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
 
                     <div class="image-card">
                         <img src="media/matching_features4.png" alt="RANSAC Results">
-                        <!-- <div class="image-caption">RANSAC Inliers (Green) vs Outliers (Red)</div> -->
+                        <div class="image-caption">RANSAC Inliers (Green) vs Outliers (Red)</div>
                     </div>
 
 
@@ -1059,7 +1055,7 @@ def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
                         <div class="comparison-label">Manual Stitching</div>
                     </div>
                     <div class="comparison-item">
-                        <img src="media/mosaic1_auto.png" alt="Automatic Mosaic 1">
+                        <img src="media/mosaic1_output.png" alt="Automatic Mosaic 1">
                         <div class="comparison-label">Automatic Stitching</div>
                     </div>
                 </div>
@@ -1072,7 +1068,7 @@ def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
                         <div class="comparison-label">Manual Stitching</div>
                     </div>
                     <div class="comparison-item">
-                        <img src="media/mosaic2_auto.png" alt="Automatic Mosaic 2">
+                        <img src="media/mosaic2_output.png" alt="Automatic Mosaic 2">
                         <div class="comparison-label">Automatic Stitching</div>
                     </div>
                 </div>
@@ -1085,7 +1081,7 @@ def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
                         <div class="comparison-label">Manual Stitching</div>
                     </div>
                     <div class="comparison-item">
-                        <img src="media/mosaic3_auto.png" alt="Automatic Mosaic 3">
+                        <img src="media/mosaic3_output.png" alt="Automatic Mosaic 3">
                         <div class="comparison-label">Automatic Stitching</div>
                     </div>
                 </div>
@@ -1112,10 +1108,37 @@ def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
             </div>
         </section>
     
-    <footer>
-        <p>CS 180 Project - Image Warping and Mosaicing</p>
-        <p>Implementation of homography estimation, image warping, and mosaic creation</p>
+        <footer>
+        <div class="footer-content">
+            <p><strong>CS 180 Project - Image Warping and Mosaicing</strong></p>
+            <p>Complete implementation of manual and automatic image stitching pipelines</p>
+            <div class="footer-links">
+                <span>Project 3A: Manual Homography & Mosaicing</span> • 
+                <span>Project 3B: Feature Matching & Autostitching</span>
+            </div>
+            <p class="footer-tech">Technologies: Python, NumPy, OpenCV, Matplotlib, scikit-image</p>
+        </div>
     </footer>
+
+    <style>
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .footer-links {
+            margin: 0.5rem 0;
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+        
+        .footer-tech {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+    </style>
 
     <script>
         function openTab(evt, tabName) {
