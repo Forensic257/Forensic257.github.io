@@ -870,6 +870,18 @@ def match_features(descriptors1, descriptors2, ratio_threshold=0.8):
                     <div class="image-caption">Feature Matches Between Image Pair</div>
                 </div>
             </div>
+
+            <div class="highlight" style="background: linear-gradient(120deg, rgba(255,0,0,0.1), rgba(255,100,0,0.1)); border-left: 4px solid #dc3545;">
+                <h4>⚠️ Mosaic Creation Failed for Pair 4</h4>
+                <p><strong>Analysis:</strong> The automatic stitching pipeline failed to create a mosaic for this image pair due to:</p>
+                <ul>
+                    <li><strong>Complex repetitive patterns</strong> causing ambiguous feature matches</li>
+                    <li><strong>Insufficient distinctive correspondence points</strong> for robust homography estimation</li>
+                    <li><strong>Low match count (7-54)</strong> below the minimum threshold required for RANSAC convergence</li>
+                    <li><strong>Similar pixel patterns</strong> across multiple regions leading to false matches</li>
+                </ul>
+                <p><strong>Solution:</strong> This demonstrates the limitations of automatic stitching with challenging textures and highlights cases where manual point selection (as in Project 3A) remains necessary.</p>
+            </div>
             
             <div class="metrics">
                 <div class="metric">
