@@ -845,39 +845,39 @@ def match_features(descriptors1, descriptors2, ratio_threshold=0.8):
             
             <div class="image-grid">
                 <div class="image-card">
-                    <img src="media/feature_matches1.png" alt="Feature Matches">
-                    <div class="image-caption">Feature Matches Between Image Pair</div>
+                    <img src="media/matching_features1.png" alt="Feature Matches">
+                    <!-- <div class="image-caption">Feature Matches Between Image Pair</div> -->
                 </div>
             </div>
 
             <div class="image-grid">
                 <div class="image-card">
-                    <img src="media/feature_matches2.png" alt="Feature Matches">
-                    <div class="image-caption">Feature Matches Between Image Pair</div>
+                    <img src="media/matching_features2 (2).png" alt="Feature Matches">
+                    <!-- <div class="image-caption">Feature Matches Between Image Pair</div> -->
                 </div>
             </div>
 
             <div class="image-grid">
                 <div class="image-card">
-                    <img src="media/feature_matches3.png" alt="Feature Matches">
-                    <div class="image-caption">Feature Matches Between Image Pair</div>
+                    <img src="media/matching_features3.png" alt="Feature Matches">
+                    <!-- <div class="image-caption">Feature Matches Between Image Pair</div> -->
                 </div>
             </div>
 
             <div class="image-grid">
                 <div class="image-card">
-                    <img src="media/feature_matches4.png" alt="Feature Matches">
+                    <img src="media/matching_features4.png" alt="Feature Matches">
                     <div class="image-caption">Feature Matches Between Image Pair</div>
                 </div>
             </div>
             
             <div class="metrics">
-                <div class="metric">
+                <!-- <div class="metric">
                     <div class="metric-value">500</div>
                     <div class="metric-label">Features per Image</div>
-                </div>
+                </div> -->
                 <div class="metric">
-                    <div class="metric-value">150-250</div>
+                    <div class="metric-value">7-54</div>
                     <div class="metric-label">Initial Matches</div>
                 </div>
                 <div class="metric">
@@ -895,7 +895,7 @@ def match_features(descriptors1, descriptors2, ratio_threshold=0.8):
                     <div class="step-content">
                         <h3>4-Point RANSAC Implementation</h3>
                         <p>Robust homography estimation using random sampling consensus with 4-point minimal sets and geometric error thresholding.</p>
-                        <div class="code-block">
+                        <!-- <div class="code-block">
 def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=1000, inlier_threshold=5.0):
     for iteration in range(num_iterations):
         # Randomly sample 4 points
@@ -917,7 +917,30 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
             inlier_pts1 = matched_pts1[inlier_mask]
             inlier_pts2 = matched_pts2[inlier_mask]
             best_H = compute_homography_all_points(inlier_pts1, inlier_pts2)
-                        </div>
+                        </div> -->
+                        <pre><code class="language-python">
+                        def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=1000, inlier_threshold=5.0):
+                            for iteration in range(num_iterations):
+                                # Randomly sample 4 points
+                                sample_indices = np.random.choice(matches.shape[0], 4, replace=False)
+                                sample_pts1 = matched_pts1[sample_indices]
+                                sample_pts2 = matched_pts2[sample_indices]
+                                
+                                # Compute homography from 4 points
+                                H_4point = compute_homography_4point_least_squares(sample_pts1, sample_pts2)
+                                
+                                # Count inliers
+                                pts1_transformed = apply_homography(H_4point, matched_pts1)
+                                errors = np.linalg.norm(pts1_transformed - matched_pts2, axis=1)
+                                inlier_mask = errors < inlier_threshold
+                                num_inliers = np.sum(inlier_mask)
+                                
+                                # Refine with all inliers if better model found
+                                if num_inliers > best_num_inliers and num_inliers >= 4:
+                                    inlier_pts1 = matched_pts1[inlier_mask]
+                                    inlier_pts2 = matched_pts2[inlier_mask]
+                                    best_H = compute_homography_all_points(inlier_pts1, inlier_pts2) 
+                        </pre>
                     </div>
                 </div>
                 
@@ -925,13 +948,20 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                     <div class="step-content">
                         <h3>Mutual Warping Strategy</h3>
                         <p>Both images warp toward common projection space for better geometric distribution in final mosaics.</p>
-                        <div class="code-block">
+                        <!-- <div class="code-block">
 def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
     H1, H2 = compute_weighted_homographies(H, weight=warp_strength)
     homographies = [H1, H2] if ref_idx == 0 else [H2, H1]
     # Warp both images toward common projection
     # ... weighted blending implementation
-                        </div>
+                        </div> -->
+                        <pre><code class="language-python">
+                        def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
+                            H1, H2 = compute_weighted_homographies(H, weight=warp_strength)
+                            homographies = [H1, H2] if ref_idx == 0 else [H2, H1]
+                            # Warp both images toward common projection
+                            # ... weighted blending implementation
+                        </pre>
                     </div>
                 </div>
             </div>
