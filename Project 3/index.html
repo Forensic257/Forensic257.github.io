@@ -1004,10 +1004,10 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
             
             <div class="tabs">
                 <div class="tab active" onclick="openTab(event, 'ransac-results-tab')">RANSAC Results</div>
-                <div class="tab" onclick="openTab(event, 'mosaic1-tab')">Automatic Mosaic 1</div>
-                <div class="tab" onclick="openTab(event, 'mosaic2-tab')">Automatic Mosaic 2</div>
-                <div class="tab" onclick="openTab(event, 'mosaic3-tab')">Automatic Mosaic 3</div>
-                <div class="tab" onclick="openTab(event, 'mosaic4-tab')">Automatic Mosaic 4</div>
+                <!-- <div class="tab" onclick="openTab(event, 'mosaic1-tab')">Automatic Mosaic 1</div> -->
+                <!-- <div class="tab" onclick="openTab(event, 'mosaic2-tab')">Automatic Mosaic 2</div> -->
+                <!-- <div class="tab" onclick="openTab(event, 'mosaic3-tab')">Automatic Mosaic 3</div> -->
+                <!-- <div class="tab" onclick="openTab(event, 'mosaic4-tab')">Automatic Mosaic 4</div> -->
             </div>
             
             <div id="ransac-results-tab" class="tab-content active">
@@ -1031,6 +1031,26 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                         <img src="media/matching_features4.png" alt="RANSAC Results">
                         <!-- <div class="image-caption">RANSAC Inliers (Green) vs Outliers (Red)</div> -->
                     </div>
+
+                    <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">1000</div>
+                        <div class="metric-label">RANSAC Iterations</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">5.0 px</div>
+                        <div class="metric-label">Inlier Threshold</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">80-120</div>
+                        <div class="metric-label">Final Inliers</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">4.2 px</div>
+                        <div class="metric-label">Mean Reprojection Error</div>
+                    </div>
+                </div>
+            </div>
 
 
                     <!-- <div class="image-grid">
@@ -1057,7 +1077,7 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                     
                 </div>
                 
-                <div class="metrics">
+                <!-- <div class="metrics">
                     <div class="metric">
                         <div class="metric-value">1000</div>
                         <div class="metric-label">RANSAC Iterations</div>
@@ -1075,7 +1095,7 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                         <div class="metric-label">Mean Reprojection Error</div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
             <!-- <div id="mosaic1-tab" class="tab-content">
                 <div class="comparison-container">
