@@ -1136,7 +1136,7 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                 </div>
             </div> -->
 
-                        <div class="tabs">
+        <div class="tabs">
                 <input type="radio" name="mosaic-tabs" id="mosaic1-tab-btn" checked>
                 <label for="mosaic1-tab-btn" class="tab">Mosaic 1</label>
                 
@@ -1151,10 +1151,10 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                 
                 <div id="mosaic1-tab" class="tab-content">
                     <div class="comparison-container">
-                        <div class="comparison-item">
+                        <!-- <div class="comparison-item">
                             <img src="media/mosaic1_weight.png" alt="Manual Mosaic 1">
                             <div class="comparison-label">Manual Stitching</div>
-                        </div>
+                        </div> -->
                         <div class="comparison-item">
                             <img src="media/mosaic1_output.png" alt="Automatic Mosaic 1">
                             <div class="comparison-label">Automatic Stitching</div>
@@ -1165,7 +1165,7 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                 <div id="mosaic2-tab" class="tab-content">
                     <div class="comparison-container">
                         <div class="comparison-item">
-                            <img src="media/mosaic2_weight.png" alt="Manual Mosaic 2">
+                            <img src="media/mosaic1_weight.png" alt="Manual Mosaic 2">
                             <div class="comparison-label">Manual Stitching</div>
                         </div>
                         <div class="comparison-item">
@@ -1189,10 +1189,14 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                 </div>
                 
                 <div id="mosaic4-tab" class="tab-content">
-                    <div class="image-grid">
-                        <div class="image-card">
+                    <div class="comparison-container">
+                        <div class="comparison-item">
+                            <img src="media/mosaic2_weight.png" alt="Manual Mosaic 4">
+                            <div class="comparison-label">Manual Stitching</div>
+                        </div>
+                        <div class="comparison-item">
                             <img src="media/mosaic4_output.png" alt="Automatic Mosaic 4">
-                            <div class="image-caption">Automatic Stitching - Single View</div>
+                            <div class="comparison-label">Automatic Stitching</div>
                         </div>
                     </div>
                 </div>
