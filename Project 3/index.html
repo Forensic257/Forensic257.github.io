@@ -270,6 +270,36 @@
                 grid-template-columns: 1fr;
             }
         }
+                /* CSS-only Tabs */
+        .tabs input[type="radio"] {
+            display: none;
+        }
+        
+        .tabs .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .tabs input[type="radio"]:checked + .tab {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 1.5rem 0;
+        }
+        
+        #mosaic1-tab-btn:checked ~ #mosaic1-tab,
+        #mosaic2-tab-btn:checked ~ #mosaic2-tab,
+        #mosaic3-tab-btn:checked ~ #mosaic3-tab,
+        #mosaic4-tab-btn:checked ~ #mosaic4-tab {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -977,6 +1007,7 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                 <div class="tab" onclick="openTab(event, 'mosaic1-tab')">Automatic Mosaic 1</div>
                 <div class="tab" onclick="openTab(event, 'mosaic2-tab')">Automatic Mosaic 2</div>
                 <div class="tab" onclick="openTab(event, 'mosaic3-tab')">Automatic Mosaic 3</div>
+                <div class="tab" onclick="openTab(event, 'mosaic4-tab')">Automatic Mosaic 4</div>
             </div>
             
             <div id="ransac-results-tab" class="tab-content active">
@@ -1046,7 +1077,7 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                 </div>
             </div>
             
-            <div id="mosaic1-tab" class="tab-content">
+            <!-- <div id="mosaic1-tab" class="tab-content">
                 <div class="comparison-container">
                     <div class="comparison-item">
                         <img src="media/mosaic1_weight.png" alt="Manual Mosaic 1">
@@ -1083,17 +1114,66 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                         <div class="comparison-label">Automatic Stitching</div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div id="mosaic4-tab" class="tab-content">
-                <div class="comparison-container">
-                    <!-- <div class="comparison-item">
-                        <img src="media/mosaic3_weight.png" alt="Manual Mosaic 3">
-                        <div class="comparison-label">Manual Stitching</div>
-                    </div> -->
-                    <div class="comparison-item">
-                        <img src="media/mosaic4_output.png" alt="Automatic Mosaic 4">
-                        <div class="comparison-label">Automatic Stitching</div>
+                        <div class="tabs">
+                <input type="radio" name="mosaic-tabs" id="mosaic1-tab-btn" checked>
+                <label for="mosaic1-tab-btn" class="tab">Mosaic 1</label>
+                
+                <input type="radio" name="mosaic-tabs" id="mosaic2-tab-btn">
+                <label for="mosaic2-tab-btn" class="tab">Mosaic 2</label>
+                
+                <input type="radio" name="mosaic-tabs" id="mosaic3-tab-btn">
+                <label for="mosaic3-tab-btn" class="tab">Mosaic 3</label>
+                
+                <input type="radio" name="mosaic-tabs" id="mosaic4-tab-btn">
+                <label for="mosaic4-tab-btn" class="tab">Mosaic 4</label>
+                
+                <div id="mosaic1-tab" class="tab-content">
+                    <div class="comparison-container">
+                        <div class="comparison-item">
+                            <img src="media/mosaic1_weight.png" alt="Manual Mosaic 1">
+                            <div class="comparison-label">Manual Stitching</div>
+                        </div>
+                        <div class="comparison-item">
+                            <img src="media/mosaic1_output.png" alt="Automatic Mosaic 1">
+                            <div class="comparison-label">Automatic Stitching</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="mosaic2-tab" class="tab-content">
+                    <div class="comparison-container">
+                        <div class="comparison-item">
+                            <img src="media/mosaic2_weight.png" alt="Manual Mosaic 2">
+                            <div class="comparison-label">Manual Stitching</div>
+                        </div>
+                        <div class="comparison-item">
+                            <img src="media/mosaic2_output.png" alt="Automatic Mosaic 2">
+                            <div class="comparison-label">Automatic Stitching</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="mosaic3-tab" class="tab-content">
+                    <div class="comparison-container">
+                        <div class="comparison-item">
+                            <img src="media/mosaic3_weight.png" alt="Manual Mosaic 3">
+                            <div class="comparison-label">Manual Stitching</div>
+                        </div>
+                        <div class="comparison-item">
+                            <img src="media/mosaic3_output.png" alt="Automatic Mosaic 3">
+                            <div class="comparison-label">Automatic Stitching</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="mosaic4-tab" class="tab-content">
+                    <div class="image-grid">
+                        <div class="image-card">
+                            <img src="media/mosaic4_output.png" alt="Automatic Mosaic 4">
+                            <div class="image-caption">Automatic Stitching - Single View</div>
+                        </div>
                     </div>
                 </div>
             </div>
