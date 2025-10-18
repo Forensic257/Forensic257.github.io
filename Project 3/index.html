@@ -877,7 +877,7 @@ def match_features(descriptors1, descriptors2, ratio_threshold=0.8):
                 <ul>
                     <li><strong>Complex repetitive patterns</strong> causing ambiguous feature matches</li>
                     <li><strong>Insufficient distinctive correspondence points</strong> for robust homography estimation</li>
-                    <li><strong>Low match count (7-54)</strong> below the minimum threshold required for RANSAC convergence</li>
+                    <li><strong>Low match count (<4)</strong> below the minimum threshold required for RANSAC convergence</li>
                     <li><strong>Similar pixel patterns</strong> across multiple regions leading to false matches</li>
                 </ul>
                 <p><strong>Solution:</strong> This demonstrates the limitations of automatic stitching with challenging textures and highlights cases where manual point selection (as in Project 3A) remains necessary.</p>
@@ -885,11 +885,11 @@ def match_features(descriptors1, descriptors2, ratio_threshold=0.8):
             
             <div class="metrics">
                 <div class="metric">
-                    <div class="metric-value">500</div>
+                    <div class="metric-value">69-500</div>
                     <div class="metric-label">Features per Image</div>
                 </div>
                 <div class="metric">
-                    <div class="metric-value">7-54</div>
+                    <div class="metric-value">16-54</div>
                     <div class="metric-label">Initial Matches</div>
                 </div>
                 <div class="metric">
@@ -960,16 +960,14 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
                     <div class="step-content">
                         <h3>Mutual Warping Strategy</h3>
                         <p>Both images warp toward common projection space for better geometric distribution in final mosaics.</p>
-                        <div class="code-block">
-                            <pre><code class="language-python">
-                            def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
-                                H1, H2 = compute_weighted_homographies(H, weight=warp_strength)
-                                homographies = [H1, H2] if ref_idx == 0 else [H2, H1]
-                                # Warp both images toward common projection
-                                # ... weighted blending implementation
-                            </pre>
-                        </div>
                         
+                        <pre><code class="language-python">
+                        def create_mosaic_mutual_warping(images, H, ref_idx=0, warp_strength=0.5):
+                            H1, H2 = compute_weighted_homographies(H, weight=warp_strength)
+                            homographies = [H1, H2] if ref_idx == 0 else [H2, H1]
+                            # Warp both images toward common projection
+                            # ... weighted blending implementation
+                        </pre>
                     </div>
                 </div>
             </div>
@@ -1000,7 +998,7 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
 
                     <div class="image-card">
                         <img src="media/matching_features4.png" alt="RANSAC Results">
-                        <div class="image-caption">RANSAC Inliers (Green) vs Outliers (Red)</div>
+                        <!-- <div class="image-caption">RANSAC Inliers (Green) vs Outliers (Red)</div> -->
                     </div>
 
 
@@ -1051,7 +1049,7 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
             <div id="mosaic1-tab" class="tab-content">
                 <div class="comparison-container">
                     <div class="comparison-item">
-                        <img src="media/mosaic1_manual.png" alt="Manual Mosaic 1">
+                        <img src="media/mosaic1_weight.png" alt="Manual Mosaic 1">
                         <div class="comparison-label">Manual Stitching</div>
                     </div>
                     <div class="comparison-item">
@@ -1064,7 +1062,7 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
             <div id="mosaic2-tab" class="tab-content">
                 <div class="comparison-container">
                     <div class="comparison-item">
-                        <img src="media/mosaic2_manual.png" alt="Manual Mosaic 2">
+                        <img src="media/mosaic2_weight.png" alt="Manual Mosaic 2">
                         <div class="comparison-label">Manual Stitching</div>
                     </div>
                     <div class="comparison-item">
@@ -1077,11 +1075,24 @@ def ransac_homography_least_squares(coords1, coords2, matches, num_iterations=10
             <div id="mosaic3-tab" class="tab-content">
                 <div class="comparison-container">
                     <div class="comparison-item">
-                        <img src="media/mosaic3_manual.png" alt="Manual Mosaic 3">
+                        <img src="media/mosaic3_weight.png" alt="Manual Mosaic 3">
                         <div class="comparison-label">Manual Stitching</div>
                     </div>
                     <div class="comparison-item">
                         <img src="media/mosaic3_output.png" alt="Automatic Mosaic 3">
+                        <div class="comparison-label">Automatic Stitching</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mosaic4-tab" class="tab-content">
+                <div class="comparison-container">
+                    <!-- <div class="comparison-item">
+                        <img src="media/mosaic3_weight.png" alt="Manual Mosaic 3">
+                        <div class="comparison-label">Manual Stitching</div>
+                    </div> -->
+                    <div class="comparison-item">
+                        <img src="media/mosaic4_output.png" alt="Automatic Mosaic 4">
                         <div class="comparison-label">Automatic Stitching</div>
                     </div>
                 </div>
