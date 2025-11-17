@@ -1,1 +1,505 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS180 Project #4: Neural Radiance Field</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+            --gray: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+        
+        h4 {
+            color: var(--primary);
+            margin: 1rem 0 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .deliverable-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .deliverable-item {
+            background: var(--light);
+            border-radius: 6px;
+            padding: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .deliverable-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .deliverable-item img, .deliverable-item video {
+            width: 100%;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .caption {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+        
+        .model-arch {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary);
+            margin: 1rem 0;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .comparison-item {
+            text-align: center;
+            background: var(--light);
+            border-radius: 6px;
+            padding: 1rem;
+        }
+        
+        .comparison-item img {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+        
+        .training-progression {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+        
+        .training-item {
+            flex: 0 0 auto;
+            width: 250px;
+            text-align: center;
+        }
+        
+        .training-item img {
+            width: 100%;
+            border-radius: 4px;
+        }
+        
+        .curve-container {
+            width: 100%;
+            height: 300px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        .curve-placeholder {
+            color: var(--gray);
+            font-style: italic;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .deliverable-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>CS180 Project #4: Neural Radiance Field</h1>
+        <p class="subtitle">Neural Radiance Field Implementation and 3D Reconstruction</p>
+        <p class="subtitle">Due: November 14th, 2025</p>
+    </header>
+    
+    <div class="container">
+        <section id="part0">
+            <h2>Part 0: Camera Calibration and 3D Scanning</h2>
+            
+            <h3>Camera Frustums Visualization</h3>
+            <p>Two screenshots of the camera frustums visualization in Viser, showing the estimated camera positions and orientations for the captured object.</p>
+            
+            <div class="deliverable-grid">
+                <div class="deliverable-item">
+                    <img src="path/to/viser_screenshot1.jpg" alt="Viser Camera Frustums - View 1">
+                    <p class="caption">Camera frustums visualization - View 1</p>
+                </div>
+                <div class="deliverable-item">
+                    <img src="path/to/viser_screenshot2.jpg" alt="Viser Camera Frustums - View 2">
+                    <p class="caption">Camera frustums visualization - View 2</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="part1">
+            <h2>Part 1: Fit a Neural Field to a 2D Image</h2>
+            
+            <h3>Model Architecture</h3>
+            <div class="model-arch">
+                <p><strong>Layers:</strong> 4 layers (input → hidden → hidden → output)</p>
+                <p><strong>Width:</strong> 256 neurons per layer (default)</p>
+                <p><strong>Learning Rate:</strong> 1e-2</p>
+                <p><strong>Positional Encoding Frequency (L):</strong> 10 levels (maps 2D → 42D)</p>
+                <p><strong>Activation Functions:</strong> ReLU for hidden layers, Sigmoid for output</p>
+                <p><strong>Batch Size:</strong> 10,000 pixels per iteration</p>
+                <p><strong>Training Iterations:</strong> 2,000</p>
+                <p><strong>Optimizer:</strong> Adam</p>
+                <p><strong>Loss Function:</strong> Mean Squared Error (MSE)</p>
+                <p><strong>Additional Details:</strong> Input coordinates normalized to [0,1], output colors constrained to [0,1] via Sigmoid, uses random pixel sampling with chunked full-image reconstruction</p>
+                <p><strong>Network Structure:</strong> Input(42) → Linear(256) → ReLU → Linear(256) → ReLU → Linear(256) → ReLU → Linear(3) → Sigmoid</p>
+            </div>
+
+            <h3>Hyperparameter Configurations</h3>
+            <div class="model-arch">
+                <p>The 2×2 grid compares these configurations:</p>
+                <ul>
+                    <li><strong>Small (128, L=4):</strong> Hidden dim=128, Positional Encoding levels=4</li>
+                    <li><strong>Small (128, L=10):</strong> Hidden dim=128, Positional Encoding levels=10</li>
+                    <li><strong>Medium (256, L=4):</strong> Hidden dim=256, Positional Encoding levels=4</li>
+                    <li><strong>Medium (256, L=10):</strong> Hidden dim=256, Positional Encoding levels=10</li>
+                </ul>
+            </div>
+            
+            <h3>Training Progression</h3>
+            <p>Visualization of the training process on both the provided test image and a custom image.</p>
+            
+            <h4>Provided Test Image</h4>
+            <div class="training-progression">
+                <div class="training-item">
+                    <img src="path/to/test_iter0.jpg" alt="Test Image - Iteration 0">
+                    <p class="caption">Iteration 0</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/test_iter100.jpg" alt="Test Image - Iteration 100">
+                    <p class="caption">Iteration 100</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/test_iter500.jpg" alt="Test Image - Iteration 500">
+                    <p class="caption">Iteration 500</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/test_iter1000.jpg" alt="Test Image - Iteration 1000">
+                    <p class="caption">Iteration 1000</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/test_iter3000.jpg" alt="Test Image - Iteration 3000">
+                    <p class="caption">Iteration 3000</p>
+                </div>
+            </div>
+            
+            <h4>Custom Image</h4>
+            <div class="training-progression">
+                <div class="training-item">
+                    <img src="path/to/custom_iter0.jpg" alt="Custom Image - Iteration 0">
+                    <p class="caption">Iteration 0</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/custom_iter100.jpg" alt="Custom Image - Iteration 100">
+                    <p class="caption">Iteration 100</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/custom_iter500.jpg" alt="Custom Image - Iteration 500">
+                    <p class="caption">Iteration 500</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/custom_iter1000.jpg" alt="Custom Image - Iteration 1000">
+                    <p class="caption">Iteration 1000</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/custom_iter3000.jpg" alt="Custom Image - Iteration 3000">
+                    <p class="caption">Iteration 3000</p>
+                </div>
+            </div>
+            
+            <h3>Hyperparameter Comparison (2×2 Grid)</h3>
+            <p>Final results for different combinations of positional encoding frequency and network width.</p>
+            
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <img src="path/to/lowfreq_narrow.jpg" alt="Low Frequency, Narrow Width">
+                    <p class="caption">Low PE Frequency, Narrow Width</p>
+                </div>
+                <div class="comparison-item">
+                    <img src="path/to/highfreq_narrow.jpg" alt="High Frequency, Narrow Width">
+                    <p class="caption">High PE Frequency, Narrow Width</p>
+                </div>
+                <div class="comparison-item">
+                    <img src="path/to/lowfreq_wide.jpg" alt="Low Frequency, Wide Width">
+                    <p class="caption">Low PE Frequency, Wide Width</p>
+                </div>
+                <div class="comparison-item">
+                    <img src="path/to/highfreq_wide.jpg" alt="High Frequency, Wide Width">
+                    <p class="caption">High PE Frequency, Wide Width</p>
+                </div>
+            </div>
+            
+            <h3>PSNR Curve</h3>
+            <p>Peak Signal-to-Noise Ratio over training iterations for one image.</p>
+            
+            <div class="curve-container">
+                <img src="path/to/psnr_curve.jpg" alt="PSNR Curve" style="max-width: 100%; max-height: 100%;">
+                <!-- Alternative placeholder if image not ready -->
+                <!-- <div class="curve-placeholder">PSNR Curve will be displayed here</div> -->
+            </div>
+        </section>
+        
+        <section id="part2">
+            <h2>Part 2: Fit a Neural Radiance Field from Multi-view Images</h2>
+            
+            <h3>Implementation Description</h3>
+            <div class="model-arch">
+                <p><strong>Ray Generation:</strong> Uses camera-to-world transformation matrices with normalized ray directions. Generates rays using meshgrid with consistent coordinate system for both training and validation poses.</p>
+                
+                <p><strong>Point Sampling:</strong> Linear sampling between near/far planes (0.02-0.5 for custom data, 2.0-6.0 for Lego). Uses 64 samples per ray for standard training, 128 for hierarchical sampling with coarse-to-fine approach.</p>
+                
+                <p><strong>NeRF Model:</strong> EnhancedNeRF with positional encoding (L=20 for positions, L=8 for directions). 6-layer MLP with skip connections, 256 hidden units, dropout=0.1. Outputs density (ReLU) and view-dependent color (Sigmoid).</p>
+                
+                <p><strong>Volume Rendering:</strong> Implements discrete volume rendering equation with transmittance computation using cumulative sums. Handles batched rendering for memory efficiency.</p>
+                
+                <p><strong>Training:</strong> Adam optimizer (lr=5e-4), batch size=10,000 rays, MSE loss, gradient clipping (max_norm=0.25). Tracks validation metrics every 1000 iterations with best model checkpointing.</p>
+                
+                <p><strong>Data Processing:</strong> Automatic scene scale analysis, outlier removal for camera poses, robust dataset loading with error handling.</p>
+            </div>
+
+            <h3>Model Architecture Details</h3>
+            <div class="model-arch">
+                <p><strong>Positional Encoding:</strong> Input (3D) → 123D for positions, Input (3D) → 51D for directions</p>
+                <p><strong>Network Structure:</strong> Input → Linear(256) → ReLU → ... (6 layers) → [Density + Features] → Color MLP</p>
+                <p><strong>Skip Connection:</strong> After layer 3, concatenates encoded input</p>
+                <p><strong>Outputs:</strong> Density (single value, ReLU), Color (3 values, Sigmoid)</p>
+            </div>
+            
+            <h3>Rays and Samples Visualization</h3>
+            <p>Visualization of cameras, rays, and sampled points using Viser (up to 100 rays).</p>
+            
+            <div class="deliverable-item">
+                <img src="path/to/rays_visualization.jpg" alt="Rays and Samples Visualization">
+                <p class="caption">Cameras, rays, and sampled points in 3D space</p>
+            </div>
+            
+            <h3>Training Progression</h3>
+            <p>Predicted images across iterations on the validation set.</p>
+            
+            <div class="training-progression">
+                <div class="training-item">
+                    <img src="path/to/nerf_iter0.jpg" alt="NeRF - Iteration 0">
+                    <p class="caption">Iteration 0</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/nerf_iter1000.jpg" alt="NeRF - Iteration 1000">
+                    <p class="caption">Iteration 1000</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/nerf_iter5000.jpg" alt="NeRF - Iteration 5000">
+                    <p class="caption">Iteration 5000</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/nerf_iter10000.jpg" alt="NeRF - Iteration 10000">
+                    <p class="caption">Iteration 10000</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/nerf_iter20000.jpg" alt="NeRF - Iteration 20000">
+                    <p class="caption">Iteration 20000</p>
+                </div>
+            </div>
+            
+            <h3>Validation PSNR Curve</h3>
+            <p>PSNR on the validation set over training iterations.</p>
+            
+            <div class="curve-container">
+                <img src="path/to/nerf_psnr_curve.jpg" alt="NeRF PSNR Curve" style="max-width: 100%; max-height: 100%;">
+                <!-- Alternative placeholder if image not ready -->
+                <!-- <div class="curve-placeholder">NeRF PSNR Curve will be displayed here</div> -->
+            </div>
+            
+            <h3>Novel View Rendering</h3>
+            <p>Spherical rendering video of the Lego scene using provided test cameras.</p>
+            
+            <div class="deliverable-item">
+                <video controls>
+                    <source src="path/to/lego_novel_views.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p class="caption">360-degree novel view rendering of the Lego scene</p>
+            </div>
+        </section>
+        
+        <section id="part2-6">
+            <h2>Part 2.6: Training with Your Own Data</h2>
+            
+            <h3>Object Photos</h3>
+            <p>Reference photos of the object used for NeRF training.</p>
+            
+            <div class="deliverable-grid">
+                <div class="deliverable-item">
+                    <img src="path/to/object_photo1.jpg" alt="Object Photo 1">
+                    <p class="caption">Object front view</p>
+                </div>
+                <div class="deliverable-item">
+                    <img src="path/to/object_photo2.jpg" alt="Object Photo 2">
+                    <p class="caption">Object side view</p>
+                </div>
+                <div class="deliverable-item">
+                    <img src="path/to/object_photo3.jpg" alt="Object Photo 3">
+                    <p class="caption">Object with ArUco tag</p>
+                </div>
+            </div>
+
+            <h3>Novel View GIFs</h3>
+            <p>GIFs showing camera circling around objects, demonstrating novel view synthesis.</p>
+            
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>My Custom Object</h4>
+                    <img src="path/to/custom_object_nerf.gif" alt="Custom Object NeRF GIF">
+                    <p class="caption">Novel views of my custom object from trained NeRF</p>
+                </div>
+                <div class="comparison-item">
+                    <h4>Professor's Dataset (Lafufu)</h4>
+                    <img src="path/to/professor_object_nerf.gif" alt="Professor's Object NeRF GIF">
+                    <p class="caption">Novel views of professor's Lafufu dataset from trained NeRF</p>
+                </div>
+            </div>
+            
+            <h3>Implementation Adjustments</h3>
+            <div class="model-arch">
+                <p><strong>Code Changes:</strong> [Describe any code modifications needed for your custom data]</p>
+                <p><strong>Hyperparameter Changes:</strong> [Describe hyperparameter adjustments like near/far planes, learning rate, etc.]</p>
+                <p><strong>Other Notes:</strong> [Any other implementation details specific to your custom data]</p>
+            </div>
+            
+            <h3>Training Loss Curve</h3>
+            <p>Training loss over iterations for the custom object NeRF.</p>
+            
+            <div class="curve-container">
+                <img src="path/to/custom_training_loss.jpg" alt="Custom Object Training Loss" style="max-width: 100%; max-height: 100%;">
+                <!-- Alternative placeholder if image not ready -->
+                <!-- <div class="curve-placeholder">Custom Object Training Loss Curve will be displayed here</div> -->
+            </div>
+            
+            <h3>Intermediate Renders</h3>
+            <p>Renders of the custom scene during training to show learning progress.</p>
+            
+            <div class="training-progression">
+                <div class="training-item">
+                    <img src="path/to/custom_iter0.jpg" alt="Custom Object - Iteration 0">
+                    <p class="caption">Iteration 0</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/custom_iter2000.jpg" alt="Custom Object - Iteration 2000">
+                    <p class="caption">Iteration 2000</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/custom_iter4000.jpg" alt="Custom Object - Iteration 4000">
+                    <p class="caption">Iteration 4000</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/custom_iter6000.jpg" alt="Custom Object - Iteration 6000">
+                    <p class="caption">Iteration 6000</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/custom_iter8000.jpg" alt="Custom Object - Iteration 8000">
+                    <p class="caption">Iteration 8000</p>
+                </div>
+                <div class="training-item">
+                    <img src="path/to/custom_iter_final.jpg" alt="Custom Object - Final">
+                    <p class="caption">Final Iteration</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>CS180: Intro to Computer Vision and Computational Photography</p>
+        <p>Project #4: Neural Radiance Field</p>
+        <p>Submitted by: [Your Name]</p>
+    </footer>
+</body>
+</html>
