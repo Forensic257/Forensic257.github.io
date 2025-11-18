@@ -424,16 +424,16 @@
             
             <div class="deliverable-grid">
                 <div class="deliverable-item">
-                    <img src="path/to/object_photo1.jpg" alt="Object Photo 1">
+                    <img src="web/IMG_2254.jpg" alt="Object Photo 1">
                     <p class="caption">Object front view</p>
                 </div>
                 <div class="deliverable-item">
-                    <img src="path/to/object_photo2.jpg" alt="Object Photo 2">
+                    <img src="web/IMG_2260.jpg" alt="Object Photo 2">
                     <p class="caption">Object side view</p>
                 </div>
                 <div class="deliverable-item">
-                    <img src="path/to/object_photo3.jpg" alt="Object Photo 3">
-                    <p class="caption">Object with ArUco tag</p>
+                    <img src="web/downsampling_comparison.png" alt="Object Photo 3">
+                    <p class="caption">Object undistorted</p>
                 </div>
             </div>
 
@@ -443,28 +443,28 @@
             <div class="comparison-grid">
                 <div class="comparison-item">
                     <h4>My Custom Object</h4>
-                    <img src="path/to/custom_object_nerf.gif" alt="Custom Object NeRF GIF">
+                    <img src="web/miku_object_nerf.gif" alt="Custom Object NeRF GIF">
                     <p class="caption">Novel views of my custom object from trained NeRF</p>
                 </div>
                 <div class="comparison-item">
                     <h4>Professor's Dataset (Lafufu)</h4>
-                    <img src="path/to/professor_object_nerf.gif" alt="Professor's Object NeRF GIF">
-                    <p class="caption">Novel views of professor's Lafufu dataset from trained NeRF</p>
+                    <img src="web/miku_object_nerf2.gif" alt="Custom Object NeRF GIF">
+                    <p class="caption">Novel views of my custom object from trained NeRF</p>
                 </div>
             </div>
             
             <h3>Implementation Adjustments</h3>
             <div class="model-arch">
-                <p><strong>Code Changes:</strong> [Describe any code modifications needed for your custom data]</p>
-                <p><strong>Hyperparameter Changes:</strong> [Describe hyperparameter adjustments like near/far planes, learning rate, etc.]</p>
-                <p><strong>Other Notes:</strong> [Any other implementation details specific to your custom data]</p>
+                <p><strong>Code Changes:</strong> [Increased Positional and Directional Encoding to 20 and 12 from 10 and 4 to capture high frequencies in the scene better]</p>
+                <p><strong>Hyperparameter Changes:</strong> [Adjusted near/far planes to be 0.03/0.6, added weight decay of 1e-5 with learning rate of 5e-4]</p>
+                <p><strong>Other Notes:</strong> [Switched to Hierarchical Sampling from Linear Sampling for better image quality]</p>
             </div>
             
             <h3>Training Loss Curve</h3>
             <p>Training loss over iterations for the custom object NeRF.</p>
             
             <div class="curve-container">
-                <img src="path/to/custom_training_loss.jpg" alt="Custom Object Training Loss" style="max-width: 100%; max-height: 100%;">
+                <img src="web/custom_training_loss.png" alt="Custom Object Training Loss" style="max-width: 100%; max-height: 100%;">
                 <!-- Alternative placeholder if image not ready -->
                 <!-- <div class="curve-placeholder">Custom Object Training Loss Curve will be displayed here</div> -->
             </div>
