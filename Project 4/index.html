@@ -455,9 +455,11 @@
             
             <h3>Implementation Adjustments</h3>
             <div class="model-arch">
-                <p><strong>Code Changes:</strong> [Increased Positional and Directional Encoding to 20 and 12 from 10 and 4 to capture high frequencies in the scene better]</p>
-                <p><strong>Hyperparameter Changes:</strong> [Adjusted near/far planes to be 0.03/0.6, added weight decay of 1e-5 with learning rate of 5e-4]</p>
-                <p><strong>Other Notes:</strong> [Switched to Hierarchical Sampling from Linear Sampling for better image quality]</p>
+                <p><strong>Code Changes:</strong> [No major changes to model architecture.]</p>
+                <p><strong>Hyperparameter Changes:</strong> [Adjusted near/far planes to be 0.20/0.70]</p>
+                <p><strong>Other Notes:</strong> [Switched to Hierarchical Sampling from Linear Sampling for better image quality. Due to my object's size compared to the 
+                    aruco marker tag, I was unable to get a 360 degree view of my object (only 180 degrees). You may notice the gif to the left that you can make out the plushie when the scene
+                    rotates and covers the top region of the gif, but it disappears when it tries to view what's behind the plushie.]</p>
             </div>
             
             <h3>Training Loss Curve</h3>
