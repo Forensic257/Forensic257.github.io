@@ -313,30 +313,30 @@
 
             <div class="image-grid-3">
                 <div class="image-container">
-                    <img src="web/part0_10steps_64.jpg" alt="10 steps 64x64">
+                    <img src="web/part0_10steps.png" alt="10 steps 64x64">
                     <div class="image-caption">10 steps (64×64)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/part0_20steps_64.jpg" alt="20 steps 64x64">
+                    <img src="web/part0_20steps.png" alt="20 steps 64x64">
                     <div class="image-caption">20 steps (64×64)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/part0_50steps_64.jpg" alt="50 steps 64x64">
+                    <img src="web/part0_50steps.png" alt="50 steps 64x64">
                     <div class="image-caption">50 steps (64×64)</div>
                 </div>
             </div>
 
             <div class="image-grid-3">
                 <div class="image-container">
-                    <img src="web/part0_10steps_256.jpg" alt="10 steps 256x256">
+                    <img src="web/part0_10steps_2.png" alt="10 steps 2">
                     <div class="image-caption">10 steps (256×256)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/part0_20steps_256.jpg" alt="20 steps 256x256">
+                    <img src="web/part0_20steps_2.png" alt="20 steps 2">
                     <div class="image-caption">20 steps (256×256)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/part0_50steps_256.jpg" alt="50 steps 256x256">
+                    <img src="web/part0_50steps_2.png" alt="50 steps 2">
                     <div class="image-caption">50 steps (256×256)</div>
                 </div>
             </div>
@@ -348,16 +348,20 @@
             <h4>Additional Generated Images</h4>
             <div class="image-grid">
                 <div class="image-container">
-                    <img src="web/part0_amalfi_coast.jpg" alt="Amalfi Coast">
+                    <img src="web/part0_amalfi_coast.png" alt="Amalfi Coast">
                     <div class="image-caption">"a photo of the amalfi coast"</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/part0_giraffe.jpg" alt="Giraffe">
+                    <img src="web/part0_giraffe.png" alt="Giraffe">
                     <div class="image-caption">"an oil painting of a giraffe"</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/part0_skull.jpg" alt="Skull">
+                    <img src="web/part0_skull.png" alt="Skull">
                     <div class="image-caption">"a lithograph of a skull"</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/part0_village.png" alt="Snowy Mountain Village">
+                    <div class="image-caption">"an oil painting of a snowy mountain village"</div>
                 </div>
             </div>
         </section>
@@ -371,14 +375,23 @@
                 <p>The <strong>forward diffusion process</strong> gradually adds Gaussian noise to a clean image. Given a clean image x₀, we can obtain a noisy version at any timestep t:</p>
                 
                 <div class="math-formula">
-q(x_t | x_0) = N(x_t; √ᾱ_t · x_0, (1 - ᾱ_t)I)
+<!-- q(x_t | x_0) = N(x_t; √ᾱ_t · x_0, (1 - ᾱ_t)I) -->
+                    \[
+                        q(x_t \mid x_0) = \mathcal{N}\!\left(x_t;\; \sqrt{\bar{\alpha}_t}\, x_0,\; (1 - \bar{\alpha}_t)I\right)
+                      \]
                 </div>
 
                 <p>This can be efficiently computed in closed form:</p>
                 
                 <div class="math-formula">
-x_t = √ᾱ_t · x_0 + √(1 - ᾱ_t) · ε    where ε ~ N(0, I)
+<!-- x_t = √ᾱ_t · x_0 + √(1 - ᾱ_t) · ε    where ε ~ N(0, I) -->
+                    \[
+                    x_t = \sqrt{\bar{\alpha}_t}\, x_0 + \sqrt{1 - \bar{\alpha}_t}\, \varepsilon 
+                    \quad \text{where } \varepsilon \sim \mathcal{N}(0, I)
+                      \]
                 </div>
+                <!-- Load MathJax -->
+                <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
                 <p>Where <code>ᾱ_t</code> (alpha_bar_t) controls the noise schedule. For DeepFloyd, T = 1000 timesteps.</p>
             </div>
