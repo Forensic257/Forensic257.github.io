@@ -1997,3 +1997,328 @@ where γ = guidance scale
             </div>
 
             <div class="success">
+                <strong>Outstanding Results!</strong>
+            <ul style="margin: 10px 0 10px 20px;">
+                <li>✅ Perfect class conditioning - generates requested digits</li>
+                <li>✅ High diversity within each class</li>
+                <li>✅ CFG dramatically improves quality</li>
+                <li>✅ γ=5.0 provides excellent quality-diversity balance</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- BONUS: NO SCHEDULER -->
+    <section id="partb-bonus-scheduler" class="section">
+        <h2>🔬 Bonus Experiment: Training Without LR Scheduler</h2>
+        
+        <div class="theory-box">
+            <h3>Research Question</h3>
+            <p>Is the exponential learning rate scheduler necessary? Let's find out!</p>
+            
+            <h4 style="margin-top: 20px;">Experimental Setup:</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Approach</th>
+                        <th>Learning Rate</th>
+                        <th>Schedule</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>With Scheduler</strong></td>
+                        <td>1e-2 → 3.16e-3</td>
+                        <td>Exponential decay</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Without Scheduler</strong></td>
+                        <td>5e-3 (constant)</td>
+                        <td>None</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p style="margin-top: 15px;"><strong>Hypothesis:</strong> A well-chosen constant LR (geometric mean of scheduled range) should work comparably.</p>
+        </div>
+
+        <h3>Results</h3>
+        <div class="image-container" style="max-width: 100%; margin: 20px 0;">
+            <img src="web/partb_no_scheduler_comparison.jpg" alt="Scheduler comparison">
+            <div class="image-caption">Training curves: With Scheduler vs Without</div>
+        </div>
+
+        <div class="image-grid-2">
+            <div class="image-container">
+                <img src="web/partb_with_scheduler_samples.jpg" alt="With scheduler">
+                <div class="image-caption">With LR Scheduler</div>
+            </div>
+            <div class="image-container">
+                <img src="web/partb_without_scheduler_samples.jpg" alt="Without scheduler">
+                <div class="image-caption">Without LR Scheduler (constant 5e-3)</div>
+            </div>
+        </div>
+
+        <div class="success">
+            <strong>Key Findings:</strong>
+            <ul style="margin: 10px 0 10px 20px;">
+                <li>✅ <strong>Similar final loss</strong> - comparable performance</li>
+                <li>✅ <strong>Smoother training curve</strong> - no scheduler oscillations</li>
+                <li>✅ <strong>Comparable sample quality</strong> - both produce good digits</li>
+                <li>✅ <strong>Simpler implementation</strong> - one less hyperparameter</li>
+            </ul>
+
+            <p style="margin-top: 15px;"><strong>Conclusion:</strong> For this task, a well-chosen constant learning rate successfully replaces exponential scheduling while providing simpler, more stable training dynamics!</p>
+        </div>
+    </section>
+
+    <!-- PART 3: BELLS & WHISTLES -->
+    <section id="partb-3" class="section">
+        <h2>🔔 Part 3: Bells & Whistles</h2>
+        
+        <div class="theory-box">
+            <h3>Going Beyond MNIST</h3>
+            <p>Let's push our flow matching model to new domains and demonstrate its versatility!</p>
+        </div>
+
+        <h3>3.1: Improved Time-Conditioned Model</h3>
+        <div class="theory-box">
+            <h4>Improvements Applied:</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Baseline</th>
+                        <th>Improved</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hidden Dimensions</td>
+                        <td>64</td>
+                        <td><strong>128</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Training Epochs</td>
+                        <td>10</td>
+                        <td><strong>20</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Sampling Timesteps</td>
+                        <td>50</td>
+                        <td><strong>500</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="image-container" style="max-width: 100%; margin: 20px 0;">
+            <img src="web/partb_bells_improved_time.jpg" alt="Improved time model">
+            <div class="image-caption">Improved time-conditioned model: 32 generated samples</div>
+        </div>
+
+        <div class="success">
+            <strong>Results:</strong> Significantly clearer digits with better diversity! Even without class labels, the improved architecture produces recognizable digits across 0-9.
+        </div>
+
+        <h3>3.2: Fashion-MNIST (Clothing Items)</h3>
+        <div class="theory-box">
+            <h4>New Domain: Fashion Items</h4>
+            <p>10 classes of clothing and accessories:</p>
+            <p style="margin-top: 10px;"><strong>T-shirt, Trouser, Pullover, Dress, Coat, Sandal, Shirt, Sneaker, Bag, Ankle boot</strong></p>
+        </div>
+
+        <div class="image-container" style="max-width: 100%; margin: 20px 0;">
+            <img src="web/partb_bells_fashion.jpg" alt="Fashion-MNIST">
+            <div class="image-caption">Fashion-MNIST: 10 classes × 8 samples each (CFG=5.0)</div>
+        </div>
+
+        <div class="image-container" style="max-width: 100%; margin: 20px 0;">
+            <img src="web/partb_bells_fashion_loss.jpg" alt="Fashion loss">
+            <div class="image-caption">Fashion-MNIST training curves</div>
+        </div>
+
+        <div class="success">
+            <strong>Achievement:</strong> Flow matching successfully generalizes to clothing! Clear distinctions between different fashion items, demonstrating the model's ability to learn beyond simple digits.
+        </div>
+
+        <h3>3.3: CIFAR-10 (Color Images! 🌈)</h3>
+        <div class="theory-box">
+            <h4>The Ultimate Challenge: RGB Images</h4>
+            <p><strong>CIFAR-10:</strong> 32×32 RGB images of natural objects</p>
+            <p style="margin-top: 10px;"><strong>Classes:</strong> Airplane, Automobile, Bird, Cat, Deer, Dog, Frog, Horse, Ship, Truck</p>
+            
+            <h4 style="margin-top: 20px;">Architectural Adaptations:</h4>
+            <ul style="margin: 15px 0 15px 25px; line-height: 1.8;">
+                <li><strong>Input channels:</strong> 1 → 3 (grayscale → RGB)</li>
+                <li><strong>Resolution:</strong> 28×28 → 32×32</li>
+                <li><strong>Extra downsampling layer</strong> (32→16→8→4→1)</li>
+                <li><strong>Wider channels</strong> (D, D×2) for more capacity</li>
+                <li><strong>Adjusted FCBlocks</strong> for 4×4 bottleneck</li>
+            </ul>
+        </div>
+
+        <div class="image-container" style="max-width: 100%; margin: 20px 0;">
+            <img src="web/partb_bells_cifar_32.jpg" alt="CIFAR 32x32">
+            <div class="image-caption">CIFAR-10: Native 32×32 generations (CFG=5.0)</div>
+        </div>
+
+        <div class="image-container" style="max-width: 100%; margin: 20px 0;">
+            <img src="web/partb_bells_cifar_256.jpg" alt="CIFAR 256x256">
+            <div class="image-caption">CIFAR-10: Upsampled to 256×256 (bicubic interpolation)</div>
+        </div>
+
+        <div class="image-container" style="max-width: 100%; margin: 20px 0;">
+            <img src="web/partb_bells_cifar_loss.jpg" alt="CIFAR loss">
+            <div class="image-caption">CIFAR-10 training curves</div>
+        </div>
+
+        <div class="success">
+            <strong>🎉 Incredible Achievement!</strong>
+            <ul style="margin: 10px 0 10px 20px;">
+                <li>✅ Successfully generates <strong>color images</strong></li>
+                <li>✅ Recognizable objects across all 10 classes</li>
+                <li>✅ Much more complex than MNIST</li>
+                <li>✅ Demonstrates full generalization of flow matching</li>
+                <li>✅ Upsampling to 256×256 shows clear details</li>
+            </ul>
+        </div>
+
+        <h3>Bells & Whistles Summary</h3>
+        <div class="theory-box">
+            <h4>Three Successful Extensions:</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dataset</th>
+                        <th>Resolution</th>
+                        <th>Channels</th>
+                        <th>Classes</th>
+                        <th>Difficulty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>MNIST (Improved)</strong></td>
+                        <td>28×28</td>
+                        <td>1 (Gray)</td>
+                        <td>Uncond</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fashion-MNIST</strong></td>
+                        <td>28×28</td>
+                        <td>1 (Gray)</td>
+                        <td>10</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CIFAR-10</strong></td>
+                        <td>32×32</td>
+                        <td><strong>3 (RGB)</strong></td>
+                        <td>10</td>
+                        <td><strong>Hard</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- FINAL CONCLUSION -->
+    <section class="section">
+        <h2>🎓 Conclusion: From Theory to Practice</h2>
+        
+        <h3>What We Accomplished</h3>
+        
+        <div class="image-grid-3">
+            <div class="theory-box" style="text-align: center;">
+                <h4>✅ Part A</h4>
+                <p><strong>Explored Pre-trained Models</strong></p>
+                <ul style="margin: 15px 0 0 20px; text-align: left;">
+                    <li>DDPM sampling</li>
+                    <li>CFG implementation</li>
+                    <li>SDEdit & inpainting</li>
+                    <li>Visual anagrams</li>
+                    <li>Hybrid images</li>
+                </ul>
+            </div>
+
+            <div class="theory-box" style="text-align: center;">
+                <h4>✅ Part B</h4>
+                <p><strong>Built from Scratch</strong></p>
+                <ul style="margin: 15px 0 0 20px; text-align: left;">
+                    <li>UNet architecture</li>
+                    <li>Flow matching</li>
+                    <li>Time conditioning</li>
+                    <li>Class conditioning</li>
+                    <li>CFG training</li>
+                </ul>
+            </div>
+
+            <div class="theory-box" style="text-align: center;">
+                <h4>✅ Bells & Whistles</h4>
+                <p><strong>Extended Beyond</strong></p>
+                <ul style="margin: 15px 0 0 20px; text-align: left;">
+                    <li>Improved models</li>
+                    <li>Fashion-MNIST</li>
+                    <li>CIFAR-10 RGB</li>
+                    <li>Multiple domains</li>
+                    <li>Ablation studies</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 40px;">Key Insights Learned</h3>
+        
+        <div class="theory-box">
+            <h4>1. The Power of Iterative Refinement</h4>
+            <p>One-step denoising with MSE loss produces "mean images." Iterative flow matching with time conditioning generates diverse, realistic samples.</p>
+        </div>
+
+        <div class="theory-box">
+            <h4>2. Conditioning is Crucial</h4>
+            <p>Time conditioning enables generation. Class conditioning provides control. CFG boosts quality dramatically.</p>
+        </div>
+
+        <div class="theory-box">
+            <h4>3. Architecture Matters</h4>
+            <p>UNet's skip connections preserve details. Increased capacity (hidden dims) improves quality. Proper conditioning mechanisms are essential.</p>
+        </div>
+
+        <div class="theory-box">
+            <h4>4. Generalization</h4>
+            <p>Flow matching isn't limited to MNIST! With appropriate modifications, it works for fashion items, natural objects, and RGB images.</p>
+        </div>
+
+        <h3 style="margin-top: 40px;">The Bigger Picture</h3>
+        
+        <div class="theory-box">
+            <p style="font-size: 1.1em; line-height: 1.8;">
+                <strong>This project demonstrates the core principles behind modern generative AI:</strong>
+            </p>
+            <ul style="margin: 15px 0 15px 25px; line-height: 1.8; font-size: 1.05em;">
+                <li>🎨 <strong>Stable Diffusion</strong> uses similar diffusion + UNet + conditioning</li>
+                <li>🖼️ <strong>DALL-E</strong> employs comparable guidance techniques</li>
+                <li>🎬 <strong>Runway Gen-2</strong> extends these ideas to video</li>
+                <li>🎵 <strong>MusicGen</strong> applies diffusion to audio</li>
+            </ul>
+            
+            <p style="margin-top: 20px; font-size: 1.05em;">
+                By implementing flow matching from scratch, we've built the foundation for understanding and creating the next generation of AI systems!
+            </p>
+        </div>
+
+        <div class="success" style="margin-top: 30px; text-align: center; font-size: 1.1em; padding: 30px;">
+            <strong>🌟 Project Complete! 🌟</strong>
+            <p style="margin-top: 15px;">From exploring pre-trained diffusion models to training our own flow matching networks, from simple digits to color images, we've mastered the art and science of modern generative AI.</p>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px; color: white; font-size: 0.95em; margin-top: 40px;">
+        <p><strong>CS180 Project 5: Diffusion Models (Parts A & B)</strong></p>
+        <p>UC Berkeley | Fall 2024</p>
+        <p style="margin-top: 15px; opacity: 0.8;">From DeepFloyd IF to Flow Matching</p>
+        <p style="margin-top: 5px; opacity: 0.8;">Created with ❤️, lots of GPU compute, and mathematical rigor</p>
+    </footer>
+</div>
+    </body>
+</html>
