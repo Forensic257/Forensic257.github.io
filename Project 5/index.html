@@ -957,12 +957,16 @@
                 <p>Inpainting allows us to fill masked regions with plausible content. The <strong>RePaint algorithm</strong> works by constraining the denoising process:</p>
                 
                 <div class="math-formula">
-At each step: x_t ← m·x_t + (1-m)·forward(x_orig, t)
-
-where:
-  m = binary mask (1 in regions to fill, 0 elsewhere)
-  x_orig = original image
-  forward(x_orig, t) = add noise to original at timestep t
+                \[
+                        \text{At each step:} \quad 
+                        x_t \leftarrow m \cdot x_t + (1 - m)\,\text{forward}(x_{\text{orig}}, t)
+                      \]
+                \[
+                        \text{where: } 
+                        m = \text{binary mask (1 in regions to fill, 0 elsewhere)}, \quad
+                        x_{\text{orig}} = \text{original image}, \quad
+                        \text{forward}(x_{\text{orig}}, t) = \text{add noise to original at timestep } t
+                      \]
                 </div>
 
                 <p>This forces unmasked pixels to match the original while allowing the model to "hallucinate" content in masked regions.</p>
@@ -1172,9 +1176,19 @@ where:
                 <p><strong>Visual Anagrams</strong> create images that appear as one thing right-side up and something completely different upside down! The algorithm averages noise estimates from two orientations:</p>
                 
                 <div class="math-formula">
-ε₁ = CFG of UNet(x_t, t, p₁)           [right-side up]
-ε₂ = flip(CFG of UNet(flip(x_t), t, p₂)) [upside down, then flip back]
-ε = (ε₁ + ε₂) / 2                       [average the guidance]
+                    \[
+                            \varepsilon_1 = \text{CFG}\big(\text{UNet}(x_t, t, p_1)\big) 
+                            \quad \text{[right-side up]}
+                          \]
+            
+                    \[
+                            \varepsilon_2 = \text{flip}\!\left(\text{CFG}\big(\text{UNet}(\text{flip}(x_t), t, p_2)\big)\right) 
+                            \quad \text{[upside down, then flip back]}
+                          \]
+                    \[
+                            \varepsilon = \frac{\varepsilon_1 + \varepsilon_2}{2} 
+                            \quad \text{[average the guidance]}
+                          \]
                 </div>
 
                 <p>By simultaneously satisfying constraints for both orientations, we create remarkable optical illusions!</p>
@@ -1261,13 +1275,26 @@ where:
                 <p><strong>Hybrid images</strong> exploit the fact that our visual system processes different spatial frequencies at different viewing distances. By combining low frequencies from one prompt with high frequencies from another:</p>
                 
                 <div class="math-formula">
-ε₁ = CFG of UNet(x_t, t, p₁)           [prompt 1]
-ε₂ = CFG of UNet(x_t, t, p₂)           [prompt 2]
-ε = f_lowpass(ε₁) + f_highpass(ε₂)     [combine frequencies]
-
-where:
-  f_lowpass = Gaussian blur (kernel=33, sigma=2.0)
-  f_highpass(x) = x - f_lowpass(x)
+                    \[
+                        \varepsilon_1 = \text{CFG}\!\left(\text{UNet}(x_t, t, p_1)\right) 
+                        \quad \text{[prompt 1]}
+                      \]
+               
+                    \[
+                        \varepsilon_2 = \text{CFG}\!\left(\text{UNet}(x_t, t, p_2)\right) 
+                        \quad \text{[prompt 2]}
+                      \]
+               
+                    \[
+                        \varepsilon = f_{\text{lowpass}}(\varepsilon_1) + f_{\text{highpass}}(\varepsilon_2) 
+                        \quad \text{[combine frequencies]}
+                      \]
+                   
+                    \[
+                        \text{where: } \quad 
+                        f_{\text{lowpass}} = \text{Gaussian blur (kernel = 33, sigma = 2.0)}, \quad
+                        f_{\text{highpass}}(x) = x - f_{\text{lowpass}}(x)
+                      \]
                 </div>
 
                 <p><strong>Up close:</strong> High frequencies dominate → see prompt 2<br>
