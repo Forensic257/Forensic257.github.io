@@ -678,6 +678,636 @@ where:
             </div>
 
             <h3>Campanile Edits at Different Noise Levels</h3>
+            <p>Original Campanile (256×256 upsampled):</p>
+            <div class="image-container" style="max-width: 400px; margin: 20px auto;">
+                <img src="web/campanile_original_256.jpg" alt="Original">
+                <div class="image-caption">Original Campanile</div>
+            </div>
+
+            <h4>Edited Versions</h4>
             <div class="image-grid-6">
                 <div class="image-container">
-                    <img src="web/campanile_original_256.jpg" alt="Original
+                    <img src="web/sdedit_campanile_i1.jpg" alt="i_start=1">
+                    <div class="image-caption">i_start=1</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/sdedit_campanile_i3.jpg" alt="i_start=3">
+                    <div class="image-caption">i_start=3</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/sdedit_campanile_i5.jpg" alt="i_start=5">
+                    <div class="image-caption">i_start=5</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/sdedit_campanile_i7.jpg" alt="i_start=7">
+                    <div class="image-caption">i_start=7</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/sdedit_campanile_i10.jpg" alt="i_start=10">
+                    <div class="image-caption">i_start=10</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/sdedit_campanile_i20.jpg" alt="i_start=20">
+                    <div class="image-caption">i_start=20</div>
+                </div>
+            </div>
+
+            <h4>Custom Image Edits</h4>
+            <p>I applied the same technique to two additional images:</p>
+            
+            <div class="comparison-grid">
+                <div>
+                    <h4 style="text-align: center;">Custom Image 1</h4>
+                    <div class="image-grid-3">
+                        <div class="image-container">
+                            <img src="web/custom1_i1.jpg" alt="Custom 1 i=1">
+                            <div class="image-caption">i_start=1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="web/custom1_i7.jpg" alt="Custom 1 i=7">
+                            <div class="image-caption">i_start=7</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="web/custom1_i20.jpg" alt="Custom 1 i=20">
+                            <div class="image-caption">i_start=20</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="text-align: center;">Custom Image 2</h4>
+                    <div class="image-grid-3">
+                        <div class="image-container">
+                            <img src="web/custom2_i1.jpg" alt="Custom 2 i=1">
+                            <div class="image-caption">i_start=1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="web/custom2_i7.jpg" alt="Custom 2 i=7">
+                            <div class="image-caption">i_start=7</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="web/custom2_i20.jpg" alt="Custom 2 i=20">
+                            <div class="image-caption">i_start=20</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 1.7.1: HAND-DRAWN AND WEB IMAGES -->
+        <section id="part1-7-1" class="section">
+            <h2>Part 1.7.1: Editing Hand-Drawn & Web Images</h2>
+            
+            <div class="theory-box">
+                <h3>🎨 From Sketch to Reality</h3>
+                <p>SDEdit works particularly well when starting with <strong>non-realistic images</strong> like sketches, paintings, or drawings. The algorithm projects these onto the natural image manifold, creating photorealistic versions!</p>
+            </div>
+
+            <h3>Web Image Edit</h3>
+            <div class="image-grid-6">
+                <div class="image-container">
+                    <img src="web/web_original.jpg" alt="Web original">
+                    <div class="image-caption">Original Web Image</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/web_i1.jpg" alt="Web i=1">
+                    <div class="image-caption">i_start=1</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/web_i3.jpg" alt="Web i=3">
+                    <div class="image-caption">i_start=3</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/web_i7.jpg" alt="Web i=7">
+                    <div class="image-caption">i_start=7</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/web_i10.jpg" alt="Web i=10">
+                    <div class="image-caption">i_start=10</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/web_i20.jpg" alt="Web i=20">
+                    <div class="image-caption">i_start=20</div>
+                </div>
+            </div>
+
+            <h3>Hand-Drawn Image Edits</h3>
+            
+            <h4>Drawing 1</h4>
+            <div class="image-grid-6">
+                <div class="image-container">
+                    <img src="web/drawn1_original.jpg" alt="Drawing 1 original">
+                    <div class="image-caption">Original Drawing</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/drawn1_i1.jpg" alt="Drawing 1 i=1">
+                    <div class="image-caption">i_start=1</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/drawn1_i3.jpg" alt="Drawing 1 i=3">
+                    <div class="image-caption">i_start=3</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/drawn1_i7.jpg" alt="Drawing 1 i=7">
+                    <div class="image-caption">i_start=7</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/drawn1_i10.jpg" alt="Drawing 1 i=10">
+                    <div class="image-caption">i_start=10</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/drawn1_i20.jpg" alt="Drawing 1 i=20">
+                    <div class="image-caption">i_start=20</div>
+                </div>
+            </div>
+
+            <h4>Drawing 2</h4>
+            <div class="image-grid-6">
+                <div class="image-container">
+                    <img src="web/drawn2_original.jpg" alt="Drawing 2 original">
+                    <div class="image-caption">Original Drawing</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/drawn2_i1.jpg" alt="Drawing 2 i=1">
+                    <div class="image-caption">i_start=1</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/drawn2_i3.jpg" alt="Drawing 2 i=3">
+                    <div class="image-caption">i_start=3</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/drawn2_i7.jpg" alt="Drawing 2 i=7">
+                    <div class="image-caption">i_start=7</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/drawn2_i10.jpg" alt="Drawing 2 i=10">
+                    <div class="image-caption">i_start=10</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/drawn2_i20.jpg" alt="Drawing 2 i=20">
+                    <div class="image-caption">i_start=20</div>
+                </div>
+            </div>
+
+            <div class="success">
+                <strong>Amazing Result:</strong> Simple sketches transform into photorealistic images! Lower noise levels (i_start=1-3) create highly creative interpretations, while higher values (i_start=10-20) preserve more of the original drawing style.
+            </div>
+        </section>
+
+        <!-- PART 1.7.2: INPAINTING -->
+        <section id="part1-7-2" class="section">
+            <h2>Part 1.7.2: Inpainting with RePaint</h2>
+            
+            <div class="theory-box">
+                <h3>🖌️ Filling in the Blanks</h3>
+                <p>Inpainting allows us to fill masked regions with plausible content. The <strong>RePaint algorithm</strong> works by constraining the denoising process:</p>
+                
+                <div class="math-formula">
+At each step: x_t ← m·x_t + (1-m)·forward(x_orig, t)
+
+where:
+  m = binary mask (1 in regions to fill, 0 elsewhere)
+  x_orig = original image
+  forward(x_orig, t) = add noise to original at timestep t
+                </div>
+
+                <p>This forces unmasked pixels to match the original while allowing the model to "hallucinate" content in masked regions.</p>
+            </div>
+
+            <h3>Campanile Inpainting</h3>
+            <div class="image-grid-3">
+                <div class="image-container">
+                    <img src="web/inpaint_campanile_original.jpg" alt="Original">
+                    <div class="image-caption">Original Image</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/inpaint_campanile_mask.jpg" alt="Mask">
+                    <div class="image-caption">Mask (red = fill)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/inpaint_campanile_result_256.jpg" alt="Result">
+                    <div class="image-caption">Inpainted Result (256×256)</div>
+                </div>
+            </div>
+
+            <h3>Custom Image Inpainting</h3>
+            
+            <h4>Custom Image 1</h4>
+            <div class="image-grid-3">
+                <div class="image-container">
+                    <img src="web/inpaint_custom1_original.jpg" alt="Custom 1 Original">
+                    <div class="image-caption">Original</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/inpaint_custom1_mask.jpg" alt="Custom 1 Mask">
+                    <div class="image-caption">Mask</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/inpaint_custom1_result.jpg" alt="Custom 1 Result">
+                    <div class="image-caption">Result</div>
+                </div>
+            </div>
+
+            <h4>Custom Image 2</h4>
+            <div class="image-grid-3">
+                <div class="image-container">
+                    <img src="web/inpaint_custom2_original.jpg" alt="Custom 2 Original">
+                    <div class="image-caption">Original</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/inpaint_custom2_mask.jpg" alt="Custom 2 Mask">
+                    <div class="image-caption">Mask</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/inpaint_custom2_result.jpg" alt="Custom 2 Result">
+                    <div class="image-caption">Result</div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Observation:</strong> The model generates plausible content that blends seamlessly with the surrounding context. The boundaries between original and inpainted regions are nearly imperceptible!
+            </div>
+        </section>
+
+        <!-- PART 1.7.3: TEXT-CONDITIONAL IMAGE-TO-IMAGE -->
+        <section id="part1-7-3" class="section">
+            <h2>Part 1.7.3: Text-Conditional Image-to-Image Translation</h2>
+            
+            <div class="theory-box">
+                <h3>📝 Semantic Control with Text</h3>
+                <p>Instead of using the generic "a high quality photo" prompt, we can guide the SDEdit process with <strong>specific text descriptions</strong>. This adds semantic control, allowing us to transform images toward particular styles or subjects!</p>
+            </div>
+
+            <h3>Campanile Transformations</h3>
+            
+            <h4>Prompt: "a mosaic of a duck"</h4>
+            <div class="image-grid-6">
+                <div class="image-container">
+                    <img src="web/text_campanile_mosaic_i1.jpg" alt="Mosaic i=1">
+                    <div class="image-caption">i_start=1</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_mosaic_i3.jpg" alt="Mosaic i=3">
+                    <div class="image-caption">i_start=3</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_mosaic_i5.jpg" alt="Mosaic i=5">
+                    <div class="image-caption">i_start=5</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_mosaic_i7.jpg" alt="Mosaic i=7">
+                    <div class="image-caption">i_start=7</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_mosaic_i10.jpg" alt="Mosaic i=10">
+                    <div class="image-caption">i_start=10</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_mosaic_i20.jpg" alt="Mosaic i=20">
+                    <div class="image-caption">i_start=20</div>
+                </div>
+            </div>
+
+            <h4>Prompt: "an oil painting of a botanical garden"</h4>
+            <div class="image-grid-6">
+                <div class="image-container">
+                    <img src="web/text_campanile_garden_i1.jpg" alt="Garden i=1">
+                    <div class="image-caption">i_start=1</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_garden_i3.jpg" alt="Garden i=3">
+                    <div class="image-caption">i_start=3</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_garden_i5.jpg" alt="Garden i=5">
+                    <div class="image-caption">i_start=5</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_garden_i7.jpg" alt="Garden i=7">
+                    <div class="image-caption">i_start=7</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_garden_i10.jpg" alt="Garden i=10">
+                    <div class="image-caption">i_start=10</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_garden_i20.jpg" alt="Garden i=20">
+                    <div class="image-caption">i_start=20</div>
+                </div>
+            </div>
+
+            <h4>Prompt: "a lithograph of waterfalls"</h4>
+            <div class="image-grid-6">
+                <div class="image-container">
+                    <img src="web/text_campanile_waterfall_i1.jpg" alt="Waterfall i=1">
+                    <div class="image-caption">i_start=1</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_waterfall_i3.jpg" alt="Waterfall i=3">
+                    <div class="image-caption">i_start=3</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_waterfall_i5.jpg" alt="Waterfall i=5">
+                    <div class="image-caption">i_start=5</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_waterfall_i7.jpg" alt="Waterfall i=7">
+                    <div class="image-caption">i_start=7</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_waterfall_i10.jpg" alt="Waterfall i=10">
+                    <div class="image-caption">i_start=10</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/text_campanile_waterfall_i20.jpg" alt="Waterfall i=20">
+                    <div class="image-caption">i_start=20</div>
+                </div>
+            </div>
+
+            <h3>Custom Image Transformations</h3>
+            <p>I applied creative text prompts to two additional images. Here's a sample of results:</p>
+
+            <div class="comparison-grid">
+                <div>
+                    <h4 style="text-align: center;">Custom Image 1: "snowy mountain village"</h4>
+                    <div class="image-grid-3">
+                        <div class="image-container">
+                            <img src="web/text_custom1_snow_i1.jpg" alt="Snow i=1">
+                            <div class="image-caption">i_start=1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="web/text_custom1_snow_i7.jpg" alt="Snow i=7">
+                            <div class="image-caption">i_start=7</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="web/text_custom1_snow_i20.jpg" alt="Snow i=20">
+                            <div class="image-caption">i_start=20</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="text-align: center;">Custom Image 2: "campfire painting"</h4>
+                    <div class="image-grid-3">
+                        <div class="image-container">
+                            <img src="web/text_custom2_fire_i1.jpg" alt="Fire i=1">
+                            <div class="image-caption">i_start=1</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="web/text_custom2_fire_i7.jpg" alt="Fire i=7">
+                            <div class="image-caption">i_start=7</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="web/text_custom2_fire_i20.jpg" alt="Fire i=20">
+                            <div class="image-caption">i_start=20</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success">
+                <strong>Fascinating Discovery:</strong> The same original image transforms in dramatically different ways depending on the text prompt! Low noise values (i_start=1-3) create bold artistic reinterpretations, while high values (i_start=10-20) apply subtle stylistic changes while preserving structure.
+            </div>
+        </section>
+
+        <!-- PART 1.8: VISUAL ANAGRAMS -->
+        <section id="part1-8" class="section">
+            <h2>Part 1.8: Visual Anagrams</h2>
+            
+            <div class="theory-box">
+                <h3>🔄 Optical Illusions with Diffusion</h3>
+                <p><strong>Visual Anagrams</strong> create images that appear as one thing right-side up and something completely different upside down! The algorithm averages noise estimates from two orientations:</p>
+                
+                <div class="math-formula">
+ε₁ = CFG of UNet(x_t, t, p₁)           [right-side up]
+ε₂ = flip(CFG of UNet(flip(x_t), t, p₂)) [upside down, then flip back]
+ε = (ε₁ + ε₂) / 2                       [average the guidance]
+                </div>
+
+                <p>By simultaneously satisfying constraints for both orientations, we create remarkable optical illusions!</p>
+            </div>
+
+            <h3>Illusion 1: Old Man ↔ Campfire</h3>
+            <p><strong>Prompt 1 (right-up):</strong> "an oil painting of an old man"<br>
+            <strong>Prompt 2 (upside-down):</strong> "an oil painting of people around a campfire"</p>
+
+            <div class="image-grid-2">
+                <div class="image-container">
+                    <img src="web/anagram1_rightup_64.jpg" alt="Illusion 1 right-up 64">
+                    <div class="image-caption">Right-side up (64×64)<br>"Old man"</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/anagram1_upsidedown_64.jpg" alt="Illusion 1 upside-down 64">
+                    <div class="image-caption">Upside down (64×64)<br>"Campfire"</div>
+                </div>
+            </div>
+
+            <div class="image-grid-2">
+                <div class="image-container">
+                    <img src="web/anagram1_rightup_256.jpg" alt="Illusion 1 right-up 256">
+                    <div class="image-caption">Right-side up (256×256)<br>"Old man"</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/anagram1_upsidedown_256.jpg" alt="Illusion 1 upside-down 256">
+                    <div class="image-caption">Upside down (256×256)<br>"Campfire"</div>
+                </div>
+            </div>
+
+            <h3>Illusion 2: Amalfi Coast ↔ Dress</h3>
+            <p><strong>Prompt 1 (right-up):</strong> "a photo of the amalfi coast"<br>
+            <strong>Prompt 2 (upside-down):</strong> "a photo of a dress"</p>
+
+            <div class="image-grid-2">
+                <div class="image-container">
+                    <img src="web/anagram2_rightup_64.jpg" alt="Illusion 2 right-up 64">
+                    <div class="image-caption">Right-side up (64×64)<br>"Amalfi Coast"</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/anagram2_upsidedown_64.jpg" alt="Illusion 2 upside-down 64">
+                    <div class="image-caption">Upside down (64×64)<br>"Dress"</div>
+                </div>
+            </div>
+
+            <div class="image-grid-2">
+                <div class="image-container">
+                    <img src="web/anagram2_rightup_256.jpg" alt="Illusion 2 right-up 256">
+                    <div class="image-caption">Right-side up (256×256)<br>"Amalfi Coast"</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/anagram2_upsidedown_256.jpg" alt="Illusion 2 upside-down 256">
+                    <div class="image-caption">Upside down (256×256)<br>"Dress"</div>
+                </div>
+            </div>
+
+            <h3>Illusion 3: Skull ↔ Rabbit</h3>
+            <p><strong>Prompt 1 (right-up):</strong> "a lithograph of a skull"<br>
+            <strong>Prompt 2 (upside-down):</strong> "a lithograph of a rabbit"</p>
+
+            <div class="image-grid-2">
+                <div class="image-container">
+                    <img src="web/anagram3_rightup_256.jpg" alt="Illusion 3 right-up">
+                    <div class="image-caption">Right-side up (256×256)<br>"Skull"</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/anagram3_upsidedown_256.jpg" alt="Illusion 3 upside-down">
+                    <div class="image-caption">Upside down (256×256)<br>"Rabbit"</div>
+                </div>
+            </div>
+
+            <div class="success">
+                <strong>Mind-Blowing Result:</strong> These illusions work remarkably well! The model successfully creates images that look like completely different objects when flipped. Artistic styles (oil paintings, lithographs) tend to work better than photorealistic prompts.
+            </div>
+        </section>
+
+        <!-- PART 1.9: HYBRID IMAGES -->
+        <section id="part1-9" class="section">
+            <h2>Part 1.9: Hybrid Images (Factorized Diffusion)</h2>
+            
+            <div class="theory-box">
+                <h3>👁️ Distance-Dependent Perception</h3>
+                <p><strong>Hybrid images</strong> exploit the fact that our visual system processes different spatial frequencies at different viewing distances. By combining low frequencies from one prompt with high frequencies from another:</p>
+                
+                <div class="math-formula">
+ε₁ = CFG of UNet(x_t, t, p₁)           [prompt 1]
+ε₂ = CFG of UNet(x_t, t, p₂)           [prompt 2]
+ε = f_lowpass(ε₁) + f_highpass(ε₂)     [combine frequencies]
+
+where:
+  f_lowpass = Gaussian blur (kernel=33, sigma=2.0)
+  f_highpass(x) = x - f_lowpass(x)
+                </div>
+
+                <p><strong>Up close:</strong> High frequencies dominate → see prompt 2<br>
+                <strong>From distance:</strong> Low frequencies dominate → see prompt 1</p>
+            </div>
+
+            <h3>Hybrid 1: Skull (low-freq) / Rabbit (high-freq)</h3>
+            
+            <div class="image-grid-2">
+                <div class="image-container">
+                    <img src="web/hybrid1_64.jpg" alt="Hybrid 1 64x64">
+                    <div class="image-caption">Hybrid Image (64×64)<br>Step back to see skull!</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/hybrid1_256.jpg" alt="Hybrid 1 256x256">
+                    <div class="image-caption">Hybrid Image (256×256)<br>Step back to see skull!</div>
+                </div>
+            </div>
+
+            <h4>Frequency Analysis</h4>
+            <div class="image-grid-3">
+                <div class="image-container">
+                    <img src="web/hybrid1_lowfreq.jpg" alt="Low frequencies">
+                    <div class="image-caption">Low Frequencies Only<br>(Skull visible)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/hybrid1_highfreq.jpg" alt="High frequencies">
+                    <div class="image-caption">High Frequencies Only<br>(Rabbit details)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/hybrid1_spectrum.jpg" alt="Frequency spectrum">
+                    <div class="image-caption">Frequency Spectrum<br>(FFT visualization)</div>
+                </div>
+            </div>
+
+            <h3>Hybrid 2: Custom Prompt Pair</h3>
+            
+            <div class="image-grid-2">
+                <div class="image-container">
+                    <img src="web/hybrid2_64.jpg" alt="Hybrid 2 64x64">
+                    <div class="image-caption">Hybrid Image (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/hybrid2_256.jpg" alt="Hybrid 2 256x256">
+                    <div class="image-caption">Hybrid Image (256×256)</div>
+                </div>
+            </div>
+
+            <div class="image-grid-3">
+                <div class="image-container">
+                    <img src="web/hybrid2_lowfreq.jpg" alt="Low frequencies 2">
+                    <div class="image-caption">Low Frequencies</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/hybrid2_highfreq.jpg" alt="High frequencies 2">
+                    <div class="image-caption">High Frequencies</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/hybrid2_spectrum.jpg" alt="Spectrum 2">
+                    <div class="image-caption">Frequency Spectrum</div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Viewing Instructions:</strong> Look at the image up close to see high-frequency details, then physically step back from your screen or squint to see the low-frequency content emerge! The effect is more pronounced on the 256×256 versions.
+            </div>
+
+            <div class="success">
+                <strong>Success:</strong> The hybrid images work wonderfully! The frequency decomposition creates a convincing distance-dependent illusion. This technique combines classical image processing (frequency filtering) with modern generative AI in a creative way.
+            </div>
+        </section>
+
+        <!-- CONCLUSION -->
+        <section class="section">
+            <h2>🎓 Conclusion & Reflections</h2>
+            
+            <h3>What I Learned</h3>
+            <div class="theory-box">
+                <p>This project provided deep hands-on experience with diffusion models, one of the most powerful techniques in modern AI. Key takeaways include:</p>
+                
+                <ul style="margin: 15px 0 15px 25px; line-height: 1.8;">
+                    <li><strong>Forward & Reverse Processes:</strong> Understanding how diffusion gradually adds then removes noise</li>
+                    <li><strong>DDPM Algorithm:</strong> Implementing iterative denoising step-by-step</li>
+                    <li><strong>Classifier-Free Guidance:</strong> The crucial technique for high-quality, prompt-aligned generation</li>
+                    <li><strong>Image Manipulation:</strong> SDEdit, inpainting, and text-guided editing capabilities</li>
+                    <li><strong>Creative Applications:</strong> Visual anagrams and hybrid images push diffusion models in novel directions</li>
+                    <li><strong>Practical Considerations:</strong> Balancing quality vs. speed, choosing noise schedules, prompt engineering</li>
+                </ul>
+            </div>
+
+            <h3>Technical Achievements</h3>
+            <div class="image-grid-3">
+                <div class="theory-box" style="text-align: center;">
+                    <h4>✅ Core Implementation</h4>
+                    <p>Successfully implemented all diffusion sampling components from scratch</p>
+                </div>
+                <div class="theory-box" style="text-align: center;">
+                    <h4>🎨 Creative Applications</h4>
+                    <p>Applied techniques to generate optical illusions and artistic edits</p>
+                </div>
+                <div class="theory-box" style="text-align: center;">
+                    <h4>📊 Quality Results</h4>
+                    <p>Generated high-quality 256×256 images with compelling visual effects</p>
+                </div>
+            </div>
+
+            <h3>Challenges Overcome</h3>
+            <ul style="margin: 15px 0 15px 25px; line-height: 1.8;">
+                <li>Understanding the mathematics behind DDPM and CFG</li>
+                <li>Debugging noise schedule and alpha_bar computations</li>
+                <li>Tuning hyperparameters (CFG scale, noise levels, kernel sizes)</li>
+                <li>Managing GPU memory and computation time</li>
+                <li>Creating compelling prompts that work well together for anagrams and hybrids</li>
+            </ul>
+
+            <h3>Future Explorations</h3>
+            <p>Potential extensions and improvements:</p>
+            <ul style="margin: 15px 0 15px 25px; line-height: 1.8;">
+                <li>Experimenting with different diffusion schedules (DDIM, DPM-Solver++)</li>
+                <li>Creating multi-view illusions (not just flip, but rotation)</li>
+                <li>Combining multiple techniques (e.g., hybrid visual anagrams)</li>
+                <li>Fine-tuning on custom datasets for domain-specific generation</li>
+                <li>Exploring ControlNet for more precise spatial control</li>
+            </ul>
+
+            <div class="success" style="margin-top: 30px; text-align: center; font-size: 1.1em;">
+                <strong>🌟 Thank you for exploring this journey through diffusion models! 🌟</strong>
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 40px; color: white; font-size: 0.95em;">
+            <p>CS180 Project 5A: The Power of Diffusion Models</p>
+            <p>UC Berkeley | Fall 2024</p>
+            <p style="margin-top: 10px; opacity: 0.8;">Created with ❤️ and lots of GPU compute</p>
+        </footer>
+    </div>
+</body>
+</html>
