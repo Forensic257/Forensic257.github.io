@@ -383,16 +383,6 @@ x_t = √ᾱ_t · x_0 + √(1 - ᾱ_t) · ε    where ε ~ N(0, I)
                 <p>Where <code>ᾱ_t</code> (alpha_bar_t) controls the noise schedule. For DeepFloyd, T = 1000 timesteps.</p>
             </div>
 
-            <!-- <div class="code-block">
-<!-- def forward(im, t):
-    alpha_bar_t = alphas_cumprod[t]
-    sqrt_alpha_bar = torch.sqrt(alpha_bar_t)
-    sqrt_one_minus_alpha_bar = torch.sqrt(1 - alpha_bar_t)
-    epsilon = torch.randn_like(im)
-    im_noisy = sqrt_alpha_bar * im + sqrt_one_minus_alpha_bar * epsilon
-    return im_noisy -->
-            </div> -->
-
             <h3>Campanile at Different Noise Levels</h3>
             <div class="image-grid">
                 <div class="image-container">
