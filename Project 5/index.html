@@ -644,28 +644,46 @@
             <h3>Generated Images (Prompt: "a high quality photo")</h3>
             <div class="image-grid">
                 <div class="image-container">
-                    <img src="web/sample1_64.jpg" alt="Sample 1 64x64">
+                    <img src="web/sample1_64.png" alt="Sample 1 64x64">
                     <div class="image-caption">Sample 1 (64×64)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/sample1_256.jpg" alt="Sample 1 256x256">
+                    <img src="web/sample1_256.png" alt="Sample 1 256x256">
                     <div class="image-caption">Sample 1 (256×256)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/sample2_64.jpg" alt="Sample 2 64x64">
+                    <img src="web/sample2_64.png" alt="Sample 2 64x64">
                     <div class="image-caption">Sample 2 (64×64)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/sample2_256.jpg" alt="Sample 2 256x256">
+                    <img src="web/sample2_256.png" alt="Sample 2 256x256">
                     <div class="image-caption">Sample 2 (256×256)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/sample3_64.jpg" alt="Sample 3 64x64">
+                    <img src="web/sample3_64.png" alt="Sample 3 64x64">
                     <div class="image-caption">Sample 3 (64×64)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/sample3_256.jpg" alt="Sample 3 256x256">
+                    <img src="web/sample3_256.png" alt="Sample 3 256x256">
                     <div class="image-caption">Sample 3 (256×256)</div>
+                </div>
+
+                <div class="image-container">
+                    <img src="web/sample4_64.png" alt="Sample 4 64x64">
+                    <div class="image-caption">Sample 4 (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/sample4_256.png" alt="Sample 4 256x256">
+                    <div class="image-caption">Sample 4 (256×256)</div>
+                </div>
+
+                <div class="image-container">
+                    <img src="web/sample5_64.png" alt="Sample 5 64x64">
+                    <div class="image-caption">Sample 5 (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/sample5_256.png" alt="Sample 5 256x256">
+                    <div class="image-caption">Sample 5 (256×256)</div>
                 </div>
             </div>
 
@@ -683,12 +701,16 @@
                 <p><strong>Classifier-Free Guidance</strong> dramatically improves image quality by amplifying the influence of the text prompt. The key idea is to compute both conditional and unconditional noise estimates, then combine them:</p>
                 
                 <div class="math-formula">
-ε = ε_u + γ(ε_c - ε_u)
-
-where:
-  ε_c = conditional noise estimate (with prompt)
-  ε_u = unconditional noise estimate (empty prompt "")
-  γ = guidance scale (typically 7-15)
+                    \[
+                        \varepsilon = \varepsilon_u + \gamma \left(\varepsilon_c - \varepsilon_u\right)
+                      \]
+            
+                    \[
+                        \text{where:} \quad 
+                        \varepsilon_c = \text{conditional noise estimate (with prompt)}, \quad
+                        \varepsilon_u = \text{unconditional noise estimate (empty prompt "")}, \quad
+                        \gamma = \text{guidance scale (typically 7–15)}
+                      \]
                 </div>
 
                 <p>When γ > 1, we move further in the direction of the conditional prompt, producing higher quality but less diverse images.</p>
@@ -697,28 +719,46 @@ where:
             <h3>CFG-Enhanced Generation (γ = 7)</h3>
             <div class="image-grid">
                 <div class="image-container">
-                    <img src="web/cfg_sample1_64.jpg" alt="CFG 1 64x64">
+                    <img src="web/cfg_sample1_64.png" alt="CFG 1 64x64">
                     <div class="image-caption">Sample 1 (64×64)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/cfg_sample1_256.jpg" alt="CFG 1 256x256">
+                    <img src="web/cfg_sample1_256.png" alt="CFG 1 256x256">
                     <div class="image-caption">Sample 1 (256×256)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/cfg_sample2_64.jpg" alt="CFG 2 64x64">
+                    <img src="web/cfg_sample2_64.png" alt="CFG 2 64x64">
                     <div class="image-caption">Sample 2 (64×64)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/cfg_sample2_256.jpg" alt="CFG 2 256x256">
+                    <img src="web/cfg_sample2_256.png" alt="CFG 2 256x256">
                     <div class="image-caption">Sample 2 (256×256)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/cfg_sample3_64.jpg" alt="CFG 3 64x64">
+                    <img src="web/cfg_sample3_64.png" alt="CFG 3 64x64">
                     <div class="image-caption">Sample 3 (64×64)</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/cfg_sample3_256.jpg" alt="CFG 3 256x256">
+                    <img src="web/cfg_sample3_256.png" alt="CFG 3 256x256">
                     <div class="image-caption">Sample 3 (256×256)</div>
+                </div>
+
+                <div class="image-container">
+                    <img src="web/cfg_sample4_64.png" alt="CFG 4 64x64">
+                    <div class="image-caption">Sample 4 (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/cfg_sample4_256.png" alt="CFG 4 256x256">
+                    <div class="image-caption">Sample 4 (256×256)</div>
+                </div>
+
+                <div class="image-container">
+                    <img src="web/cfg_sample5_64.png" alt="CFG 5 64x64">
+                    <div class="image-caption">Sample 5 (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/cfg_sample5_256.png" alt="CFG 5 256x256">
+                    <div class="image-caption">Sample 5 (256×256)</div>
                 </div>
             </div>
 
@@ -743,38 +783,28 @@ where:
             </div>
 
             <h3>Campanile Edits at Different Noise Levels</h3>
-            <p>Original Campanile (256×256 upsampled):</p>
+            <p>Original Campanile:</p>
             <div class="image-container" style="max-width: 400px; margin: 20px auto;">
-                <img src="web/campanile_original_256.jpg" alt="Original">
-                <div class="image-caption">Original Campanile</div>
+                <img src="web/campanile_original.jpg" alt="Original">
+                <div class="image-caption">64x64</div>
+            </div>
+            <div class="image-container" style="max-width: 400px; margin: 20px auto;">
+                <img src="web/campanile_original.jpg" alt="Upsampled">
+                <div class="image-caption">256x256</div>
             </div>
 
             <h4>Edited Versions</h4>
             <div class="image-grid-6">
                 <div class="image-container">
-                    <img src="web/sdedit_campanile_i1.jpg" alt="i_start=1">
-                    <div class="image-caption">i_start=1</div>
+                    <img src="web/sdedit_campanile_64.jpg" alt="">
+                    <div class="image-caption">64x64</div>
                 </div>
+               
                 <div class="image-container">
-                    <img src="web/sdedit_campanile_i3.jpg" alt="i_start=3">
-                    <div class="image-caption">i_start=3</div>
+                    <img src="web/sdedit_campanile_256.jpg" alt="">
+                    <div class="image-caption">256x256</div>
                 </div>
-                <div class="image-container">
-                    <img src="web/sdedit_campanile_i5.jpg" alt="i_start=5">
-                    <div class="image-caption">i_start=5</div>
-                </div>
-                <div class="image-container">
-                    <img src="web/sdedit_campanile_i7.jpg" alt="i_start=7">
-                    <div class="image-caption">i_start=7</div>
-                </div>
-                <div class="image-container">
-                    <img src="web/sdedit_campanile_i10.jpg" alt="i_start=10">
-                    <div class="image-caption">i_start=10</div>
-                </div>
-                <div class="image-container">
-                    <img src="web/sdedit_campanile_i20.jpg" alt="i_start=20">
-                    <div class="image-caption">i_start=20</div>
-                </div>
+                
             </div>
 
             <h4>Custom Image Edits</h4>
