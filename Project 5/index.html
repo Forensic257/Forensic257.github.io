@@ -1,1 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS180 Project 5A: The Power of Diffusion Models</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --bg: #ecf0f1;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --border: #bdc3c7;
+            --code-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 60px 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 15px;
+        }
+
+        h3 {
+            color: var(--secondary);
+            font-size: 1.6em;
+            margin: 30px 0 20px 0;
+        }
+
+        h4 {
+            color: var(--text);
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+        }
+
+        .theory-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-left: 4px solid var(--secondary);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+        }
+
+        .math-formula {
+            background: var(--code-bg);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            overflow-x: auto;
+            border: 2px solid var(--border);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .image-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .image-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .image-grid-6 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .image-container {
+            text-align: center;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .image-caption {
+            margin-top: 12px;
+            font-size: 0.95em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+            align-items: start;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--secondary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .nav-links {
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .seed-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.7em; }
+            .image-grid, .image-grid-2, .image-grid-3, .image-grid-6 {
+                grid-template-columns: 1fr;
+            }
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Project 5A: The Power of Diffusion Models</h1>
+            <div class="subtitle">Exploring DeepFloyd IF for Image Generation & Manipulation</div>
+            <div class="meta">CS180: Intro to Computer Vision | UC Berkeley | Fall 2024</div>
+        </header>
+
+        <nav class="nav-links">
+            <a href="#part0">Setup</a>
+            <a href="#part1-1">Forward Process</a>
+            <a href="#part1-4">Iterative Denoising</a>
+            <a href="#part1-6">CFG</a>
+            <a href="#part1-7">Image Translation</a>
+            <a href="#part1-8">Visual Anagrams</a>
+            <a href="#part1-9">Hybrid Images</a>
+        </nav>
+
+        <!-- PART 0: SETUP -->
+        <section id="part0" class="section">
+            <h2>Part 0: Setup & Initial Sampling</h2>
+            
+            <div class="theory-box">
+                <h3>🎯 Overview</h3>
+                <p>This project explores the <span class="highlight">DeepFloyd IF</span> diffusion model, a powerful two-stage text-to-image generator. Stage 1 produces 64×64 images, which Stage 2 upsamples to 256×256.</p>
+            </div>
+
+            <div class="seed-badge">Random Seed: 42</div>
+
+            <h3>Initial Prompt Exploration</h3>
+            <p>I experimented with various artistic styles and subjects to understand the model's capabilities:</p>
+
+            <h4>Comparing Inference Steps</h4>
+            <p>Testing the same prompt with different <code>num_inference_steps</code> values reveals the quality vs. speed tradeoff:</p>
+
+            <div class="image-grid-3">
+                <div class="image-container">
+                    <img src="web/part0_10steps_64.jpg" alt="10 steps 64x64">
+                    <div class="image-caption">10 steps (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/part0_20steps_64.jpg" alt="20 steps 64x64">
+                    <div class="image-caption">20 steps (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/part0_50steps_64.jpg" alt="50 steps 64x64">
+                    <div class="image-caption">50 steps (64×64)</div>
+                </div>
+            </div>
+
+            <div class="image-grid-3">
+                <div class="image-container">
+                    <img src="web/part0_10steps_256.jpg" alt="10 steps 256x256">
+                    <div class="image-caption">10 steps (256×256)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/part0_20steps_256.jpg" alt="20 steps 256x256">
+                    <div class="image-caption">20 steps (256×256)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/part0_50steps_256.jpg" alt="50 steps 256x256">
+                    <div class="image-caption">50 steps (256×256)</div>
+                </div>
+            </div>
+
+            <div class="success">
+                <strong>Observation:</strong> More inference steps (50) produce sharper details and better coherence, but 20 steps offers a good balance between quality and computation time. The 10-step version shows noticeable artifacts and less refined details.
+            </div>
+
+            <h4>Additional Generated Images</h4>
+            <div class="image-grid">
+                <div class="image-container">
+                    <img src="web/part0_amalfi_coast.jpg" alt="Amalfi Coast">
+                    <div class="image-caption">"a photo of the amalfi coast"</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/part0_giraffe.jpg" alt="Giraffe">
+                    <div class="image-caption">"an oil painting of a giraffe"</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/part0_skull.jpg" alt="Skull">
+                    <div class="image-caption">"a lithograph of a skull"</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 1.1: FORWARD PROCESS -->
+        <section id="part1-1" class="section">
+            <h2>Part 1.1: Implementing the Forward Process</h2>
+            
+            <div class="theory-box">
+                <h3>📐 Mathematical Foundation</h3>
+                <p>The <strong>forward diffusion process</strong> gradually adds Gaussian noise to a clean image. Given a clean image x₀, we can obtain a noisy version at any timestep t:</p>
+                
+                <div class="math-formula">
+q(x_t | x_0) = N(x_t; √ᾱ_t · x_0, (1 - ᾱ_t)I)
+                </div>
+
+                <p>This can be efficiently computed in closed form:</p>
+                
+                <div class="math-formula">
+x_t = √ᾱ_t · x_0 + √(1 - ᾱ_t) · ε    where ε ~ N(0, I)
+                </div>
+
+                <p>Where <code>ᾱ_t</code> (alpha_bar_t) controls the noise schedule. For DeepFloyd, T = 1000 timesteps.</p>
+            </div>
+
+            <div class="code-block">
+def forward(im, t):
+    alpha_bar_t = alphas_cumprod[t]
+    sqrt_alpha_bar = torch.sqrt(alpha_bar_t)
+    sqrt_one_minus_alpha_bar = torch.sqrt(1 - alpha_bar_t)
+    epsilon = torch.randn_like(im)
+    im_noisy = sqrt_alpha_bar * im + sqrt_one_minus_alpha_bar * epsilon
+    return im_noisy
+            </div>
+
+            <h3>Campanile at Different Noise Levels</h3>
+            <div class="image-grid">
+                <div class="image-container">
+                    <img src="web/campanile_original.jpg" alt="Original">
+                    <div class="image-caption">Original</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/campanile_t250.jpg" alt="t=250">
+                    <div class="image-caption">t = 250 (Light noise)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/campanile_t500.jpg" alt="t=500">
+                    <div class="image-caption">t = 500 (Moderate noise)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/campanile_t750.jpg" alt="t=750">
+                    <div class="image-caption">t = 750 (Heavy noise)</div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Key Insight:</strong> As t increases, more noise is added. At t=750, the image is almost pure noise, while at t=250, the structure is still visible. This demonstrates how ᾱ_t decreases from 1 (clean) to 0 (pure noise).
+            </div>
+        </section>
+
+        <!-- PART 1.2: CLASSICAL DENOISING -->
+        <section id="part1-2" class="section">
+            <h2>Part 1.2: Classical Denoising</h2>
+            
+            <p>Can traditional image processing techniques like Gaussian blur remove diffusion noise? Let's find out!</p>
+
+            <h3>Gaussian Blur Attempts</h3>
+            <div class="image-grid">
+                <div class="image-container">
+                    <img src="web/classical_t250_noisy.jpg" alt="t=250 noisy">
+                    <div class="image-caption">Noisy (t=250)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/classical_t250_blur3.jpg" alt="blur k=3">
+                    <div class="image-caption">Gaussian blur (k=3)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/classical_t250_blur5.jpg" alt="blur k=5">
+                    <div class="image-caption">Gaussian blur (k=5)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/classical_t250_blur7.jpg" alt="blur k=7">
+                    <div class="image-caption">Gaussian blur (k=7)</div>
+                </div>
+            </div>
+
+            <div class="success">
+                <strong>Result:</strong> Classical Gaussian blur fails to effectively denoise diffusion noise. While it smooths the image, it cannot recover the underlying structure and loses important details. This motivates the need for learned denoising approaches!
+            </div>
+        </section>
+
+        <!-- PART 1.3: ONE-STEP DENOISING -->
+        <section id="part1-3" class="section">
+            <h2>Part 1.3: One-Step Denoising with UNet</h2>
+            
+            <div class="theory-box">
+                <h3>🧠 Learned Denoising</h3>
+                <p>Instead of classical filters, we use a pretrained UNet that predicts the noise ε added to the image. We can then recover the clean image:</p>
+                
+                <div class="math-formula">
+x̂_0 = (x_t - √(1 - ᾱ_t) · ε̂) / √ᾱ_t
+                </div>
+
+                <p>The UNet is conditioned on both the timestep t and a text prompt embedding.</p>
+            </div>
+
+            <h3>One-Step Denoising Results</h3>
+            <div class="image-grid-3">
+                <div class="image-container">
+                    <img src="web/onestep_t250_original.jpg" alt="Original">
+                    <div class="image-caption">Original</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/onestep_t250_noisy.jpg" alt="Noisy">
+                    <div class="image-caption">Noisy (t=250)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/onestep_t250_recon.jpg" alt="Reconstructed">
+                    <div class="image-caption">Reconstructed</div>
+                </div>
+            </div>
+
+            <div class="image-grid-3">
+                <div class="image-container">
+                    <img src="web/onestep_t500_original.jpg" alt="Original">
+                    <div class="image-caption">Original</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/onestep_t500_noisy.jpg" alt="Noisy">
+                    <div class="image-caption">Noisy (t=500)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/onestep_t500_recon.jpg" alt="Reconstructed">
+                    <div class="image-caption">Reconstructed</div>
+                </div>
+            </div>
+
+            <div class="success">
+                <strong>Observation:</strong> The UNet successfully removes noise even in one step, vastly outperforming Gaussian blur! However, quality degrades at higher noise levels (t=500, 750) where one step isn't sufficient.
+            </div>
+        </section>
+
+        <!-- PART 1.4: ITERATIVE DENOISING -->
+        <section id="part1-4" class="section">
+            <h2>Part 1.4: Iterative Denoising (DDPM)</h2>
+            
+            <div class="theory-box">
+                <h3>🔄 The Reverse Process</h3>
+                <p>Rather than denoising in one large step, <strong>DDPM</strong> (Denoising Diffusion Probabilistic Models) iteratively removes noise in small steps. At each step from t to t':</p>
+                
+                <div class="math-formula">
+x_{t'} = (√ᾱ_{t'} · β_t)/(1 - ᾱ_t) · x̂_0 + (√α_t · (1 - ᾱ_{t'}))/(1 - ᾱ_t) · x_t + σ_t
+                </div>
+
+                <p>Where x̂_0 is our estimate of the clean image from the current noisy image. This formulation allows us to "walk back" along the diffusion trajectory.</p>
+            </div>
+
+            <h3>Strided Timesteps</h3>
+            <p>To speed up sampling, we use <strong>strided timesteps</strong> [990, 960, 930, ..., 30, 0] with stride=30, reducing 1000 steps to just ~30 steps.</p>
+
+            <h3>Denoising Progression</h3>
+            <div class="image-grid-6">
+                <div class="image-container">
+                    <img src="web/iterative_step0.jpg" alt="Step 0">
+                    <div class="image-caption">Step 0 (Noisy)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/iterative_step5.jpg" alt="Step 5">
+                    <div class="image-caption">Step 5</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/iterative_step10.jpg" alt="Step 10">
+                    <div class="image-caption">Step 10</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/iterative_step15.jpg" alt="Step 15">
+                    <div class="image-caption">Step 15</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/iterative_step20.jpg" alt="Step 20">
+                    <div class="image-caption">Step 20</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/iterative_final.jpg" alt="Final">
+                    <div class="image-caption">Final (Clean)</div>
+                </div>
+            </div>
+
+            <h3>Comparison: Iterative vs One-Step vs Gaussian Blur</h3>
+            <div class="image-grid-3">
+                <div class="image-container">
+                    <img src="web/comparison_iterative.jpg" alt="Iterative">
+                    <div class="image-caption">Iterative Denoising<br>(Best Quality)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/comparison_onestep.jpg" alt="One-step">
+                    <div class="image-caption">One-Step Denoising<br>(Moderate Quality)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/comparison_blur.jpg" alt="Blur">
+                    <div class="image-caption">Gaussian Blur<br>(Poor Quality)</div>
+                </div>
+            </div>
+
+            <div class="success">
+                <strong>Key Finding:</strong> Iterative denoising produces significantly better results than one-step approaches, especially for high noise levels. The gradual refinement allows the model to progressively recover fine details.
+            </div>
+        </section>
+
+        <!-- PART 1.5: DIFFUSION SAMPLING -->
+        <section id="part1-5" class="section">
+            <h2>Part 1.5: Diffusion Model Sampling</h2>
+            
+            <div class="theory-box">
+                <h3>✨ Generating from Pure Noise</h3>
+                <p>By setting <code>i_start=0</code> and starting with pure random noise, we can generate completely new images from scratch! This demonstrates the true generative power of diffusion models.</p>
+            </div>
+
+            <h3>Generated Images (Prompt: "a high quality photo")</h3>
+            <div class="image-grid">
+                <div class="image-container">
+                    <img src="web/sample1_64.jpg" alt="Sample 1 64x64">
+                    <div class="image-caption">Sample 1 (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/sample1_256.jpg" alt="Sample 1 256x256">
+                    <div class="image-caption">Sample 1 (256×256)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/sample2_64.jpg" alt="Sample 2 64x64">
+                    <div class="image-caption">Sample 2 (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/sample2_256.jpg" alt="Sample 2 256x256">
+                    <div class="image-caption">Sample 2 (256×256)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/sample3_64.jpg" alt="Sample 3 64x64">
+                    <div class="image-caption">Sample 3 (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/sample3_256.jpg" alt="Sample 3 256x256">
+                    <div class="image-caption">Sample 3 (256×256)</div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Observation:</strong> While the images are coherent, they lack detail and specificity. The generic prompt results in somewhat bland outputs. This motivates the need for <strong>Classifier-Free Guidance</strong> in the next section!
+            </div>
+        </section>
+
+        <!-- PART 1.6: CLASSIFIER-FREE GUIDANCE -->
+        <section id="part1-6" class="section">
+            <h2>Part 1.6: Classifier-Free Guidance (CFG)</h2>
+            
+            <div class="theory-box">
+                <h3>🎯 Improving Generation Quality</h3>
+                <p><strong>Classifier-Free Guidance</strong> dramatically improves image quality by amplifying the influence of the text prompt. The key idea is to compute both conditional and unconditional noise estimates, then combine them:</p>
+                
+                <div class="math-formula">
+ε = ε_u + γ(ε_c - ε_u)
+
+where:
+  ε_c = conditional noise estimate (with prompt)
+  ε_u = unconditional noise estimate (empty prompt "")
+  γ = guidance scale (typically 7-15)
+                </div>
+
+                <p>When γ > 1, we move further in the direction of the conditional prompt, producing higher quality but less diverse images.</p>
+            </div>
+
+            <h3>CFG-Enhanced Generation (γ = 7)</h3>
+            <div class="image-grid">
+                <div class="image-container">
+                    <img src="web/cfg_sample1_64.jpg" alt="CFG 1 64x64">
+                    <div class="image-caption">Sample 1 (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/cfg_sample1_256.jpg" alt="CFG 1 256x256">
+                    <div class="image-caption">Sample 1 (256×256)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/cfg_sample2_64.jpg" alt="CFG 2 64x64">
+                    <div class="image-caption">Sample 2 (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/cfg_sample2_256.jpg" alt="CFG 2 256x256">
+                    <div class="image-caption">Sample 2 (256×256)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/cfg_sample3_64.jpg" alt="CFG 3 64x64">
+                    <div class="image-caption">Sample 3 (64×64)</div>
+                </div>
+                <div class="image-container">
+                    <img src="web/cfg_sample3_256.jpg" alt="CFG 3 256x256">
+                    <div class="image-caption">Sample 3 (256×256)</div>
+                </div>
+            </div>
+
+            <div class="success">
+                <strong>Result:</strong> With CFG, the generated images are significantly sharper, more detailed, and better aligned with the prompt. The quality improvement is dramatic! All subsequent experiments use CFG with γ=7.
+            </div>
+        </section>
+
+        <!-- PART 1.7: IMAGE-TO-IMAGE TRANSLATION -->
+        <section id="part1-7" class="section">
+            <h2>Part 1.7: Image-to-Image Translation (SDEdit)</h2>
+            
+            <div class="theory-box">
+                <h3>🔄 The SDEdit Algorithm</h3>
+                <p>We can edit real images by adding noise then denoising with CFG. The amount of noise (controlled by <code>i_start</code>) determines the strength of the edit:</p>
+                <ul style="margin-top: 15px; margin-left: 25px;">
+                    <li><strong>Low i_start (1-3):</strong> Heavy editing, creative interpretation</li>
+                    <li><strong>Medium i_start (5-10):</strong> Balanced edits, recognizable structure</li>
+                    <li><strong>High i_start (20):</strong> Subtle changes, mostly preserves original</li>
+                </ul>
+                <p>This projects images back onto the "natural image manifold" while allowing controlled variation.</p>
+            </div>
+
+            <h3>Campanile Edits at Different Noise Levels</h3>
+            <div class="image-grid-6">
+                <div class="image-container">
+                    <img src="web/campanile_original_256.jpg" alt="Original
