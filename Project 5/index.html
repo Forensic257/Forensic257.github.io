@@ -1735,16 +1735,16 @@ Further processing
             <h3>Noising Process Visualization</h3>
             <p>First, let's see how images degrade with increasing noise levels σ:</p>
 
-            <div class="image-grid-6">
+            <div class="image-grid">
                 <div class="image-container">
-                    <img src="web/partb_noise_sigma0.png" alt="σ=0.0">
-                    <div class="image-caption">σ = 0.0 (Clean)</div>
+                    <img src="web/partb_noise_sigma0.png" alt="σ=[0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]">
+                    <div class="image-caption">MNIST Noising Process at Different Sigma Levels</div>
                 </div>
                 <div class="image-container">
-                    <img src="web/partb_noise_sigma02.png" alt="σ=0.2">
-                    <div class="image-caption">σ = 0.2</div>
+                    <img src="web/partb_noise_sigma02.png" alt="σ=[0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0]">
+                    <div class="image-caption">Single MNNIST Digit (Label: 5) with Increasing Noise</div>
                 </div>
-                <div class="image-container">
+                <!-- <div class="image-container">
                     <img src="web/partb_noise_sigma04.png" alt="σ=0.4">
                     <div class="image-caption">σ = 0.4</div>
                 </div>
@@ -1763,28 +1763,28 @@ Further processing
                 <div class="image-container">
                     <img src="web/partb_noise_sigma10.png" alt="σ=1.0">
                     <div class="image-caption">σ = 1.0 (Heavy)</div>
-                </div>
+                </div> -->
             </div>
 
             <h3>Training Results</h3>
             <h4>Training Loss Curves</h4>
             <div class="image-container" style="max-width: 100%; margin: 20px 0;">
-                <img src="web/partb_denoiser_loss.png" alt="Training loss">
+                <img src="web/partb_denoiser_loss.png" alt="Final loss: 0.012178">
                 <div class="image-caption">One-step denoiser training converges smoothly</div>
             </div>
 
             <h4>Denoising Performance</h4>
             <p>Comparing results after epochs 1 and 5:</p>
 
-            <div class="image-grid-2">
+            <div class="image-grid">
                 <div class="image-container">
-                    <img src="web/partb_denoise_epoch1.png" alt="Epoch 1">
-                    <div class="image-caption">Epoch 1 Results<br>(Learning basics)</div>
+                    <img src="web/partb_denoise_epoch.png" alt="Denoising Results">
+                    <div class="image-caption">Results After 5 Epochs<br>(Learning basics)</div>
                 </div>
-                <div class="image-container">
+                <!-- <div class="image-container">
                     <img src="web/partb_denoise_epoch5.png" alt="Epoch 5">
                     <div class="image-caption">Epoch 5 Results<br>(Well-trained)</div>
-                </div>
+                </div> -->
             </div>
 
             <div class="success">
