@@ -2245,14 +2245,14 @@ c_onehot = c_onehot * mask
         <h3>Results</h3>
         <div class="image-container" style="max-width: 100%; margin: 20px 0;">
             <img src="web/partb_no_scheduler_comparison.png" alt="Scheduler comparison">
-            <div class="image-caption">Training curves: With Scheduler vs Without</div>
+            <div class="image-caption">Training curves: With Scheduler (Final loss: 0.170318) vs Without (Final loss: 0.188228)</div>
         </div>
 
-        <div class="image-grid-2">
-            <div class="image-container">
+        <div class="image-grid">
+            <!-- <div class="image-container">
                 <img src="web/partb_with_scheduler_samples.png" alt="With scheduler">
                 <div class="image-caption">With LR Scheduler</div>
-            </div>
+            </div> -->
             <div class="image-container">
                 <img src="web/partb_without_scheduler_samples.png" alt="Without scheduler">
                 <div class="image-caption">Without LR Scheduler (constant 5e-3)</div>
@@ -2314,7 +2314,11 @@ c_onehot = c_onehot * mask
 
         <div class="image-container" style="max-width: 100%; margin: 20px 0;">
             <img src="web/partb_bells_improved_time.png" alt="Improved time model">
-            <div class="image-caption">Improved time-conditioned model: 32 generated samples</div>
+            <div class="image-caption">Improved Time-Conditioned Model: 32 Generated Samples</div>
+        </div>
+        <div class="image-container" style="max-width: 100%; margin: 20px 0;">
+            <img src="web/partb_bells_improved_time_curves.png" alt="Improved time model Loss Curves">
+            <div class="image-caption">Improved Time-Conditioned UNet Training</div>
         </div>
 
         <div class="success">
@@ -2358,20 +2362,20 @@ c_onehot = c_onehot * mask
             </ul>
         </div>
 
-        <div class="image-container" style="max-width: 100%; margin: 20px 0;">
+        <!-- <div class="image-container" style="max-width: 100%; margin: 20px 0;">
             <img src="web/partb_bells_cifar_32.png" alt="CIFAR 32x32">
             <div class="image-caption">CIFAR-10: Native 32×32 generations (CFG=5.0)</div>
-        </div>
+        </div> -->
 
         <div class="image-container" style="max-width: 100%; margin: 20px 0;">
             <img src="web/partb_bells_cifar_256.png" alt="CIFAR 256x256">
             <div class="image-caption">CIFAR-10: Upsampled to 256×256 (bicubic interpolation)</div>
         </div>
 
-        <div class="image-container" style="max-width: 100%; margin: 20px 0;">
+        <!-- <div class="image-container" style="max-width: 100%; margin: 20px 0;">
             <img src="web/partb_bells_cifar_loss.png" alt="CIFAR loss">
             <div class="image-caption">CIFAR-10 training curves</div>
-        </div>
+        </div> -->
 
         <div class="success">
             <strong>🎉 Incredible Achievement!</strong>
