@@ -829,13 +829,13 @@
             <p>Kurumi Tokisaki:</p>
             <div class="image-container" style="max-width: 400px; margin: 20px auto;">
                 <img src="web/kurumi_tokisaki.jpg" alt="Original">
-                <div class="image-caption">64x64</div>
+                <div class="image-caption">Original Custom Image 1</div>
             </div>
             
             <div class="image-grid">
                 <div>
                     <h4 style="text-align: center;">Custom Image 1</h4>
-                    <div class="image-grid">
+                    <div class="image-grid-2">
                         <div class="image-container">
                             <img src="web/custom1_64.png" alt="Custom 1 64x64">
                             <div class="image-caption">i_start = 1, 3, 5, 7, 10, 20</div>
@@ -895,7 +895,7 @@
             </div>
                 <div>
                     <h4 style="text-align: center;">Custom Image 2</h4>
-                    <div class="image-grid">
+                    <div class="image-grid-2">
                         <div class="image-container">
                             <img src="web/custom2_64.png" alt="Custom Image 2 64x64">
                             <div class="image-caption">i_start = 1, 3, 5, 7, 10, 20</div>
@@ -2020,7 +2020,7 @@ up1_output = up1_output * t_modulation
             
             <div class="theory-box">
                 <h3>Algorithm B.1: Training</h3>
-                <div class="code-block">
+                <pre><code>
 For each training iteration:
     1. Sample clean image x_1 from dataset
     2. Sample random time t ~ Uniform[0,1]
@@ -2030,12 +2030,12 @@ For each training iteration:
     6. Predict flow: flow_pred = u_θ(z_t, t)
     7. Loss: MSE(flow_pred, flow_true)
     8. Backprop and update
-                </div>
+</code></pre>
             </div>
 
             <div class="theory-box">
                 <h3>Algorithm B.2: Sampling (Euler Integration)</h3>
-                <div class="code-block">
+                <pre class="code-block"><code>
 Initialize: z_0 ~ N(0,I)
 dt = 1 / num_timesteps
 
@@ -2044,7 +2044,8 @@ For t = 0 to 1 (in steps of dt):
     z_{t+dt} = z_t + dt * flow
     
 Return: z_1 (clean image!)
-                </div>
+</code></pre>
+
 
                 <p style="margin-top: 15px;"><strong>Key Insight:</strong> We're numerically solving the ODE dz/dt = u_θ(z,t) using Euler's method!</p>
             </div>
@@ -2114,14 +2115,15 @@ Return: z_1 (clean image!)
                 <h4>Training with Dropout</h4>
                 <p>During training, randomly drop class conditioning 10% of the time (p_uncond = 0.1):</p>
                 
-                <div class="code-block">
+                <pre class="code-block"><code class="language-python">
 mask = (rand() > 0.1)  # 90% keep, 10% drop
 c_onehot = c_onehot * mask
 
 # Model learns BOTH:
 # - Conditional prediction (with class)
 # - Unconditional prediction (without class)
-                </div>
+</code></pre>
+
 
                 <h4 style="margin-top: 20px;">Sampling with CFG</h4>
                 <p>At inference, blend conditional and unconditional predictions:</p>
