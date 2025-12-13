@@ -1659,10 +1659,8 @@
                 <div class="theory-box">
                     <h4>Conv Block</h4>
                     <div class="code-block">
-Conv2d(kernel=3, stride=1, padding=1)
-↓
-BatchNorm2d
-↓
+Conv2d(kernel=3, stride=1, padding=1) ->
+BatchNorm2d ->
 GELU activation
                     </div>
                     <p><strong>Purpose:</strong> Maintains spatial resolution, changes channels</p>
@@ -1672,9 +1670,9 @@ GELU activation
                     <h4>DownConv Block</h4>
                     <div class="code-block">
 Conv2d(kernel=3, stride=2, padding=1)
-↓
+->
 BatchNorm2d
-↓
+->
 GELU activation
                     </div>
                     <p><strong>Purpose:</strong> Downsamples by 2× (halves H and W)</p>
@@ -1686,9 +1684,9 @@ GELU activation
                     <h4>UpConv Block</h4>
                     <div class="code-block">
 ConvTranspose2d(kernel=4, stride=2, padding=1)
-↓
+->
 BatchNorm2d
-↓
+->
 GELU activation
                     </div>
                     <p><strong>Purpose:</strong> Upsamples by 2× (doubles H and W)</p>
@@ -1698,9 +1696,9 @@ GELU activation
                     <h4>Skip Connections</h4>
                     <div class="code-block">
 encoder_features
-↓
+->
 torch.cat([decoder_features, encoder_features])
-↓
+->
 Further processing
                     </div>
                     <p><strong>Purpose:</strong> Preserves fine details from encoder</p>
@@ -1711,6 +1709,10 @@ Further processing
                 <strong>Implementation Complete!</strong> The UNet architecture provides a powerful feature extractor with multi-scale representations. Skip connections ensure fine details aren't lost during downsampling.
             </div>
         </section>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 
         <!-- PART 1.2: ONE-STEP DENOISING -->
         <section id="partb-1-2" class="section">
@@ -1721,10 +1723,11 @@ Further processing
                 <p>Before flow matching, let's train a simple denoiser:</p>
                 
                 <div class="math-formula">
-Given: Noisy image z = x + σε    where ε ~ N(0,I), σ = 0.5
-Goal: Train D_θ(z) → x
-Loss: L = E[||D_θ(z) - x||²]
-                </div>
+  Given: \( z = x + \sigma \epsilon \quad \text{where } \epsilon \sim \mathcal{N}(0, I), \; \sigma = 0.5 \) <br>
+  Goal: \( D_\theta(z) \to x \) <br>
+  Loss: \[ L = \mathbb{E}\big[ \| D_\theta(z) - x \|^2 \big] \]
+</div>
+
 
                 <p>This teaches the UNet to remove noise in a single forward pass.</p>
             </div>
@@ -1832,11 +1835,11 @@ Loss: L = E[||D_θ(z) - x||²]
                 <h3>🎨 Can We Generate from Pure Noise?</h3>
                 <p>What if we train the model to denoise <strong>pure random noise</strong> (z ~ N(0, σ²I)) directly to clean images?</p>
                 
-                <div class="math-formula">
-Training: z = σ·ε  (pure noise)
-Target: x (clean digit)
-Loss: L = E[||D_θ(z) - x||²]
-                </div>
+              <div class="math-formula">
+  Training: \( z = \sigma \cdot \epsilon \quad (\text{pure noise}) \) <br>
+  Target: \( x \; (\text{clean digit}) \) <br>
+  Loss: \[ L = \mathbb{E}\big[ \| D_\theta(z) - x \|^2 \big] \]
+</div>
             </div>
 
             <h3>Training and Results</h3>
@@ -1867,10 +1870,13 @@ Loss: L = E[||D_θ(z) - x||²]
                 <p><strong>The MSE Loss Problem:</strong></p>
                 
                 <div class="math-formula">
-With MSE loss: D_θ* = argmin E[||D_θ(z) - x||²]
-                
-Optimal solution: D_θ*(z) = E[x] = mean of all training images
-                </div>
+  With MSE loss:  
+  \[ D_\theta^* = \arg\min \; \mathbb{E}\big[ \| D_\theta(z) - x \|^2 \big] \]  
+
+  Optimal solution:  
+  \[ D_\theta^*(z) = \mathbb{E}[x] = \text{mean of all training images} \]
+</div>
+
 
                 <p><strong>Explanation:</strong></p>
                 <ul style="margin: 15px 0 15px 25px; line-height: 1.8;">
@@ -1906,24 +1912,31 @@ Optimal solution: D_θ*(z) = E[x] = mean of all training images
                 <h4 style="margin-top: 20px;">The Flow Matching Framework:</h4>
                 
                 <div class="math-formula">
-1. Linear Interpolation Path:
-   z_t = (1-t)x_0 + t·x_1    where t ∈ [0,1]
-   
-   x_0 ~ N(0,I)  (pure noise)
-   x_1 ~ p_data  (clean image)
-   t=0: pure noise
-   t=1: clean data
+  <p>1. Linear Interpolation Path:</p>
+  \[
+    z_t = (1 - t)x_0 + t \cdot x_1 \quad \text{where } t \in [0,1]
+  \]
+  \[
+    x_0 \sim \mathcal{N}(0, I) \quad (\text{pure noise}), \quad
+    x_1 \sim p_{\text{data}} \quad (\text{clean image})
+  \]
+  \[
+    t = 0: \text{pure noise}, \quad t = 1: \text{clean data}
+  \]
 
-2. Flow Field (velocity):
-   u(z_t, t) = dz_t/dt = x_1 - x_0
-   
-   This describes how to "move" from noise to data
+  <p>2. Flow Field (velocity):</p>
+  \[
+    u(z_t, t) = \frac{dz_t}{dt} = x_1 - x_0
+  \]
+  <p>This describes how to "move" from noise to data.</p>
 
-3. Training Objective:
-   L = E[||u_θ(z_t, t) - (x_1 - x_0)||²]
-   
-   Learn to predict the flow at any point z_t and time t
-                </div>
+  <p>3. Training Objective:</p>
+  \[
+    L = \mathbb{E}\Big[ \| u_\theta(z_t, t) - (x_1 - x_0) \|^2 \Big]
+  \]
+  <p>Learn to predict the flow at any point \( z_t \) and time \( t \).</p>
+</div>
+
 
                 <h4 style="margin-top: 20px;">Why This Works:</h4>
                 <ul style="margin: 15px 0 15px 25px; line-height: 1.8;">
@@ -1958,9 +1971,9 @@ Optimal solution: D_θ*(z) = E[x] = mean of all training images
                 <div class="code-block">
 FCBlock(in_features, out_features):
     Linear(in_features, out_features)
-    ↓
+    ->
     GELU activation
-    ↓
+    ->
     Linear(out_features, out_features)
                 </div>
 
@@ -1973,7 +1986,7 @@ FCBlock(in_features, out_features):
                     <h4>Modulation Point 1 (7×7)</h4>
                     <div class="code-block">
 t → FCBlock → reshape to (batch, D, 7, 7)
-↓
+->
 unflatten_output = unflatten_output * t_modulation
                     </div>
                     <p>Multiplicative conditioning at bottleneck</p>
@@ -1983,7 +1996,7 @@ unflatten_output = unflatten_output * t_modulation
                     <h4>Modulation Point 2 (14×14)</h4>
                     <div class="code-block">
 t → FCBlock → reshape to (batch, D, 14, 14)
-↓
+->
 up1_output = up1_output * t_modulation
                     </div>
                     <p>Multiplicative conditioning at mid-resolution</p>
@@ -2102,13 +2115,20 @@ c_onehot = c_onehot * mask
                 <p>At inference, blend conditional and unconditional predictions:</p>
                 
                 <div class="math-formula">
-u_cond = u_θ(z_t, t, c)      [with class]
-u_uncond = u_θ(z_t, t, ∅)    [without class]
+  \[
+    u_{\text{cond}} = u_\theta(z_t, t, c) \quad \text{[with class]}
+  \]
+  \[
+    u_{\text{uncond}} = u_\theta(z_t, t, \varnothing) \quad \text{[without class]}
+  \]
+  \[
+    u_{\text{final}} = u_{\text{uncond}} + \gamma \big( u_{\text{cond}} - u_{\text{uncond}} \big)
+  \]
+  \[
+    \text{where } \gamma = \text{guidance scale}
+  \]
+</div>
 
-u_final = u_uncond + γ(u_cond - u_uncond)
-
-where γ = guidance scale
-                </div>
 
                 <h4 style="margin-top: 20px;">Effect of Guidance Scale γ:</h4>
                 <ul style="margin: 15px 0 15px 25px; line-height: 1.8;">
